@@ -1,7 +1,7 @@
 ﻿/**
  * для установки параметра select в прокси
  */
-Ext.define("CORE.data.Selectable", {
+Ext.define("Core.data.Selectable", {
   selectQueryables: null,
   /**
    * возвращается список Select - полей

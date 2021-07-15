@@ -3,6 +3,8 @@
 
 //     name: 'Core',
 
+//     requires: ["Core.*"],
+
 //     stores: [
 //         'NavigationTree'
 //     ],
@@ -26,16 +28,23 @@
 // });
 
 
-Ext.define("CORE.Application", {
+Ext.define("Core.Application", {
     extend: "Ext.app.Application",
-    name: "CORE",
-    requires: ["CORE.*"],
-    // defaultToken: "homeview",
+    name: "Core",
+    requires: ["Core.*"],
+
+    stores: [
+        'NavigationTree'
+    ],
+
+    // defaultToken: 'dashboard',
   
     config: {
       configs: null,
     },
-  
+
+    mainView: 'Core.view.main.Main',
+
     removeSplash: function () {
       Ext.getBody().removeCls("launching");
       var elem = document.getElementById("splash");
@@ -49,9 +58,11 @@ Ext.define("CORE.Application", {
   
       const me = this;
       this.onReady(function (name) {
-        // me.removeSplash();
         var whichView = name;
-        Ext.Viewport.add([{ xtype: whichView }]);
+        me.redirectTo(whichView);
+        me.removeSplash();
+        // me.setMainView({ xtype: whichView });
+        // Ext.Viewport.add([{ xtype: whichView }]);
       });
     },
   
@@ -85,7 +96,7 @@ Ext.define("CORE.Application", {
   
             if (AuthProvider.isAuthorize() == true) {
               //   me.afterAuthLoadData(function () {
-              callback("mainview");
+              callback("dashboard");
               //   });
             } else {
               callback("login");

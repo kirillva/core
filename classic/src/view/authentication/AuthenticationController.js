@@ -9,7 +9,11 @@ Ext.define('Core.view.authentication.AuthenticationController', {
     },
 
     onLoginButton: function() {
-        this.redirectTo('dashboard', true);
+        var me = this;
+        AuthProvider.singIn("master", "2S4KEq", true, function () {
+            debugger;
+            me.redirectTo('dashboard', true);
+        });
     },
 
     onLoginAsButton: function() {

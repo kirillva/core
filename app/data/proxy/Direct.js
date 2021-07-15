@@ -1,4 +1,4 @@
-﻿Ext.define("CORE.data.proxy.Direct", {
+﻿Ext.define("Core.data.proxy.Direct", {
   extend: "Ext.data.proxy.Direct",
   alias: "proxy.itdirect",
 

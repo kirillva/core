@@ -1,6 +1,7 @@
 {
   "REMOTING_ADDRESS": "city.appcode.pw/dev",
   "RPC.REMOTING_API": "http://{0}/rpc/meta/core",
+  "RPC.AUTH_URL": "http://{0}/auth",
   "RPC_URL": "http://{0}/rpc/core",
   "REMOTE_DATA_URL": "http://{0}/content/app",
   "REMOTE_NAMESPACE": "PN",

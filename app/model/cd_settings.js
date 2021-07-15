@@ -1,4 +1,4 @@
-﻿Ext.define('CORE.model.cd_settings', {
+﻿Ext.define('Core.model.cd_settings', {
     extend: 'Ext.data.Model',
     idProperty: 'LINK',
     identifier: 'uuid',

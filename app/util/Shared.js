@@ -1,4 +1,4 @@
-Ext.define('CORE.util.Shared', {
+Ext.define('Core.util.Shared', {
 	alternateClassName: ['Shared'],
 	singleton: true,
 

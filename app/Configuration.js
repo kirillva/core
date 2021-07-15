@@ -1,7 +1,7 @@
 ﻿/**
  * компонент для чтения настроек приложения
 */
-Ext.define('CORE.Configuration', {
+Ext.define('Core.Configuration', {
     alternateClassName: 'Configuration',
 
     CONFIG_NAME: 'config',

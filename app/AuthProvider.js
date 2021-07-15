@@ -1,7 +1,7 @@
 ﻿/*
  * провайдер для работы с авторизацией
  */
-Ext.define('CORE.AuthProvider', {
+Ext.define('Core.AuthProvider', {
     singleton: true,
     alternateClassName: 'AuthProvider',
 
@@ -192,7 +192,7 @@ Ext.define('CORE.AuthProvider', {
          * получить URL для авторизации
          */
         getAuthUrl: function () {
-            return Ext.String.format(Ext.getConf('RPC_URL').replace('/rpc', '/auth'), Ext.getConf('REMOTING_ADDRESS'));
+            return Ext.String.format(Ext.getConf('RPC.AUTH_URL'), Ext.getConf('REMOTING_ADDRESS'));
         },
 
         /** 

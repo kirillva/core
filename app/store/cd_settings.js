@@ -1,12 +1,12 @@
-﻿Ext.define('CORE.store.cd_settings', {
+﻿Ext.define('Core.store.cd_settings', {
     extend: 'Ext.data.Store',
-    model: 'CORE.model.cd_settings',
+    model: 'Core.model.cd_settings',
 
     remoteFilter: true,
     remoteSort: true,
     remoteGroup: true,
     mixins: [
-        'CORE.data.Selectable'
+        'Core.data.Selectable'
     ],
 
     proxy: {

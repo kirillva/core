@@ -1,4 +1,4 @@
-﻿Ext.define('CORE.Meta', {
+﻿Ext.define('Core.Meta', {
     alternateClassName: 'Meta',
 
     requires: [

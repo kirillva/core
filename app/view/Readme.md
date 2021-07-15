@@ -1,1 +1,1 @@
-# CORE shared/app
+# Core shared/app
