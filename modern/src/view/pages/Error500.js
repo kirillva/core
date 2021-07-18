@@ -8,6 +8,6 @@ Ext.define('Core.view.pages.Error500', {
     },{
         cls: 'error-page-desc',
         html: '<p>Something went wrong and server could not process your request.</p>' +
-        '<p>Try going back to our <a href="#dashboard"> Home page </a></p>'
+        '<p>Try going back to our <a href="#home"> Home page </a></p>'
     }]
 });

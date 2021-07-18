@@ -15,7 +15,6 @@
         setDirectProvider: function (callback) {
             var me = this;
 
-            debugger;
             Ext.Ajax.request({
                 url: Ext.String.format(Ext.getConf('RPC.REMOTING_API'), Ext.getConf('REMOTING_ADDRESS')),
 
@@ -29,16 +28,17 @@
                     }
 
                     if (callback)
-                        callback(response);
+                        callback(data.code || 200);
                 },
 
                 failure: function (response, opts) {
                     console.log('Ошибка при чтение мета данных. ' + response.statusText);
                     if (typeof callback == 'function')
-                        callback(response);
+                        callback(response.status);
                 }
             });
         },
+
 
         /*
          * Создание Direct'а
@@ -55,9 +55,9 @@
     loadMetaData: function (callback) {
         var me = this;
         Ext.Loader.setPath(Ext.getConf('REMOTE_NAMESPACE'), Ext.String.format(Ext.getConf('REMOTE_DATA_URL'), Ext.getConf('REMOTING_ADDRESS')));
-        this.setDirectProvider(function (response) {
+        this.setDirectProvider(function (status) {
             if (callback)
-                callback(response.status);
+                callback(status);
         });
     }
 }); 

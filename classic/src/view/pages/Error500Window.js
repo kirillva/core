@@ -29,7 +29,7 @@ Ext.define('Core.view.pages.Error500Window', {
                     xtype: 'label',
                     cls: 'error-page-desc',
                     html: '<div>Something went wrong and server could not process your request.</div>' +
-                          '<div>Try going back to our <a href="#dashboard"> Home page </a></div>'
+                          '<div>Try going back to our <a href="#home"> Home page </a></div>'
                 },
                 {
                     xtype: 'tbspacer',

@@ -34,7 +34,8 @@ Ext.define("Core.Application", {
     requires: ["Core.*"],
 
     stores: [
-        'NavigationTree'
+        'NavigationTree',
+        'cd_settings',
     ],
 
     // defaultToken: 'dashboard',
@@ -57,10 +58,20 @@ Ext.define("Core.Application", {
       });
   
       const me = this;
+      debugger;
       this.onReady(function (name) {
-        var whichView = name;
-        me.redirectTo(whichView);
-        me.removeSplash();
+        me.redirectTo(name);
+
+        const cd_settings = Ext.getStore('cd_settings')
+        cd_settings.load({
+          limit: 10000,
+          // params: {
+          //   select: cd_settings.getSelectFields()
+          // },
+          callback: function () {
+            me.removeSplash();
+          },
+        });
         // me.setMainView({ xtype: whichView });
         // Ext.Viewport.add([{ xtype: whichView }]);
       });
@@ -88,15 +99,14 @@ Ext.define("Core.Application", {
           console.info("загрузка системных конфигов");
           //AuthProvider.isCorrectDomainConfig();
           // обязательно вызывать после чтения конфигов
-          debugger;
           // AuthProvider.singIn("master", "2S4KEq", true, function () {
+          if (AuthProvider.isAuthorize() == true)
+            AuthProvider.setAuthoriseHeader(AuthProvider.getToken());
+
           me.onLoadMetaData(function () {
-            if (AuthProvider.isAuthorize() == true)
-              AuthProvider.setAuthoriseHeader(AuthProvider.getToken());
-  
             if (AuthProvider.isAuthorize() == true) {
               //   me.afterAuthLoadData(function () {
-              callback("dashboard");
+              callback("home");
               //   });
             } else {
               callback("login");
@@ -136,7 +146,10 @@ Ext.define("Core.Application", {
           !window[Ext.getConf("REMOTE_NAMESPACE")]
         );
       },
-  
+
+      onLogin: function () {
+        this.redirectTo('login');
+      },
       /**
        * загрузка системных данных для работы приложения
        */

@@ -2,6 +2,9 @@
     extend: 'Ext.data.Store',
     model: 'Core.model.cd_settings',
 
+    alias: 'store.cd_settings',
+    storeId: 'cd_settings',
+
     remoteFilter: true,
     remoteSort: true,
     remoteGroup: true,

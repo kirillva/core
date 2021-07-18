@@ -43,52 +43,45 @@ Ext.define('Core.view.main.Main', {
                     handler: 'onToggleNavigationSize'
                 },
                 '->',
-                {
-                    xtype: 'segmentedbutton',
-                    margin: '0 16 0 0',
+                // {
+                //     xtype: 'segmentedbutton',
+                //     margin: '0 16 0 0',
 
-                    platformConfig: {
-                        ie9m: {
-                            hidden: true
-                        }
-                    },
+                //     platformConfig: {
+                //         ie9m: {
+                //             hidden: true
+                //         }
+                //     },
 
-                    items: [{
-                        iconCls: 'x-fa fa-desktop',
-                        pressed: true
-                    }, {
-                        iconCls: 'x-fa fa-tablet',
-                        handler: 'onSwitchToModern',
-                        tooltip: 'Switch to modern toolkit'
-                    }]
-                },
+                //     items: [{
+                //         iconCls: 'x-fa fa-desktop',
+                //         pressed: true
+                //     }, {
+                //         iconCls: 'x-fa fa-tablet',
+                //         handler: 'onSwitchToModern',
+                //         tooltip: 'Switch to modern toolkit'
+                //     }]
+                // },
                 {
                     iconCls:'x-fa fa-search',
                     ui: 'header',
                     href: '#searchresults',
                     hrefTarget: '_self',
-                    tooltip: 'See latest search'
-                },
-                {
-                    iconCls:'x-fa fa-envelope',
-                    ui: 'header',
-                    href: '#email',
-                    hrefTarget: '_self',
-                    tooltip: 'Check your email'
+                    tooltip: 'Перейти к поиску'
                 },
                 {
                     iconCls:'x-fa fa-question',
                     ui: 'header',
                     href: '#faq',
                     hrefTarget: '_self',
-                    tooltip: 'Help / FAQ\'s'
+                    tooltip: 'Помощь'
                 },
                 {
                     iconCls:'x-fa fa-th-large',
                     ui: 'header',
                     href: '#profile',
                     hrefTarget: '_self',
-                    tooltip: 'See your profile'
+                    tooltip: 'Профиль'
                 },
                 {
                     xtype: 'tbtext',

@@ -5,14 +5,13 @@ Ext.define('Core.view.authentication.AuthenticationController', {
     //TODO: implement central Facebook OATH handling here
 
     onFaceBookLogin : function() {
-        this.redirectTo('dashboard', true);
+        this.redirectTo('home', true);
     },
 
     onLoginButton: function() {
         var me = this;
         AuthProvider.singIn("master", "2S4KEq", true, function () {
-            debugger;
-            me.redirectTo('dashboard', true);
+            me.redirectTo('home', true);
         });
     },
 
@@ -25,10 +24,10 @@ Ext.define('Core.view.authentication.AuthenticationController', {
     },
 
     onSignupClick:  function() {
-        this.redirectTo('dashboard', true);
+        this.redirectTo('home', true);
     },
 
     onResetClick:  function() {
-        this.redirectTo('dashboard', true);
+        this.redirectTo('home', true);
     }
 });
