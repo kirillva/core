@@ -141,7 +141,9 @@ Ext.define('Core.view.main.MainController', {
 
     onMainViewRender:function() {
         if (!window.location.hash) {
-            this.redirectTo("dashboard");
+            this.redirectTo("home");
+        } else {
+            this.setCurrentView(window.location.hash.replace('#', ''));
         }
     },
 

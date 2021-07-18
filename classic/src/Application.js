@@ -44,7 +44,7 @@ Ext.define("Core.Application", {
       configs: null,
     },
 
-    mainView: 'Core.view.main.Main',
+    // mainView: 'Core.view.main.Main',
 
     removeSplash: function () {
       Ext.getBody().removeCls("launching");
@@ -58,10 +58,7 @@ Ext.define("Core.Application", {
       });
   
       const me = this;
-      debugger;
       this.onReady(function (name) {
-        me.redirectTo(name);
-
         const cd_settings = Ext.getStore('cd_settings')
         cd_settings.load({
           limit: 10000,
@@ -70,9 +67,10 @@ Ext.define("Core.Application", {
           // },
           callback: function () {
             me.removeSplash();
+            me.setDefaultToken(name);
+            me.setMainView(Ext.create('Core.view.main.Main'));
           },
         });
-        // me.setMainView({ xtype: whichView });
         // Ext.Viewport.add([{ xtype: whichView }]);
       });
     },
@@ -96,7 +94,7 @@ Ext.define("Core.Application", {
       onReady: function (callback) {
         var me = this;
         this.loadSystemData(function () {
-          console.info("загрузка системных конфигов");
+          console.info('загрузка системных конфигов');
           //AuthProvider.isCorrectDomainConfig();
           // обязательно вызывать после чтения конфигов
           // AuthProvider.singIn("master", "2S4KEq", true, function () {
@@ -106,10 +104,10 @@ Ext.define("Core.Application", {
           me.onLoadMetaData(function () {
             if (AuthProvider.isAuthorize() == true) {
               //   me.afterAuthLoadData(function () {
-              callback("home");
+              callback('home');
               //   });
             } else {
-              callback("login");
+              callback('login');
             }
           });
           // });
