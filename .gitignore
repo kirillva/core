@@ -3,4 +3,7 @@
 /cordova
 /node_modules
 /ext
-classic.*
+bootstrap.*
+classic.json*
+modern.json*
+*.log
