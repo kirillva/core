@@ -13,7 +13,7 @@ Ext.define('Core.view.pages.ErrorBase', {
     autoShow: true,
     cls: 'error-page-container',
     closable: false,
-    title: 'Заголовок',
+    title: DefinedNames.get('projectName'),
     titleAlign: 'center',
     maximized: true,
     modal: true,

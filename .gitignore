@@ -2,7 +2,7 @@
 /generatedFiles
 /cordova
 /node_modules
-/ext
+/ext*
 bootstrap.*
 classic.json*
 modern.json*

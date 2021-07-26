@@ -7,6 +7,5 @@
   "REMOTE_NAMESPACE": "PN",
   "port": 3000,
   "APP_ID": 4,
-  "virtualDirPath": "",
-  "projectName": "Город"
+  "virtualDirPath": ""
 }
