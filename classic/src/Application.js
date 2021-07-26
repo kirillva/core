@@ -59,22 +59,31 @@ Ext.define("Core.Application", {
   
       const me = this;
       this.onReady(function (name) {
-        const cd_settings = Ext.getStore('cd_settings')
-        cd_settings.load({
-          limit: 10000,
-          // params: {
-          //   select: cd_settings.getSelectFields()
-          // },
-          callback: function () {
-            me.removeSplash();
-            me.setDefaultToken(name);
-            me.setMainView(Ext.create('Core.view.main.Main'));
-          },
-        });
-        // Ext.Viewport.add([{ xtype: whichView }]);
+        
+        me.removeSplash();
+        if (name) me.redirectTo(name);
+        // me.setDefaultToken(name);
+        debugger;
+        me.setMainView(Ext.create('Core.view.main.Main'));
+        // me.removeSplash();
+        // me.setDefaultToken(name);
+        // me.setMainView(Ext.create('Core.view.main.Main'));
       });
     },
   
+    preloadStores: function (callback) {
+      const cd_settings = Ext.getStore('cd_settings')
+      cd_settings.load({
+        limit: 10000,
+        // params: {
+        //   select: cd_settings.getSelectFields()
+        // },
+        callback: function () {
+          callback();
+        },
+      });
+    },
+
     onAppUpdate: function () {
       Ext.Msg.confirm(
         "Обновление",
@@ -98,19 +107,17 @@ Ext.define("Core.Application", {
           //AuthProvider.isCorrectDomainConfig();
           // обязательно вызывать после чтения конфигов
           // AuthProvider.singIn("master", "2S4KEq", true, function () {
-          if (AuthProvider.isAuthorize() == true)
+          debugger;
+          if (AuthProvider.isAuthorize() == true) {
             AuthProvider.setAuthoriseHeader(AuthProvider.getToken());
-
-          me.onLoadMetaData(function () {
-            if (AuthProvider.isAuthorize() == true) {
-              //   me.afterAuthLoadData(function () {
-              callback('home');
-              //   });
-            } else {
-              callback('login');
-            }
-          });
-          // });
+            me.onLoadMetaData(function () {
+              me.preloadStores(function(){
+                callback();
+              })
+            });
+          } else {
+            callback('login');
+          }
         });
       },
       /**
