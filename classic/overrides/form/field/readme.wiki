@@ -1,0 +1,1 @@
+Два класса IServ.ListView.form.field.OperatorButton и IServ.ListView.form.field.ClearButton предназначены для плагина IServ.ListView.grid.FilterBar и здесь они не выводятся. Для подробной информации нужно смотреть исходный код.

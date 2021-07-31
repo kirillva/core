@@ -18,7 +18,7 @@ Ext.define('Core.view.admin.Admin', {
     items: [
         {
             xtype: 'gridpanel',
-            title: 'Simpsons',
+            title: '1',
 
             // Using the Named Store
             bind: {
@@ -26,18 +26,33 @@ Ext.define('Core.view.admin.Admin', {
             },
 
             width: "100%",
-
-            plugins: {
-                ptype: 'cellediting',
-                clicksToEdit: 1
+            // plugins: {
+            //     gridfilters: true,
+            // },
+            plugins: [
+                {
+                ptype: 'filterbar',
+                renderHidden: false,
+                showShowHideButton: false,
+                showClearAllButton: false
             },
+            
+            {
+                ptype: 'gridfilters'
+            }],
 
             selModel: {
                 type: 'spreadsheet'
             },
 
             columns: [
-                { dataIndex: 'c_login', text: 'Логин' },
+                { dataIndex: 'c_login', text: 'Логин', filter: {
+                    // required configs
+                    type: 'string',
+                    itemDefaults: {
+                        // any Ext.form.field.Text configs accepted
+                    }
+                } },
                 { dataIndex: 'c_password', text: 'Пароль' },
                 { dataIndex: 'b_disabled', text: 'Удален' },
                 { dataIndex: 'f_created_user', text: 'Создатель' },
@@ -49,7 +64,6 @@ Ext.define('Core.view.admin.Admin', {
     ],
     constructor: function () {
         this.callParent(arguments);
-        // debugger;
         const me = this;
         const pd_users = Ext.getStore('pd_users') || Ext.create('Core.store.pd_users')
         pd_users.load({
@@ -58,7 +72,6 @@ Ext.define('Core.view.admin.Admin', {
             //   select: cd_settings.getSelectFields()
             // },
             callback: function () {
-                debugger;
                 me.getViewModel().setStores({pd_users: pd_users})
             },
         });

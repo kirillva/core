@@ -7,7 +7,8 @@ Ext.application({
     extend: "Core.Application",
     name: "Core",
     requires: [
-        'Core.*'
+        'Core.*',
+        'IServ.UI.Classic.grid.FilterBar'
     ]
 });
   

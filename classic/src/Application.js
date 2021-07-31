@@ -63,7 +63,6 @@ Ext.define("Core.Application", {
         me.removeSplash();
         if (name) me.redirectTo(name);
         // me.setDefaultToken(name);
-        debugger;
         me.setMainView(Ext.create('Core.view.main.Main'));
         // me.removeSplash();
         // me.setDefaultToken(name);
@@ -107,7 +106,6 @@ Ext.define("Core.Application", {
           //AuthProvider.isCorrectDomainConfig();
           // обязательно вызывать после чтения конфигов
           // AuthProvider.singIn("master", "2S4KEq", true, function () {
-          debugger;
           if (AuthProvider.isAuthorize() == true) {
             AuthProvider.setAuthoriseHeader(AuthProvider.getToken());
             me.onLoadMetaData(function () {

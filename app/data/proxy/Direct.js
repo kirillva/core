@@ -21,7 +21,6 @@
    * @param meta {any} мета данные результат запроса
    */
   showError: function (meta) {
-    debugger;
     console.error(meta.msg);
     Ext.Msg.show({
       title: "Ошибка",
