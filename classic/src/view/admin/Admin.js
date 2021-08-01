@@ -34,32 +34,29 @@ Ext.define('Core.view.admin.Admin', {
                 ptype: 'filterbar',
                 renderHidden: false,
                 showShowHideButton: false,
-                showClearAllButton: false
+                showClearAllButton: false,
+                showClearButton: false,
+                enableOperators: false
             },
             
-            {
-                ptype: 'gridfilters'
-            }],
+            // {
+            //     ptype: 'gridfilters'
+            // }
+        ],
 
             selModel: {
                 type: 'spreadsheet'
             },
 
             columns: [
-                { dataIndex: 'c_login', text: 'Логин', filter: {
-                    // required configs
-                    type: 'string',
-                    itemDefaults: {
-                        // any Ext.form.field.Text configs accepted
-                    }
-                } },
-                { dataIndex: 'c_password', text: 'Пароль' },
-                { dataIndex: 'b_disabled', text: 'Удален' },
+                { dataIndex: 'c_login', text: 'Логин', filter: 'string' },
+                { dataIndex: 'c_password', text: 'Пароль', filter: 'string'  },
+                { dataIndex: 'b_disabled', xtype: 'booleancolumn', text: 'Удален', filter: 'boolean'  },
                 { dataIndex: 'f_created_user', text: 'Создатель' },
-                { dataIndex: 'd_created_date', text: 'Дата создания' },
+                { dataIndex: 'd_created_date', xtype: 'datecolumn', text: 'Дата создания', filter: 'date'  },
                 { dataIndex: 'f_change_user', text: 'Автор изменений' },
-                { dataIndex: 'd_change_date', text: 'Дата изменений' },
-                { dataIndex: 'sn_delete', text: 'Удален' }]
+                { dataIndex: 'd_change_date', xtype: 'datecolumn', text: 'Дата изменений', filter: 'date' },
+                { dataIndex: 'sn_delete', xtype: 'booleancolumn', text: 'Удален', filter: 'boolean' }]
         }
     ],
     constructor: function () {

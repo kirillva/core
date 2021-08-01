@@ -128,7 +128,7 @@ Ext.define('IServ.UI.Classic.grid.FilterBar', {
      */
     textLt: 'Less than',
 
-    boolTpl: {
+    booleanTpl: {
         xtype: 'combo',
         queryMode: 'local',
         forceSelection: true,
@@ -217,8 +217,8 @@ Ext.define('IServ.UI.Classic.grid.FilterBar', {
             }
         });
 
-        // me.boolTpl.store[0][1] = Ext.MessageBox.buttonText.yes;
-        // me.boolTpl.store[1][1] = Ext.MessageBox.buttonText.no;
+        // me.booleanTpl.store[0][1] = Ext.MessageBox.buttonText.yes;
+        // me.booleanTpl.store[1][1] = Ext.MessageBox.buttonText.no;
 
         me.setup.call(grid);
     },
@@ -254,7 +254,7 @@ Ext.define('IServ.UI.Classic.grid.FilterBar', {
         grid._filterBarPluginData.textLte = plugin.textLte;
         grid._filterBarPluginData.textGt = plugin.textGt;
         grid._filterBarPluginData.textLt = plugin.textLt;
-        grid._filterBarPluginData.boolTpl = plugin.boolTpl;
+        grid._filterBarPluginData.booleanTpl = plugin.booleanTpl;
         grid._filterBarPluginData.dateTpl = plugin.dateTpl;
         grid._filterBarPluginData.floatTpl = plugin.floatTpl;
         grid._filterBarPluginData.intTpl = plugin.intTpl;
@@ -442,7 +442,7 @@ Ext.define('IServ.UI.Classic.grid.FilterBar', {
                     column.filter = Ext.applyIf(column.filter, filterData[column.filter.type + 'Tpl']); // also use     templates but with user configuration
 
                     // create store for boolean filter
-                    if (column.filter.type == 'bool' && !column.filter.store) {
+                    if (column.filter.type == 'boolean' && !column.filter.store) {
                         column.filter.store = [
                             [true, Ext.MessageBox.buttonText.yes],
                             [false, Ext.MessageBox.buttonText.no]
@@ -700,14 +700,14 @@ debugger;
                 });
             }
 
-            if (column.filter.type == 'string') {
-                plugins.push({
-                    ptype: 'distinctbutton',
-                    storeName: grid.store.$className,
-                    columnName: column.dataIndex
-                    // columnName: column.dataIndex
-                })
-            }
+            // if (column.filter.type == 'string') {
+            //     plugins.push({
+            //         ptype: 'distinctbutton',
+            //         storeName: grid.store.$className,
+            //         columnName: column.dataIndex
+            //         // columnName: column.dataIndex
+            //     })
+            // }
 
             var field = Ext.widget(column.filter.xtype, Ext.apply(column.filter, {
                 dataIndex: key,
@@ -753,7 +753,10 @@ debugger;
                 listeners: {
                     // TODO set scope to grid, or let scope set to default?
                     scope: plugin,
-                    element: 'el',
+                    element: 'el',                    
+                    mouseover: function (e) {
+                        e.stopPropagation();
+                    },
                     mousedown: function (e) {
                         e.stopPropagation();
                     },
@@ -834,7 +837,6 @@ debugger;
             buttonEl;
 
         if (filterData.showShowHideButton && filterData.columns.getCount()) {
-            debugger;
             column = filterData.actionColumn || filterData.extraColumn;
             buttonEl = column.el.first().first();
             filterData.showHideEl = Ext.get(Ext.core.DomHelper.append(buttonEl, {
