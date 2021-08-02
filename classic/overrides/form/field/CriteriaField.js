@@ -1,7 +1,7 @@
 /**
  * поле для настройки критерия фильтрации
  */
-Ext.define("IServ.UI.Classic.form.field.CriteriaField", {
+Ext.define("Core.form.field.CriteriaField", {
     extend: 'Ext.form.field.Picker',
     xtype: 'criteriafield',
 
@@ -38,7 +38,7 @@ Ext.define("IServ.UI.Classic.form.field.CriteriaField", {
      */
     createPicker: function () {
         var self = this;
-        self.picker = Ext.create('IServ.UI.Classic.criteria.Group', Ext.apply({
+        self.picker = Ext.create('Core.criteria.Group', Ext.apply({
             pickerField: self,
             floating: true,
             cls: 'x-menu',
@@ -68,7 +68,7 @@ Ext.define("IServ.UI.Classic.form.field.CriteriaField", {
             this.callParent([this.jsonValue = picker.getInnerValues()])
             this.setRawValue(picker.convertToString());
         } else {
-            var picker = Ext.create('IServ.UI.Classic.criteria.Group', {
+            var picker = Ext.create('Core.criteria.Group', {
                 hidden: true,
                 model: this.getModel(),
                 criteria: typeof value == 'string' ? JSON.parse(value) : value
@@ -124,7 +124,7 @@ Ext.define("IServ.UI.Classic.form.field.CriteriaField", {
          * @param {any} criteria фильтрация
          */
         initDefaultValuePicker: function (criteria) {
-            var picker = Ext.create('IServ.UI.Classic.criteria.Group', {
+            var picker = Ext.create('Core.criteria.Group', {
                 hidden: true,
                 model: this.getModel(),
                 criteria: criteria

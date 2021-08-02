@@ -5,7 +5,7 @@
  * Works with Ext.form.field.Text, Ext.form.field.TextArea, Ext.form.field.ComboBox and Ext.form.field.Date.
  * @class IServ.UI.form.field.ClearButton
  */
-Ext.define('IServ.UI.Classic.form.field.ClearButton', {
+Ext.define('Core.form.field.ClearButton', {
     alias: 'plugin.clearbutton',
 
     /**
@@ -241,6 +241,7 @@ Ext.define('IServ.UI.Classic.form.field.ClearButton', {
      * handleMouseOverInputField
      */
     handleMouseOverInputField: function (event, htmlElement, object) {
+        debugger;
         this.clearButtonEl.addCls(this.clearButtonCls + '-mouse-over-input');
         if (event.getRelatedTarget() == this.clearButtonEl.dom) {
             // Moused moved to clear button and will generate another mouse event there.
@@ -321,18 +322,17 @@ Ext.define('IServ.UI.Classic.form.field.ClearButton', {
      * Repositions the clear button element based on the textfield.inputEl element
      * @private
      */
-    /* FIX FOR 4.1 */
-    /*
-    repositionClearButton: function() {
-        var clearButtonEl = this.clearButtonEl;
-        if (!clearButtonEl) {
-            return;
-        }
-        var clearButtonPosition = this.calculateClearButtonPosition(this.textField);
-        clearButtonEl.dom.style.right = clearButtonPosition.right + 'px';
-        clearButtonEl.dom.style.top = clearButtonPosition.top + 'px';
-    },
-    */
+    /* FIX FOR 4.1 */ 
+    // repositionClearButton: function() {
+    //     var clearButtonEl = this.clearButtonEl;
+    //     if (!clearButtonEl) {
+    //         return;
+    //     }
+    //     var clearButtonPosition = this.calculateClearButtonPosition(this.textField);
+    //     clearButtonEl.dom.style.right = clearButtonPosition.right + 'px';
+    //     clearButtonEl.dom.style.top = clearButtonPosition.top + 'px';
+    // },
+    
 
     repositionClearButton: function () {
         var clearButtonEl = this.clearButtonEl;
@@ -479,19 +479,18 @@ Ext.define('IServ.UI.Classic.form.field.ClearButton', {
      * isLeftButton
      */
     isLeftButton: function (event) {
-            return event.button === 0;
-        }
+        return event.button === 0;
+    },
 
 
-        /**
-         * getTriggerWidth
-         *
-         * Get the total width of the trigger button area.
-         * This metod is deprecated on textField since ext 5.0, but is usefull
-         *
-         * @return {Number} The total trigger width
-         */
-        ,
+    /**
+     * getTriggerWidth
+     *
+     * Get the total width of the trigger button area.
+     * This metod is deprecated on textField since ext 5.0, but is usefull
+     *
+     * @return {Number} The total trigger width
+     */
     getTriggerWidth: function (textField) {
         var triggers = textField.getTriggers(),
             width = 0,

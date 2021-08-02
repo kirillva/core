@@ -2,7 +2,7 @@
  * компонент для загрузки данных в виде строки base64
  * @class IServ.UI.form.field.FileBase64
  */
-Ext.define('IServ.UI.Classic.form.field.FileBase64', {
+Ext.define('Core.form.field.FileBase64', {
     extend: 'Ext.form.field.File',
     xtype: 'filebase64',
     submitValue: true,

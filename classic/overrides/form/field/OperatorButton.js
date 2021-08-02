@@ -3,7 +3,7 @@
  * @class IServ.UI.form.field.OperatorButton
  * @author Ing. Leonardo D'Onofrio (leonardo_donofrio at hotmail.com)
  */
-Ext.define('IServ.UI.Classic.form.field.OperatorButton', {
+Ext.define('Core.form.field.OperatorButton', {
     extend: 'Ext.AbstractPlugin',
     alias: 'plugin.operatorbutton',
     mixins: {

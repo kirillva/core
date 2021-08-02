@@ -6,7 +6,7 @@
 
 /**
  * контейнер для расположения полей для findform
- * @class IServ.UI.Classic.form.findform.FieldContainer
+ * @class Core.form.findform.FieldContainer
  * @example
  * {
  *      xtype: 'findfieldcontainer',
@@ -29,12 +29,12 @@
  * var cmp = this.down('findfieldcontainer');
  * var filter = cmp.getFilter(); // получили RPC фильтр
  */
-Ext.define('IServ.UI.Classic.form.findform.FieldContainer', {
+Ext.define('Core.form.findform.FieldContainer', {
     extend: 'Ext.form.FieldContainer',
     xtype: 'findfieldcontainer',
 
     requires: [
-        'IServ.UI.Classic.form.findform.Splitter'
+        'Core.form.findform.Splitter'
     ],
 
     /**
@@ -57,7 +57,7 @@ Ext.define('IServ.UI.Classic.form.findform.FieldContainer', {
                             property: item.name,
                             value: item.getValue()
                         });
-                    } else if (item instanceof IServ.UI.Classic.form.findform.Splitter) {
+                    } else if (item instanceof Core.form.findform.Splitter) {
                         filter.push(item.logic || 'OR');
                     }
                 }

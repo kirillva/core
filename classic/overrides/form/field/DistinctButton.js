@@ -1,6 +1,6 @@
 /**
  * Плагин для вывода в колонках grid'a уникальных записей
- * @class IServ.UI.Classic.form.field.DistinctButton
+ * @class Core.form.field.DistinctButton
  * @example
  * {
  *      ptype: 'distinctbutton',
@@ -8,7 +8,7 @@
  *      columnName: role_id___name // наименование колонки по которой будет производиться поиск
  * }
  */
-Ext.define('IServ.UI.Classic.form.field.DistinctButton', {
+Ext.define('Core.form.field.DistinctButton', {
     extend: 'Ext.AbstractPlugin',
     alias: 'plugin.distinctbutton',
 

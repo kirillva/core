@@ -1,4 +1,4 @@
-Ext.define('IServ.UI.Classic.form.field.FontAwesomeField', {
+Ext.define('Core.form.field.FontAwesomeField', {
     extend: 'Ext.form.field.ComboBox',
     xtype: 'fontawesomefield',
     listConfig: {

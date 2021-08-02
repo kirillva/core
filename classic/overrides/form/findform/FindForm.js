@@ -6,21 +6,21 @@
 
 /**
  * Базовая форма для работы с плагином findform
- * @class IServ.UI.Classic.form.findform.FindForm
- * @todo см. IServ.UI.Classic.plugin.FindForm
+ * @class Core.form.findform.FindForm
+ * @todo см. Core.plugin.FindForm
  * @example
  * {
  *      xtype: 'findform',
  *      bodyForm: 'simplefindform'
  * }
  */
-Ext.define('IServ.UI.Classic.form.findform.FindForm', {
+Ext.define('Core.form.findform.FindForm', {
     extend: 'Ext.form.Panel',
     xtype: 'findform',
     defaultListenerScope: true,
 
     requires: [
-        'IServ.UI.Classic.form.findform.FieldContainer'
+        'Core.form.findform.FieldContainer'
     ],
 
     layout: 'fit',
@@ -126,7 +126,7 @@ Ext.define('IServ.UI.Classic.form.findform.FindForm', {
         /**
          * возвращается фильтр на основе полей формы
          * @returns {any[]}
-         * @todo возвращается объект, который формируется на основе полей формы см. IServ.UI.Classic.form.findform.FieldContainer
+         * @todo возвращается объект, который формируется на основе полей формы см. Core.form.findform.FieldContainer
          * @example
          * // при наличии у панели с формой метода getFilter данные будут взяты из данного метода
          * items: [{

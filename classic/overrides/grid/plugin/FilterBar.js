@@ -3,13 +3,13 @@
  * @class IServ.UI.grid.FilterBar
  * @author Ing. Leonardo D'Onofrio (leonardo_donofrio at hotmail.com)
  */
-Ext.define('IServ.UI.Classic.grid.FilterBar', {
+Ext.define('Core.grid.FilterBar', {
     extend: 'Ext.AbstractPlugin',
     alias: 'plugin.filterbar',
     requires: [
         'Ext.window.MessageBox',
-        'IServ.UI.Classic.form.field.ClearButton',
-        'IServ.UI.Classic.form.field.OperatorButton',
+        'Core.form.field.ClearButton',
+        'Core.form.field.OperatorButton',
         'Ext.container.Container',
         'Ext.util.DelayedTask',
         'Ext.layout.container.HBox',
@@ -135,8 +135,9 @@ Ext.define('IServ.UI.Classic.grid.FilterBar', {
         triggerAction: 'all',
         editable: false,
         // store: [
-        //     [1, 'Yes'],
-        //     [0, 'No']
+        //     [null, 'Все'],
+        //     [true, 'Да'],
+        //     [false, 'Нет']
         // ],
         operator: 'eq'
     },
@@ -665,7 +666,7 @@ Ext.define('IServ.UI.Classic.grid.FilterBar', {
         var grid = this,
             plugin = grid.getFilterBar(),
             filterData = grid._filterBarPluginData;
-debugger;
+            
         filterData.containers.clear();
         filterData.fields.clear();
         filterData.columns.eachKey(function (key, column) {

@@ -2,7 +2,6 @@ Ext.define('Core.view.admin.Admin', {
     extend: 'Ext.container.Container',
     xtype: 'admin',
 
-    // controller: 'dashboard',
     viewModel: {
         stores: {
             pd_users: {}
@@ -11,38 +10,25 @@ Ext.define('Core.view.admin.Admin', {
 
     layout: 'fit',
 
-    // listeners: {
-    //     hide: 'onHideView'
-    // },
-
     items: [
         {
             xtype: 'gridpanel',
             title: '1',
 
-            // Using the Named Store
             bind: {
                 store: '{pd_users}',
             },
 
             width: "100%",
-            // plugins: {
-            //     gridfilters: true,
-            // },
-            plugins: [
-                {
+            
+            plugins: [{
                 ptype: 'filterbar',
                 renderHidden: false,
                 showShowHideButton: false,
                 showClearAllButton: false,
-                showClearButton: false,
+                showClearButton: true,
                 enableOperators: false
-            },
-            
-            // {
-            //     ptype: 'gridfilters'
-            // }
-        ],
+            }],
 
             selModel: {
                 type: 'spreadsheet'

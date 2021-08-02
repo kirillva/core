@@ -1,7 +1,7 @@
 /**
  * Плагин для вывода значка очистки поля
  */
-Ext.define('IServ.UI.Classic.form.field.plugin.Clearable', {
+Ext.define('Core.form.field.plugin.Clearable', {
     extend: 'Ext.plugin.Abstract',
 
     alias: 'plugin.clearable',

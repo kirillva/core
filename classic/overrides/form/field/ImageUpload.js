@@ -2,12 +2,12 @@
  * компонент для загрузки изображений
  * @class IServ.UI.form.field.ImageUpload
  */
-Ext.define('IServ.UI.Classic.form.field.ImageUpload', {
+Ext.define('Core.form.field.ImageUpload', {
     extend: 'Ext.form.FieldContainer',
     xtype: 'imageupload',
 
     requires: [
-        'IServ.UI.Classic.form.field.FileBase64'
+        'Core.form.field.FileBase64'
     ],
 
     layout: {

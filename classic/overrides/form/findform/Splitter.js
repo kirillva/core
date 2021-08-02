@@ -2,12 +2,12 @@
  * @file /src/form/findform/Splitter.js
  * @project ui_classic_package
  * @author Александр
- * @todo применяется для IServ.UI.Classic.form.findform.FieldContainer
+ * @todo применяется для Core.form.findform.FieldContainer
  */
 
 /**
  * Разделитель для полей
- * @class IServ.UI.Classic.form.findform.Splitter
+ * @class Core.form.findform.Splitter
  * @example
  * xtype: 'findfieldcontainer',
  * fieldLabel: 'Логин',
@@ -23,7 +23,7 @@
  *   name: "login"
  * }]
  */
-Ext.define('IServ.UI.Classic.form.findform.Splitter', {
+Ext.define('Core.form.findform.Splitter', {
     extend: 'Ext.Container',
     xtype: 'findform-splitter',
 
