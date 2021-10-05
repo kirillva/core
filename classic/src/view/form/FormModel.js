@@ -1,4 +1,4 @@
-Ext.define('Core.view.search.ResultsModel', {
+Ext.define('Core.view.form.ResultsModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.formresults',
 

@@ -76,13 +76,13 @@ Ext.define('Core.view.main.Main', {
                     hrefTarget: '_self',
                     tooltip: 'Помощь'
                 },
-                {
-                    iconCls:'x-fa fa-th-large',
-                    ui: 'header',
-                    href: '#profile',
-                    hrefTarget: '_self',
-                    tooltip: 'Профиль'
-                },
+                // {
+                //     iconCls:'x-fa fa-th-large',
+                //     ui: 'header',
+                //     href: '#profile',
+                //     hrefTarget: '_self',
+                //     tooltip: 'Профиль'
+                // },
                 {
                     xtype: 'tbtext',
                     text: 'Goff Smith',

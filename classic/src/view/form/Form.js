@@ -1,4 +1,4 @@
-Ext.define('Core.view.search.Results', {
+Ext.define('Core.view.form.Results', {
     extend: 'Ext.tab.Panel',
     xtype: 'formresults',
 

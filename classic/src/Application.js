@@ -36,6 +36,7 @@ Ext.define("Core.Application", {
     stores: [
         'NavigationTree',
         'cd_settings',
+        'current_user'
     ],
 
     // defaultToken: 'dashboard',
@@ -58,8 +59,10 @@ Ext.define("Core.Application", {
       });
   
       const me = this;
+      
+      debugger;
       this.onReady(function (name) {
-        
+        debugger;
         me.removeSplash();
         if (name) me.redirectTo(name);
         // me.setDefaultToken(name);
@@ -78,7 +81,19 @@ Ext.define("Core.Application", {
         //   select: cd_settings.getSelectFields()
         // },
         callback: function () {
-          callback();
+          const current_user = Ext.getStore('current_user')
+          current_user.load({
+            limit: 1,
+            params: {
+              filter: [{
+                property: 'id',
+                value: AuthProvider.getUserId()
+              }],
+            },
+            callback: function () {
+              callback();
+            },
+          });
         },
       });
     },

@@ -24,15 +24,31 @@ Ext.define('Core.store.NavigationTree', {
                 leaf: true
             },
             {
-                text: 'Форма',
+                text: 'Поиск',
                 iconCls: 'x-fa fa-search',
-                viewType: 'formresults',
+                viewType: 'searchresults',
+                // visible: false,
                 leaf: true
             },
+            // {
+            //     text: 'Форма',
+            //     iconCls: 'x-fa fa-search',
+            //     viewType: 'formresults',
+            //     leaf: true
+            // },
             {
                 text: 'Помощь',
                 iconCls: 'x-fa fa-question',
                 viewType: 'faq',
+                leaf: true
+            },
+            {
+                text: 'Выход',
+                iconCls: 'x-fa fa-sign-out-alt',
+                viewType: 'login',
+                handler: function () {
+                    AuthProvider.singOut();
+                },
                 leaf: true
             },
             {

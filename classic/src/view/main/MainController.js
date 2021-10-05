@@ -78,6 +78,10 @@ Ext.define('Core.view.main.MainController', {
     onNavigationTreeSelectionChange: function (tree, node) {
         var to = node && (node.get('routeId') || node.get('viewType'));
 
+        if (node.data && node.data.handler) {
+            node.data.handler()
+        }
+        
         if (to) {
             this.redirectTo(to);
         }

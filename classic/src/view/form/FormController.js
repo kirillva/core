@@ -1,4 +1,4 @@
-Ext.define('Core.view.search.ResultsController', {
+Ext.define('Core.view.form.ResultsController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.formresults'
 
