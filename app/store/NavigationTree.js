@@ -24,9 +24,9 @@ Ext.define('Core.store.NavigationTree', {
                 leaf: true
             },
             {
-                text: 'Поиск',
+                text: 'Форма',
                 iconCls: 'x-fa fa-search',
-                viewType: 'searchresults',
+                viewType: 'formresults',
                 leaf: true
             },
             {

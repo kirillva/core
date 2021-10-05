@@ -241,7 +241,6 @@ Ext.define('Core.form.field.ClearButton', {
      * handleMouseOverInputField
      */
     handleMouseOverInputField: function (event, htmlElement, object) {
-        debugger;
         this.clearButtonEl.addCls(this.clearButtonCls + '-mouse-over-input');
         if (event.getRelatedTarget() == this.clearButtonEl.dom) {
             // Moused moved to clear button and will generate another mouse event there.
