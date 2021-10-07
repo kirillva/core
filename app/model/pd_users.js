@@ -1,11 +1,23 @@
 Ext.define("Core.model.pd_users", {
   extend: "Ext.data.Model",
   idProperty: "id",
-//   identifier: "uuid",
-  
+  //   identifier: "uuid",
+
   fields: [
-    { name: "id", type: "int", text: "Идентификатор", hidden: true, hideable: false },
-    { name: "c_login", type: "string", text: "Логин", column: "gridcolumn", editor: 'textfield' },
+    {
+      name: "id",
+      type: "int",
+      text: "Идентификатор",
+      hidden: true,
+      hideable: false,
+    },
+    {
+      name: "c_login",
+      type: "string",
+      text: "Логин",
+      column: "gridcolumn",
+      editor: "textfield",
+    },
     {
       name: "c_password",
       type: "string",
@@ -17,7 +29,8 @@ Ext.define("Core.model.pd_users", {
       name: "b_disabled",
       type: "boolean",
       text: "Отключен",
-      column: "booleancolumn", editor: 'checkbox'
+      column: "booleancolumn",
+      editor: "checkbox",
     },
     { name: "f_created_user", type: "int", text: "Создатель" },
     {
@@ -39,5 +52,12 @@ Ext.define("Core.model.pd_users", {
       text: "Удален",
       column: "booleancolumn",
     },
+    // {
+    //   name: "jb_data",
+    //   type: "json",
+    //   text: "Дополнительные поля",
+    //   hidden: true,
+    //   hideable: false,
+    // },
   ],
 });

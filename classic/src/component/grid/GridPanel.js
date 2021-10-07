@@ -13,12 +13,15 @@ Ext.define("Core.component.grid.Panel", {
       showClearButton: true,
       enableOperators: false,
     },
+    {
+      ptype: "rowediting",
+      clicksToEdit: 1,
+    },
     // {
     //   ptype: "cellediting",
     //   clicksToEdit: 1,
     // },
   ],
-
   viewModel: {
     data: {
       title: "",
@@ -31,14 +34,14 @@ Ext.define("Core.component.grid.Panel", {
   selModel: {
     type: "checkboxmodel",
     bind: {
-      hidden: '{selectable}'
-    }
+      hidden: "{selectable}",
+    },
   },
 
   columns: [
     {
       xtype: "actioncolumn",
-      align: 'center',
+      align: "center",
       items: [
         {
           xtype: "button",
@@ -55,6 +58,17 @@ Ext.define("Core.component.grid.Panel", {
 
   constructor: function (cfg) {
     var fields = cfg.store.model.getFields();
+
+    var cd_additional_fields = Ext.StoreManager.get('cd_additional_fields');
+    var additional_fields = Ext.StoreManager.get('cd_additional_fields').getById(cfg.store.model.entityName);
+
+    if (additional_fields) {
+      
+      var jb_data = additional_fields.get('jb_data');
+      if (jb_data) {
+        fields = fields.concat(jb_data);
+      }
+    }
     var _columns = fields.map((item) => {
       var options = {
         dataIndex: item.name,
@@ -64,6 +78,7 @@ Ext.define("Core.component.grid.Panel", {
         hidden: item.hidden,
         editor: item.editor,
       };
+
       if (item.hideable || item.hideable === false) {
         options.hideable = item.hideable;
       }
@@ -136,7 +151,7 @@ Ext.define("Core.component.grid.Panel", {
         {
           xtype: "button",
           iconCls: "x-fa fa-undo",
-          handler: "undoRows"
+          handler: "undoRows",
         },
         {
           xtype: "button",
@@ -179,7 +194,7 @@ Ext.define("Core.component.grid.Panel", {
     updateSelectable: function () {
       var vm = this.getViewModel();
       var selectable = vm.get("selectable");
-      
+
       var checkcolumn = this.down("checkcolumn");
       if (selectable) {
         checkcolumn.hide();
@@ -189,7 +204,7 @@ Ext.define("Core.component.grid.Panel", {
     },
 
     syncStore: function () {
-      this.getStore();
+      this.getStore().sync();
     },
 
     addRow: function () {
@@ -214,15 +229,15 @@ Ext.define("Core.component.grid.Panel", {
     deleteRows: function () {
       var selection = this.getSelection();
       var phantom = [];
-      
-      selection.forEach(record => {
+
+      selection.forEach((record) => {
         if (record.phantom) {
           phantom.push(record);
         } else {
           record.set("sn_delete", true);
         }
       });
-      
+
       this.getStore().remove(phantom);
     },
 
