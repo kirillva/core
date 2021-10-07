@@ -3,8 +3,6 @@ Ext.define("Core.component.grid.Panel", {
   defaultListenerScope: true,
 
   xtype: "editablegrid",
-  
-  mixins: ["Ext.mixin.Keyboard"],
 
   plugins: [
     {
@@ -16,40 +14,40 @@ Ext.define("Core.component.grid.Panel", {
       enableOperators: false,
     },
     // {
-    //     ptype: 'rowediting'
+    //   ptype: "cellediting",
+    //   clicksToEdit: 1,
     // },
-    {
-      ptype: "cellediting",
-      clicksToEdit: 1,
-    },
   ],
+
+  viewModel: {
+    data: {
+      title: "",
+      selectable: false,
+    },
+  },
 
   multiSelect: true,
 
   selModel: {
     type: "checkboxmodel",
-    width: 40,
+    bind: {
+      hidden: '{selectable}'
+    }
   },
 
   columns: [
     {
       xtype: "actioncolumn",
+      align: 'center',
       items: [
         {
           xtype: "button",
           iconCls: "x-fa fa-trash",
           handler: "removeRow",
         },
-        // {
-        //   xtype: "button",
-        //   iconCls: "x-fa fa-pencil-alt",
-        //   handler: "editRow",
-        // },
       ],
-
       cls: "content-column",
       width: 120,
-      // dataIndex: 'bool',
       text: "Действия",
       tooltip: "edit ",
     },
@@ -74,21 +72,78 @@ Ext.define("Core.component.grid.Panel", {
     this.columns = _columns.concat(this.columns);
 
     this.callParent([cfg]);
-    debugger;
   },
 
-  title: "Пользователи",
+  setTitle: function (value) {
+    var vm = this.getViewModel();
+    vm.set("title", value);
+  },
 
-  tools: [
+  dockedItems: [
     {
-      xtype: "button",
-      iconCls: "x-fa fa-plus",
-      handler: "addRow",
-    },
-    {
-      xtype: "button",
-      iconCls: "x-fa fa-save",
-      handler: "syncStore",
+      xtype: "toolbar",
+      dock: "top",
+      cls: "x-panel-header-default",
+      items: [
+        {
+          xtype: "title",
+          cls: "x-panel-header-title-default",
+          bind: {
+            text: "{title}",
+          },
+        },
+        "->",
+        // {
+        //   xtype: "button",
+        //   iconCls: "x-fa fa-paste",
+        //   handler: "pasteRows"
+        // },
+        // {
+        //   xtype: "button",
+        //   iconCls: "x-fa fa-copy",
+        //   handler: "copyRows"
+        // },
+        // "-",
+        {
+          xtype: "button",
+          iconCls: "x-fa fa-trash",
+          handler: "deleteRows",
+          bind: {
+            hidden: "{!selectable}",
+          },
+        },
+        // {
+        //   xtype: "button",
+        //   iconCls: "x-fa fa-pencil-alt",
+        //   handler: "editRows",
+        //   bind: {
+        //     hidden: "{!selectable}",
+        //   },
+        // },
+        {
+          xtype: "button",
+          bind: {
+            iconCls: "{selectable ? 'x-fa fa-check-square' : 'x-fa fa-square'}",
+          },
+          handler: "changeSelectable",
+        },
+        "-",
+        {
+          xtype: "button",
+          iconCls: "x-fa fa-plus",
+          handler: "addRow",
+        },
+        {
+          xtype: "button",
+          iconCls: "x-fa fa-undo",
+          handler: "undoRows"
+        },
+        {
+          xtype: "button",
+          iconCls: "x-fa fa-save",
+          handler: "syncStore",
+        },
+      ],
     },
   ],
 
@@ -112,23 +167,33 @@ Ext.define("Core.component.grid.Panel", {
     keydown: "handleKeyDown",
   },
 
-  keyMap: {
-    "CmdOrCtrl+C": "doCopy",
-    ENTER: 'onEnterKey',
-  },
   privates: {
+    changeSelectable: function () {
+      var vm = this.getViewModel();
+      this.updateSelectable();
+
+      vm.set("selectable", !vm.get("selectable"));
+      this.selModel.deselectAll();
+    },
+
+    updateSelectable: function () {
+      var vm = this.getViewModel();
+      var selectable = vm.get("selectable");
+      
+      var checkcolumn = this.down("checkcolumn");
+      if (selectable) {
+        checkcolumn.hide();
+      } else {
+        checkcolumn.show();
+      }
+    },
+
     syncStore: function () {
-      debugger;
       this.getStore();
-      // var rec = grid.getStore().getAt(rowIndex);
-      // alert("Edit " + rec.get("firstname"));
     },
 
     addRow: function () {
-      debugger;
       this.getStore().add({});
-      // var rec = grid.getStore().getAt(rowIndex);
-      // alert("Edit " + rec.get("firstname"));
     },
 
     removeRow: function (grid, rowIndex, colIndex) {
@@ -143,16 +208,26 @@ Ext.define("Core.component.grid.Panel", {
     },
 
     editRow: function (grid, rowIndex, colIndex) {
-      // debugger;
-      // var rec = grid.getStore().getAt(rowIndex);
-      // alert("Edit " + rec.get("firstname"));
-    },
-
-    doCopy: function (e, t, eOpts) {
       debugger;
     },
-    onEnterKey: function (e, t, eOpts) {
-        debugger;
-      },
+
+    deleteRows: function () {
+      var selection = this.getSelection();
+      var phantom = [];
+      
+      selection.forEach(record => {
+        if (record.phantom) {
+          phantom.push(record);
+        } else {
+          record.set("sn_delete", true);
+        }
+      });
+      
+      this.getStore().remove(phantom);
+    },
+
+    undoRows: function () {
+      this.getStore().reload();
+    },
   },
 });

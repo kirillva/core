@@ -60,9 +60,7 @@ Ext.define("Core.Application", {
   
       const me = this;
       
-      debugger;
       this.onReady(function (name) {
-        debugger;
         me.removeSplash();
         if (name) me.redirectTo(name);
         // me.setDefaultToken(name);
