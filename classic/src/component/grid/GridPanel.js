@@ -59,16 +59,6 @@ Ext.define("Core.component.grid.Panel", {
   constructor: function (cfg) {
     var fields = cfg.store.model.getFields();
 
-    var cd_additional_fields = Ext.StoreManager.get('cd_additional_fields');
-    var additional_fields = Ext.StoreManager.get('cd_additional_fields').getById(cfg.store.model.entityName);
-
-    if (additional_fields) {
-      
-      var jb_data = additional_fields.get('jb_data');
-      if (jb_data) {
-        fields = fields.concat(jb_data);
-      }
-    }
     var _columns = fields.map((item) => {
       var options = {
         dataIndex: item.name,

@@ -35,17 +35,7 @@ Ext.define("Core.data.Selectable", {
 
     me.writeSelectQuery();
     var _selectQueryables = me.getSelectQueryables();
-
-    var cd_additional_fields = Ext.StoreManager.get('cd_additional_fields');
-    var additional_fields = cd_additional_fields ? cd_additional_fields.getById(me.model.entityName) : null;
-
-    if (additional_fields) {
-      debugger;
-      var jb_data = additional_fields.get('jb_data')
-      jb_data.forEach(field => {
-        _selectQueryables.push({dataIndex: `${field.name}::${me.columnToSQLType(field.type)} as "${field.name}"`, alias: null});
-      });
-    }
+    
 
     return me.getSelectQueryableToString(_selectQueryables);
   },
@@ -59,7 +49,7 @@ Ext.define("Core.data.Selectable", {
       if (items) {
         Ext.each(items, function (item) {
           if (item.alias) {
-            result += "(" + item.dataIndex + ") as " + item.alias + ",";
+            result += `${item.dataIndex} as ${item.alias},`;
           } else {
             result += item.dataIndex + ",";
           }
@@ -80,10 +70,22 @@ Ext.define("Core.data.Selectable", {
     pushField: function (field) {
       var me = this;
       var items = this.getSelectQueryables();
-      items.push({
-        dataIndex: field.getName(),
-        alias: null,
-      });
+      var name = field.getName();
+
+      var _dataIndex = name.split('.');
+      if (_dataIndex.length == 2) {
+        items.push({
+          dataIndex: `${name}::${me.columnToSQLType(field.type)}`, 
+          alias: `"${name}"`,
+          dynamic: true
+        });
+      } else { 
+        items.push({
+          dataIndex: name,
+          alias: null,
+        });
+      }
+
     },
   }
 });

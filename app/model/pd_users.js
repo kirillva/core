@@ -1,7 +1,7 @@
 Ext.define("Core.model.pd_users", {
   extend: "Ext.data.Model",
   idProperty: "id",
-  //   identifier: "uuid",
+  // identifier: "int",
 
   fields: [
     {
@@ -32,14 +32,14 @@ Ext.define("Core.model.pd_users", {
       column: "booleancolumn",
       editor: "checkbox",
     },
-    { name: "f_created_user", type: "int", text: "Создатель" },
+    { name: "f_created_user", type: "int", text: "Создатель", defaultValue: AuthProvider.getUserId() },
     {
       name: "d_created_date",
       type: "date",
       text: "Дата создания",
       column: "datecolumn",
     },
-    { name: "f_change_user", type: "int", text: "Автор изменений" },
+    { name: "f_change_user", type: "int", text: "Автор изменений", defaultValue: AuthProvider.getUserId() },
     {
       name: "d_change_date",
       type: "date",
@@ -53,11 +53,19 @@ Ext.define("Core.model.pd_users", {
       column: "booleancolumn",
     },
     // {
-    //   name: "jb_data",
-    //   type: "json",
-    //   text: "Дополнительные поля",
-    //   hidden: true,
-    //   hideable: false,
+    //   name: "jb_data.c_name",
+    //   type: "string",
+    //   text: "Пароль",
+    //   column: "gridcolumn",
+    //   editor: "textfield",
     // },
+    
+    {
+      name: "jb_data",
+      // type: "json",
+      text: "Дополнительные поля",
+      hidden: true,
+      hideable: false,
+    },
   ],
 });

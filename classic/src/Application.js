@@ -97,7 +97,15 @@ Ext.define("Core.Application", {
               // params: {
               //   select: cd_settings.getSelectFields()
               // },
-              callback: function () {
+              callback: function (records) {
+                records.forEach(item => {
+                  var c_name = item.get('c_name');
+                  var jb_data = item.get('jb_data');
+
+                  var model = Ext.ClassManager.get(`Core.model.${c_name}`);
+                  model.addFields(jb_data.map(item=>Object.assign(item, {dynamic: true})));
+                });
+
                 callback();
               },
             });
