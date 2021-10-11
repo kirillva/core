@@ -3,7 +3,7 @@ Ext.define('Core.model.cd_additional_fields', {
     idProperty: 'c_name',
 
     fields: [
-        { name: 'c_name', type: 'string' }
+        { name: 'c_name', type: 'string', text: "Имя таблицы", column: "gridcolumn" }
     ],
 
 });

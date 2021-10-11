@@ -11,7 +11,7 @@ Ext.define("Core.view.admin.Admin", {
   constructor: function () {
     var pd_users = Ext.getStore("pd_users") || Ext.create("Core.store.pd_users");
     pd_users.proxy.extraParams = {
-      select: `${pd_users.getSelectFields()},jb_data.c_name::text as c_name`
+      select: `${pd_users.getSelectFields()}`
 
     };
     pd_users.load({
