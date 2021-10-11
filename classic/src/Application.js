@@ -98,6 +98,7 @@ Ext.define("Core.Application", {
               //   select: cd_settings.getSelectFields()
               // },
               callback: function (records) {
+                debugger;
                 records.forEach(item => {
                   var c_name = item.get('c_name');
                   var jb_data = item.get('jb_data');

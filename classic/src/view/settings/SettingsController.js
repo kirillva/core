@@ -1,6 +1,6 @@
-Ext.define('Core.view.search.ResultsController', {
+Ext.define('Core.view.settings.SettingsController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.searchresults'
+    alias: 'controller.settings'
 
     // TODO - Add control logic or remove is not needed
 });

@@ -62,13 +62,13 @@ Ext.define('Core.view.main.Main', {
                 //         tooltip: 'Switch to modern toolkit'
                 //     }]
                 // },
-                {
-                    iconCls:'x-fa fa-search',
-                    ui: 'header',
-                    href: '#searchresults',
-                    hrefTarget: '_self',
-                    tooltip: 'Перейти к поиску'
-                },
+                // {
+                //     iconCls:'x-fa fa-search',
+                //     ui: 'header',
+                //     href: '#searchresults',
+                //     hrefTarget: '_self',
+                //     tooltip: 'Перейти к поиску'
+                // },
                 {
                     iconCls:'x-fa fa-question',
                     ui: 'header',
