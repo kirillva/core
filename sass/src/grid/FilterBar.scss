@@ -1,0 +1,180 @@
+$filter-icon-color: #919191;
+
+.add {
+    background-image: theme-background-image('FilterBar/add', 'png');
+}
+
+.edit {
+    background-image: theme-background-image('FilterBar/edit', 'png');
+}
+
+.delete {
+    background-image: theme-background-image('FilterBar/delete', 'png');
+}
+
+.activate {
+    background-image: theme-background-image('FilterBar/activate', 'png');
+}
+
+.inactivate {
+    background-image: theme-background-image('FilterBar/inactivate', 'png');
+}
+
+.filter {
+    font-family: 'Font Awesome 5 Free';
+    font-size: 16px;
+    color: $filter-icon-color;
+
+}
+
+.filter::before {
+    content: "\f002";
+}
+
+.clear-filters {
+    font-family: 'Font Awesome 5 Free';
+    font-size: 16px;
+    color: $filter-icon-color;
+}
+
+.clear-filters::before {
+    content: "\f00d";
+}
+
+.x-action-col-cell img {
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+
+.x-action-col-img-noaction {
+    cursor: default !important;
+}
+
+.x-operator-button {
+    width: 16px;
+    height: 16px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    -moz-user-focus: ignore;
+    /* https://developer.mozilla.org/en/CSS/-moz-user-focus */
+    cursor: pointer;
+    position: absolute;
+    overflow: hidden;
+    /* IE 6 :-( */
+    background-color: white;
+}
+
+.x-operator-button-equal,
+.x-operator-button-not-equal,
+.x-operator-button-great-than,
+.x-operator-button-less-than,
+.x-operator-button-great-than-equal,
+.x-operator-button-less-than-equal {
+    font-size: 16px;
+}
+
+.x-operator-button-filter::before {
+    content: "\f0b0";
+}
+
+.x-operator-button-equal::before {
+    content: "\003D";
+}
+
+.x-operator-button-not-equal::before {
+    content: "\2260";
+}
+
+.x-operator-button-great-than::before {
+    content: "\003E";
+}
+
+.x-operator-button-less-than::before {
+    content: "\003C";
+}
+
+.x-operator-button-great-than-equal::before {
+    content: "\2265";
+}
+
+.x-operator-button-less-than-equal::before {
+    content: "\2264";
+}
+
+/*.ext-ux-operatorbutton-mouse-over-input {
+    background-position: 0 0px;
+}
+
+.ext-ux-operatorbutton-mouse-over-button {
+    background-position: 0 -24px;
+}
+
+.ext-ux-operatorbutton-mouse-down {
+    background-position: 0 -36px;
+}
+*/
+
+
+
+.x-grid-header-ct .x-column-filtered .x-column-header-inner .x-column-header-text {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.x-grid-header-ct .x-column-header .x-form-trigger-wrap-default {
+    border-width: 1px 1px 0 0;
+}
+
+.ext-ux-clearbutton {
+    width: 14px;
+    height: 14px;
+    -moz-user-focus: ignore;
+    /* https://developer.mozilla.org/en/CSS/-moz-user-focus */
+    cursor: pointer;
+    position: absolute;
+    overflow: hidden;
+    /* IE 6 :-( */
+    background-color: white;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 12px;
+    color: $filter-icon-color;
+}
+
+.ext-ux-clearbutton::before {
+    content: "\f00d";
+}
+
+.ext-ux-clearbutton-mouse-over-input {
+    background-position: 0 -12px;
+}
+
+.ext-ux-clearbutton-mouse-over-button {
+    background-position: 0 -24px;
+}
+
+.ext-ux-clearbutton-mouse-down {
+    background-position: 0 -36px;
+}
+
+.ext-ux-clearbutton-on {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .35s linear;
+    -webkit-transition: opacity .35s linear;
+    -moz-transition: opacity .35s linear;
+    -o-transition: opacity .35s linear;
+    -ms-transition: opacity .35s linear;
+    -khtml-transition: opacity .35s linear;
+}
+
+.ext-ux-clearbutton-off {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s linear, visibility .0s linear .35s;
+    -webkit-transition: opacity .35s linear, visibility .0s linear .35s;
+    -moz-transition: opacity .35s linear, visibility .0s linear .35s;
+    -o-transition: opacity .35s linear, visibility .0s linear .35s;
+    -ms-transition: opacity .35s linear, visibility .0s linear .35s;
+    -khtml-transition: opacity .35s linear, visibility .0s linear .35s;
+}
