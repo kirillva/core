@@ -1,37 +1,13 @@
-.shadow {
-    @include box-shadow(0 1px 2px 0 rgba(0,0,0,0.2));
-}
+$circle-border-radius:50%;
+$base-border-color: #ddd;
+$lightest-color:#fff;
+$font-weight: 400;
+$font-weight-bold: 500;
 
-.nav-tree-badge:after {
-    position: absolute;
-    height: 18px;
-    width: 3.3em;
-    display: inline-block;
-    text-align: center;
-    top: 50%;
-    margin-top: -9px;
-    right: 12px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 18px;
-}
+$accordion-header-background-color: $lightest-color;
+$accordion-header-color: #333;
 
-.nav-tree-badge-hot:after {
-    content: "HOT";
-    background-color: #e3495a;
-}
-
-.nav-tree-badge-new:after {
-    content: "NEW";
-    background-color: $color-soft-blue;
-}
-
-.pop-out {
-    @include box-shadow(2px 2px 8px 2px #ccc);
-}
-
-.circular {
-    border-radius: 50%;
-}
-
+$social-facebook-btn-background: #167abc;
+$social-twitter-btn-background: #03b4d5;
+$social-google-plus-btn-background: #e44959;
+$social-envelope-btn-background: #7754aa; 
