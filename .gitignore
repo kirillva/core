@@ -1,0 +1,9 @@
+/build
+/generatedFiles
+/cordova
+/node_modules
+/ext*
+bootstrap.*
+classic.json*
+modern.json*
+*.log
