@@ -13,7 +13,7 @@ Ext.define('Core.store.NavigationTree', {
             {
                 text: 'Главная',
                 iconCls: 'x-fa fa-desktop',
-                viewType: 'admindashboard',
+                viewType: 'admin',
                 routeId: 'home',
                 leaf: true
             },
