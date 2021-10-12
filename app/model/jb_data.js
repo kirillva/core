@@ -1,10 +1,10 @@
 Ext.define("Core.model.jb_data", {
     extend: "Ext.data.Model",
-    idProperty: "id",
-    identifier: "sequential",
+    idProperty: "name",
+    // identifier: "sequential",
 
     fields: [
-        { name: "id", text: 'id', type: "int"},
+        // { name: "id", text: 'id', type: "int"},
         
         { name: "hidden", text: 'hidden', type: "boolean", column: "booleancolumn" },
         { name: "dynamic", text: 'dynamic', type: "boolean", editor: "checkbox" },
