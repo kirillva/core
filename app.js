@@ -8,7 +8,9 @@ Ext.application({
     name: "Core",
     requires: [
         'Core.*',
-        'Core.grid.FilterBar'
+        'Core.grid.FilterBar',
+        'Ext.grid.column.Boolean',
+        'Ext.grid.column.Date'
     ]
 });
   
