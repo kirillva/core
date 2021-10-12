@@ -32,14 +32,14 @@ Ext.define("Core.model.pd_users", {
       column: "booleancolumn",
       editor: "checkbox",
     },
-    { name: "f_created_user", type: "int", text: "Создатель", defaultValue: AuthProvider.getUserId() },
+    { name: "f_created_user", type: "int", text: "Создатель", defaultValue: 0 },
     {
       name: "d_created_date",
       type: "date",
       text: "Дата создания",
       column: "datecolumn",
     },
-    { name: "f_change_user", type: "int", text: "Автор изменений", defaultValue: AuthProvider.getUserId() },
+    { name: "f_change_user", type: "int", text: "Автор изменений", defaultValue: 0 },
     {
       name: "d_change_date",
       type: "date",

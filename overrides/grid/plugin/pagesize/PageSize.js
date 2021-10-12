@@ -1,9 +1,9 @@
-Ext.define('Base.grid.plugin.pagesize.PageSize', {
+Ext.define('Core.grid.plugin.pagesize.PageSize', {
     extend: 'Ext.AbstractPlugin',
     alias: 'plugin.pagesize',
 
     requires: [
-        'Base.grid.plugin.pagesize.PageSizeView'
+        'Core.grid.plugin.pagesize.PageSizeView'
     ],
 
     config: {

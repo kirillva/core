@@ -13,7 +13,7 @@ Ext.application({
 });
   
 Ext.getCurrentApp = function () {
-  if (Core.app) return ARM.app;
+  if (Core.app) return Core.app;
 
   Ext.Error.raise("Приложение не найдено");
 };

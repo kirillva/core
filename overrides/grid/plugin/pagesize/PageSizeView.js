@@ -1,7 +1,7 @@
 /**
  * Элемент для настройки количества записей на странице грида
  */
-Ext.define('Base.grid.plugin.pagesize.PageSizeView', {
+Ext.define('Core.grid.plugin.pagesize.PageSizeView', {
     extend: 'Ext.form.field.ComboBox',
     xtype: 'listview-pagesize',
 

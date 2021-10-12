@@ -73,7 +73,7 @@ Ext.define("Core.view.admin.EditFields", {
             record.store.sync({
                 callback: function () {
                     me.setSelectedRecord(null);
-                    Ext.getApplication().preloadStores(function () {
+                    Ext.getCurrentApp().preloadStores(function () {
                         // callback();
                         debugger;
                         me.fireEvent("applyEdit");
