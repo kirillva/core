@@ -57,17 +57,12 @@ Ext.define("Core.Application", {
       this.registryGetter("Configuration", {
         url: "configs",
       });
-  
       const me = this;
   
       this.onReady(function (name) {
         me.removeSplash();
         if (name) me.redirectTo(name);
-        // me.setDefaultToken(name);
         me.setMainView(Ext.create("Core.view.main.Main"));
-        // me.removeSplash();
-        // me.setDefaultToken(name);
-        // me.setMainView(Ext.create('Core.view.main.Main'));
       });
     },
   
@@ -98,7 +93,6 @@ Ext.define("Core.Application", {
                 //   select: cd_settings.getSelectFields()
                 // },
                 callback: function (records) {
-                  debugger;
                   records.forEach(item => {
                     var c_name = item.get('c_name');
                     var jb_data = item.get('jb_data');
@@ -141,10 +135,14 @@ Ext.define("Core.Application", {
           // AuthProvider.singIn("master", "2S4KEq", true, function () {
           if (AuthProvider.isAuthorize() == true) {
             AuthProvider.setAuthoriseHeader(AuthProvider.getToken());
-            me.onLoadMetaData(function () {
-              me.preloadStores(function () {
-                callback();
-              });
+            me.onLoadMetaData(function (loaded) {
+              if (loaded) {
+                me.preloadStores(function () {
+                  callback();
+                });
+              } else {
+                callback("login");
+              }
             });
           } else {
             callback("login");
@@ -162,15 +160,15 @@ Ext.define("Core.Application", {
             switch (status) {
               case 401:
                 me.onLogin();
-                break;
+                return callback(false);
   
               case 200:
                 console.info("метаданные загружены");
-                return callback();
+                return callback(true);
             }
           });
         } else {
-          callback();
+          callback(true);
         }
       },
       /**
