@@ -21,6 +21,13 @@ Ext.define('Core.view.main.Main', {
         render: 'onMainViewRender'
     },
 
+    constructor: function () {
+        var record = Ext.getStore("current_user").getById(AuthProvider.getUserId());
+        this.callParent(arguments);
+        var vm = this.getViewModel();
+        vm.set('name', record.get('c_login'));
+    },
+
     items: [
         {
             xtype: 'toolbar',
@@ -32,7 +39,7 @@ Ext.define('Core.view.main.Main', {
                     xtype: 'component',
                     reference: 'senchaLogo',
                     cls: 'sencha-logo',
-                    html: '<div class="main-logo"><img src="resources/images/company-logo.png">Sencha</div>',
+                    html: `<div class="main-logo"><i class="fa fa-globe" aria-hidden="true"></i>${DefinedNames.get('projectName')}</div>`,
                     width: 250
                 },
                 {
@@ -85,17 +92,19 @@ Ext.define('Core.view.main.Main', {
                 // },
                 {
                     xtype: 'tbtext',
-                    text: 'Goff Smith',
+                    bind: {
+                        text: '{name}'
+                    },
                     cls: 'top-user-name'
                 },
-                {
-                    xtype: 'image',
-                    cls: 'header-right-profile-image',
-                    height: 35,
-                    width: 35,
-                    alt:'current user image',
-                    src: 'resources/images/user-profile/2.png'
-                }
+                // {
+                //     xtype: 'image',
+                //     cls: 'header-right-profile-image',
+                //     height: 35,
+                //     width: 35,
+                //     alt:'current user image',
+                //     src: 'resources/images/user-profile/2.png'
+                // }
             ]
         },
         {

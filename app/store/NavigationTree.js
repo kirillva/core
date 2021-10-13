@@ -13,8 +13,8 @@ Ext.define('Core.store.NavigationTree', {
             {
                 text: 'Главная',
                 iconCls: 'x-fa fa-desktop',
-                viewType: 'admin',
-                routeId: 'home',
+                viewType: 'home',
+                // routeId: 'home',
                 leaf: true
             },
             {
@@ -44,7 +44,7 @@ Ext.define('Core.store.NavigationTree', {
             },
             {
                 text: 'Выход',
-                iconCls: 'x-fa fa-sign-out-alt',
+                iconCls: 'x-fa fa-sign-out',
                 viewType: 'login',
                 handler: function () {
                     AuthProvider.singOut();

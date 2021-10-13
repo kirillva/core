@@ -3,6 +3,7 @@ Ext.define('Core.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     data: {
-        currentView: null
+        currentView: null,
+        name: null
     }
 });

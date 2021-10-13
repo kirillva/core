@@ -37,6 +37,7 @@ Ext.define("Core.Application", {
       "cd_settings",
       "current_user",
       "cd_additional_fields",
+      "pd_users",
     ],
   
     // defaultToken: 'dashboard',
@@ -50,7 +51,7 @@ Ext.define("Core.Application", {
     removeSplash: function () {
       Ext.getBody().removeCls("launching");
       var elem = document.getElementById("splash");
-      elem.parentNode.removeChild(elem);
+      elem && elem.parentNode.removeChild(elem);
     },
   
     launch: function () {

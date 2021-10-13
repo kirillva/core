@@ -119,18 +119,13 @@ Ext.define("Core.component.grid.Panel", {
                 },
             ],
         };
-        this.callParent([cfg]);
 
-        if (cfg.editable) {
-            this.addPlugin({
-                ptype: "rowediting",
-                clicksToEdit: 1,
-            });
-        }
+        cfg.plugins = (this.plugins || []).concat(cfg.plugins || []);
+
+        this.callParent([cfg]);
     },
 
     setTitle: function (value) {
-      debugger;
         var vm = this.getViewModel();
         vm.set("title", value);
     },
