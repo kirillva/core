@@ -16,7 +16,7 @@ Ext.define("Core.view.settings.EditFields", {
 
         this.removeAll(true);
         this.add({
-            xtype: "editablegrid",
+            xtype: "basegrid",
             editable: true,
             plugins: [{
                 ptype: "rowediting",

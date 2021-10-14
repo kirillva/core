@@ -18,7 +18,7 @@ Ext.define("Core.view.settings.Settings", {
             layout: "hbox",
             items: [
                 {
-                    xtype: "editablegrid",
+                    xtype: "basegrid",
                     store: Ext.create("Core.store.cd_additional_fields"),
                     autoLoad: true,
                     title: "Настройка таблиц",

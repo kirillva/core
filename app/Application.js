@@ -38,6 +38,7 @@ Ext.define("Core.Application", {
       "current_user",
       "cd_additional_fields",
       "pd_users",
+      "dd_documents"
     ],
   
     // defaultToken: 'dashboard',

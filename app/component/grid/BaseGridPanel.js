@@ -1,8 +1,8 @@
-Ext.define("Core.component.grid.Panel", {
+Ext.define("Core.component.grid.BaseGridPanel", {
     extend: "Ext.grid.Panel",
     defaultListenerScope: true,
 
-    xtype: "editablegrid",
+    xtype: "basegrid",
 
     plugins: [
         {
