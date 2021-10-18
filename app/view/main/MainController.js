@@ -33,7 +33,7 @@ Ext.define('Core.view.main.MainController', {
             newView;
 
         // Kill any previously routed window
-        if (lastView && lastView.isWindow) {
+        if (lastView /**  && lastView.isWindow */) {
             lastView.destroy();
         }
 

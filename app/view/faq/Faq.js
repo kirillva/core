@@ -4,6 +4,8 @@ Ext.define("Core.view.faq.Faq", {
     defaultListenerScope: true,
     layout: "vbox",
 
+    width: '100%',
+
     viewModel: {
         data: {
             record: null,
@@ -14,8 +16,45 @@ Ext.define("Core.view.faq.Faq", {
         this.items = [
             {
                 xtype: "baseform",
+                formTemplate: {
+                    items: [
+                        {
+                            xtype: 'panel',
+                            layout: 'hbox',
+                            items: [{
+                                itemId: 'c_first_name',
+                            }, {
+                                itemId: 'c_last_name',
+                            }, {
+                                itemId: 'c_middle_name',
+                            }]
+                        },
+                        {
+                            xtype: 'panel',
+                            layout: 'hbox',
+                            items: [{
+                                itemId: 'd_birthday',
+                            }, {
+                                itemId: 'd_created_date',
+                            }, {
+                                itemId: 'c_notice',
+                            }]
+                        },
+                        {
+                            xtype: 'panel',
+                            layout: 'hbox',
+                            items: [{
+                                itemId: 'jb_data___type',
+                            }, {
+                                itemId: 'c_phone',
+                            }, {
+                                itemId: 'sn_delete',
+                            }]
+                        }
+                    ]
+                },
                 bind: {
-                    record: '{record}'
+                    formRecord: '{record}'
                 }
             },
         ];

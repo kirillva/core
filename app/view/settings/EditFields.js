@@ -47,9 +47,12 @@ Ext.define("Core.view.settings.EditFields", {
 
             var record = me.getSelectedRecord();
             record.set("jb_data", jb_data);
+            me.removeAll(true);
+            
             record.store.sync({
                 callback: function () {
                     me.setSelectedRecord(null);
+                    record.store.reload();
                     // Ext.getCurrentApp().preloadStores(function () {
                     //     me.fireEvent("applyEdit");
                     // });

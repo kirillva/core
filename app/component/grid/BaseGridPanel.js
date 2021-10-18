@@ -183,7 +183,7 @@ Ext.define("Core.component.grid.BaseGridPanel", {
         removeRow: function (grid, rowIndex, colIndex) {
             var record = grid.getStore().getAt(rowIndex);
             if (record) {
-                if (record.phantom) {
+                if (record.phantom || !record.fieldsMap.sn_delete) {
                     grid.getStore().removeAt(rowIndex);
                 } else {
                     record.set("sn_delete", true);
