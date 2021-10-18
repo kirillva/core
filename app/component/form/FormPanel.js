@@ -6,8 +6,10 @@ Ext.define("Core.component.form.Panel", {
     config: {
         formRendered: false,
         formRecord: null,
-        formTemplate: null
+        formTemplate: null,
     },
+
+    title: "Форма",
 
     setFormRecord: function (formRecord) {
         this.formRecord = formRecord;
@@ -24,27 +26,26 @@ Ext.define("Core.component.form.Panel", {
     },
 
     renderField: function (field) {
-        
         switch (field.type) {
             case "string":
                 return {
                     xtype: field.editor,
                     name: field.name,
-                    fieldLabel: field.text
+                    fieldLabel: field.text,
                 };
 
             case "date":
                 return {
                     xtype: field.editor,
                     name: field.name,
-                    fieldLabel: field.text
+                    fieldLabel: field.text,
                 };
 
             case "boolean":
                 return {
                     xtype: field.editor,
                     name: field.name,
-                    fieldLabel: field.text
+                    fieldLabel: field.text,
                 };
 
             default:
@@ -54,11 +55,53 @@ Ext.define("Core.component.form.Panel", {
         return;
     },
 
+    formTemplateToStore: function (formTemplate) {
+        var children = [];
+        formTemplate.items.forEach((item, id) => {
+            var childrens = [];
+            item.items.forEach((field) => {
+                childrens.push({ text: field.itemId, leaf: true });
+            });
+
+            children.push({ text: `Panel ${id}`, expanded: true, leaf: false, children: childrens });
+        });
+
+        return {
+            root: {
+                expanded: true,
+                children: children,
+            },
+        };
+    },
+
     renderTemplate: function (formTemplate) {
         var me = this;
-        
+
         me.removeAll(true);
-        me.add(formTemplate);
+        me.add({
+            layout: "hbox",
+            items: [
+                formTemplate,
+                {
+                    xtype: "treepanel",
+                    width: 200,
+                    height: '100%',
+                    dock: "right",
+                    // titleAlign: 'left',
+                    // defaults: {
+                    //     align: 'start'
+                    // },
+                    cls: 'formtree',
+                    store: me.formTemplateToStore(formTemplate),
+                    viewConfig: {
+                        plugins: {
+                            ptype: "treeviewdragdrop",
+                            dragText: "Drag and drop to reorganize",
+                        },
+                    },
+                },
+            ],
+        });
     },
 
     renderItems: function (record) {
@@ -72,9 +115,9 @@ Ext.define("Core.component.form.Panel", {
         var items = [];
 
         record.fields.forEach((item) => {
-            var name = item.name.replace('.', '___');
+            var name = item.name.replace(".", "___");
             var target = this.down(`#${name}`);
-            
+
             if (target) {
                 target.add(me.renderField(item));
             } else {
@@ -87,10 +130,6 @@ Ext.define("Core.component.form.Panel", {
         this.loadRecord(record);
     },
 
-    // constructor: function () {
-    //     this.callParent(arguments);
-    // },
-
     dockedItems: [
         {
             xtype: "toolbar",
@@ -102,8 +141,19 @@ Ext.define("Core.component.form.Panel", {
                 },
             ],
         },
+        // {
+        //     xtype: "toolbar",
+        //     dock: "right",
+        //     items: [
+        //         {
+        //             xtype: "button",
+        //             iconCls: "x-fa fa-cog",
+        //         },
+        //     ],
+        // },
     ],
-
+    
+    
     items: [],
 
     bodyStyle: {
