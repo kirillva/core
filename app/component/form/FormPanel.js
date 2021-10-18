@@ -96,7 +96,7 @@ Ext.define("Core.component.form.Panel", {
                     viewConfig: {
                         plugins: {
                             ptype: "treeviewdragdrop",
-                            dragText: "Drag and drop to reorganize",
+                            dragText: "Отпустить для перемещения",
                         },
                     },
                 },
