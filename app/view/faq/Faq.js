@@ -60,10 +60,15 @@ Ext.define("Core.view.faq.Faq", {
             },
         },
 
+        
+
         formulas: {
             formTemplateToStore: function (get) {
                 var children = [];
                 var formTemplate = get("formTemplate");
+                
+                debugger;
+                // children.push({ text: `Скрытые`, expanded: true, leaf: false, });
 
                 formTemplate.items.forEach((item, id) => {
                     var childrens = [];
@@ -71,7 +76,7 @@ Ext.define("Core.view.faq.Faq", {
                         childrens.push({ text: field.itemId, leaf: true });
                     });
 
-                    children.push({ text: `Panel ${id}`, expanded: true, leaf: false, children: childrens });
+                    children.push({ text: `Панель`, layout: item.layout, expanded: true, leaf: false, children: childrens });
                 });
 
                 return {
@@ -82,6 +87,47 @@ Ext.define("Core.view.faq.Faq", {
                 };
             },
         },
+    },
+
+    storeToTemplate: function (store) {
+        var root = store.getRootNode();
+        var childrens = root.childNodes;
+        var formTemplate = [];
+        
+        debugger;
+        
+        childrens.forEach(panel=>{
+            var node = [];
+
+            panel.childNodes.forEach(field=> {
+                node.push({ itemId: field.get('text') });
+                
+            });
+
+            formTemplate.push({ layout: panel.get('layout') || 'hbox', items: node });
+        });
+
+        var vm = this.getViewModel();
+        vm.set('formTemplate', { items: formTemplate });
+        // debugger;
+        // var children = [];
+        // var formTemplate = get("formTemplate");
+
+        // formTemplate.items.forEach((item, id) => {
+        //     var childrens = [];
+        //     item.items.forEach((field) => {
+        //         childrens.push({ text: field.itemId, leaf: true });
+        //     });
+
+        //     children.push({ text: `Panel ${id}`, expanded: true, leaf: false, children: childrens });
+        // });
+
+        // return {
+        //     root: {
+        //         expanded: true,
+        //         children: children,
+        //     },
+        // };
     },
 
     constructor: function () {
@@ -102,6 +148,9 @@ Ext.define("Core.view.faq.Faq", {
                 bind: {
                     store: "{formTemplateToStore}",
                 },
+                listeners: {
+                    saveTemplate: 'storeToTemplate'
+                }
             },
         ];
 

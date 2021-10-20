@@ -20,6 +20,8 @@ Ext.define("Core.component.form.Panel", {
 
     setFormTemplate: function (formTemplate) {
         this.formTemplate = formTemplate;
+        this.setFormRendered(false);
+        
         if (formTemplate && this.getFormRecord()) {
             this.renderTemplate(formTemplate);
         }
