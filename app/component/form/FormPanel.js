@@ -55,53 +55,14 @@ Ext.define("Core.component.form.Panel", {
         return;
     },
 
-    formTemplateToStore: function (formTemplate) {
-        var children = [];
-        formTemplate.items.forEach((item, id) => {
-            var childrens = [];
-            item.items.forEach((field) => {
-                childrens.push({ text: field.itemId, leaf: true });
-            });
-
-            children.push({ text: `Panel ${id}`, expanded: true, leaf: false, children: childrens });
-        });
-
-        return {
-            root: {
-                expanded: true,
-                children: children,
-            },
-        };
-    },
+    
 
     renderTemplate: function (formTemplate) {
         var me = this;
 
         me.removeAll(true);
-        me.add({
-            layout: "hbox",
-            items: [
-                formTemplate,
-                {
-                    xtype: "treepanel",
-                    width: 200,
-                    height: '100%',
-                    dock: "right",
-                    // titleAlign: 'left',
-                    // defaults: {
-                    //     align: 'start'
-                    // },
-                    cls: 'formtree',
-                    store: me.formTemplateToStore(formTemplate),
-                    viewConfig: {
-                        plugins: {
-                            ptype: "treeviewdragdrop",
-                            dragText: "Отпустить для перемещения",
-                        },
-                    },
-                },
-            ],
-        });
+        
+        me.add(formTemplate);
     },
 
     renderItems: function (record) {
@@ -140,17 +101,7 @@ Ext.define("Core.component.form.Panel", {
                     handler: "saveForm",
                 },
             ],
-        },
-        // {
-        //     xtype: "toolbar",
-        //     dock: "right",
-        //     items: [
-        //         {
-        //             xtype: "button",
-        //             iconCls: "x-fa fa-cog",
-        //         },
-        //     ],
-        // },
+        }
     ],
     
     
