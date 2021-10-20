@@ -5,6 +5,7 @@ Ext.define("Core.component.form.FormProps", {
 
     config: {
         store: null,
+        selectedRecord: null
     },
 
     setStore: function (store) {
@@ -13,47 +14,6 @@ Ext.define("Core.component.form.FormProps", {
     },
 
     layout: "vbox",
-
-    constructor: function () {
-        var me = this;
-        this.dockedItems = {
-            xtype: "panelheader",
-            title: "Настройки",
-            items: [
-                // {
-                //     xtype: "button",
-                //     iconCls: "x-fa fa-trash",
-                //     // handler: "deleteRows",
-                //     // scope: me,
-                //     bind: {
-                //         hidden: "{!selectable}",
-                //     },
-                // },
-                // {
-                //     xtype: "button",
-                //     bind: {
-                //         iconCls: "{selectable ? 'x-fa fa-check-square' : 'x-fa fa-square'}",
-                //     },
-                //     // handler: 'changeSelectable',
-                //     // scope: me,
-                // },
-                "-",
-                {
-                    xtype: "button",
-                    iconCls: "x-fa fa-plus",
-                    handler: 'addLayout',
-                    scope: me,
-                },
-                {
-                    xtype: "button",
-                    iconCls: "x-fa fa-save",
-                    handler: "saveTemplate",
-                    scope: me,
-                },
-            ],
-        };
-        this.callParent(arguments);
-    },
 
     privates: {
         renderForm: function (store) {
@@ -64,7 +24,25 @@ Ext.define("Core.component.form.FormProps", {
                     width: "100%",
                     flex: 1,
                     cls: "formtree",
-                    // rootVisible: false,
+                    dockedItems: {
+                        xtype: "panelheader",
+                        title: "Структура",
+                        items: [
+                            "-",
+                            {
+                                xtype: "button",
+                                iconCls: "x-fa fa-plus",
+                                handler: "addLayout",
+                                scope: this,
+                            },
+                            {
+                                xtype: "button",
+                                iconCls: "x-fa fa-save",
+                                handler: "saveTemplate",
+                                scope: this,
+                            },
+                        ],
+                    },
                     store: store,
                     viewConfig: {
                         plugins: {
@@ -72,37 +50,90 @@ Ext.define("Core.component.form.FormProps", {
                             dragText: "Отпустить для перемещения",
                         },
                     },
+                    listeners: {
+                        selectionchange: "onSelectionChange",
+                        drop: "onDrop",
+                    },
                 },
                 {
                     xtype: "panel",
+                    title: "Свойства",
                     width: "100%",
+                    itemId: "settings",
                     flex: 1,
                     items: [
-                        {
-                            xtype: "textfield",
-                            fieldLabel: "fieldLabel",
-                        },
-                        {
-                            xtype: "textfield",
-                            fieldLabel: "fieldLabel",
-                        },
+                        // {
+                        //     xtype: "textfield",
+                        //     fieldLabel: "fieldLabel",
+                        // },
                     ],
                 },
             ]);
         },
 
         addLayout: function () {
-            var treepanel = this.down('treepanel');
+            var treepanel = this.down("treepanel");
             var store = treepanel.getStore();
 
-            debugger;
             store.getRootNode().appendChild({ text: `Панель`, expanded: true, leaf: false, root: false });
         },
 
         saveTemplate: function () {
-            var treepanel = this.down('treepanel');
+            var treepanel = this.down("treepanel");
 
-            this.fireEvent('saveTemplate', treepanel.getStore());
+            this.fireEvent("saveTemplate", treepanel.getStore());
+        },
+
+        onSelectionChange: function (treelist, records, eOpts) {
+            if (!records || !records.length) return;
+
+            var record = records[0];
+
+            this.renderSettings(record);
+            this.setSelectedRecord(record);
+        },
+
+        renderSettings: function (record) {
+            var me = this;
+            var settings = this.down("#settings");
+            settings.removeAll(true);
+
+            var layout = record.get("layout");
+
+            if (record.isLeaf()) {
+
+            } else {
+                settings.add([
+                    {
+                        xtype: "combobox",
+                        fieldLabel: "Расположение полей",
+                        displayField: "name",
+                        valueField: "id",
+                        value: layout,
+                        store: {
+                            data: [
+                                { id: "hbox", name: "Горизонтально" },
+                                { id: "vbox", name: "Вертикально" },
+                            ],
+                        },
+                        listeners: {
+                            select: 'selectLayout'
+                        },
+                    },
+                ]);
+            }
+        },
+
+        selectLayout: function (combo, record, eOpts) {
+            var selectedRecord = this.getSelectedRecord();
+
+            selectedRecord.set('layout', record.id);
+
+            this.saveTemplate();
+        },
+
+        onDrop: function (node, data, overModel, dropPosition, eOpts) {
+            this.saveTemplate();
         },
     },
 });
