@@ -8,16 +8,15 @@ Ext.define("Core.component.form.FormProps", {
         selectedRecord: null
     },
 
-    setStore: function (store) {
-        this.store = store;
-        this.renderForm(store);
-    },
-
     layout: "vbox",
+
+    constructor: function (cfg) {
+        this.callParent(arguments);
+        this.renderForm(cfg.store)
+    },
 
     privates: {
         renderForm: function (store) {
-            this.removeAll(true);
             this.add([
                 {
                     xtype: "treepanel",

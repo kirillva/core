@@ -9,24 +9,6 @@ Ext.define("Core.component.form.Panel", {
         formTemplate: null,
     },
 
-    title: "Форма",
-
-    setFormRecord: function (formRecord) {
-        this.formRecord = formRecord;
-        if (formRecord && this.getFormTemplate()) {
-            this.renderTemplate(this.formTemplate);
-        }
-    },
-
-    setFormTemplate: function (formTemplate) {
-        this.formTemplate = formTemplate;
-        this.setFormRendered(false);
-        
-        if (formTemplate && this.getFormRecord()) {
-            this.renderTemplate(formTemplate);
-        }
-    },
-
     renderField: function (field) {
         switch (field.type) {
             case "string":
@@ -57,13 +39,15 @@ Ext.define("Core.component.form.Panel", {
         return;
     },
 
-    
+    constructor: function (cfg) {
+        this.callParent(arguments);
+        this.renderTemplate(cfg.formTemplate);
+    },
 
     renderTemplate: function (formTemplate) {
         var me = this;
-
         me.removeAll(true);
-        
+        this.setFormRendered(false);
         me.add(formTemplate);
     },
 
@@ -93,21 +77,7 @@ Ext.define("Core.component.form.Panel", {
         this.loadRecord(record);
     },
 
-    dockedItems: [
-        {
-            xtype: "toolbar",
-            dock: "bottom",
-            items: [
-                {
-                    text: "Сохранить",
-                    handler: "saveForm",
-                },
-            ],
-        }
-    ],
     
-    
-    items: [],
 
     bodyStyle: {
         padding: "10px",
