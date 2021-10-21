@@ -9,22 +9,23 @@ Ext.define("Core.view.faq.Faq", {
     viewModel: {
         data: {
             record: null,
-            formTemplate: FormHelper.getFormTemplate()
-        }
+            formTemplate: null,
+        },
     },
 
     constructor: function () {
-        this.items = [{
-            xtype: 'formwrapper',
-            bind: {
-                record: '{record}',
-                formTemplate: '{formTemplate}',
+        this.items = [
+            {
+                xtype: "formwrapper",
+                bind: {
+                    record: "{record}",
+                    formTemplate: "{formTemplate}",
+                },
+                listeners: {
+                    formTemplate: "updateFormTemplate",
+                },
             },
-            // formTemplate: FormHelper.getFormTemplate(),
-            listeners: {
-                formTemplate: 'updateFormTemplate'
-            }
-        }];
+        ];
 
         this.callParent(arguments);
 
@@ -39,13 +40,32 @@ Ext.define("Core.view.faq.Faq", {
                 vm.set("record", items[0]);
             },
         });
+
+        var cd_form_templates = Ext.getStore("cd_form_templates");
+        var dd_documents = cd_form_templates.getById("dd_documents");
+
+        vm.set("formTemplate", dd_documents.get("jb_data"));
     },
 
     privates: {
         updateFormTemplate: function (formTemplate) {
             var vm = this.getViewModel();
-            debugger;
-            vm.set('formTemplate', formTemplate);
-        }
-    }
+            vm.set("formTemplate", formTemplate);
+
+            var cd_form_templates = Ext.getStore("cd_form_templates");
+            var dd_documents = cd_form_templates.getById("dd_documents");
+
+            dd_documents.set("jb_data", JSON.stringify(formTemplate));
+            
+            if (cd_form_templates.needsSync) {
+                cd_form_templates.sync({
+                    callback: function () {
+                        cd_form_templates.load({
+                            limit: 10000,
+                        });
+                    },
+                });
+            }
+        },
+    },
 });

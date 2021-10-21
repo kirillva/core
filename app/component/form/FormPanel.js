@@ -40,8 +40,22 @@ Ext.define("Core.component.form.Panel", {
     },
 
     constructor: function (cfg) {
+        cfg.dockedItems = [
+            {
+                xtype: "toolbar",
+                dock: "bottom",
+                items: [
+                    {
+                        text: "Сохранить",
+                        handler: "saveForm",
+                    },
+                ],
+            }
+        ].concat(cfg.dockedItems);
+        
         this.callParent(arguments);
         this.renderTemplate(cfg.formTemplate);
+        
     },
 
     renderTemplate: function (formTemplate) {

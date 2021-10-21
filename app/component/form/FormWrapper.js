@@ -9,7 +9,8 @@ Ext.define("Core.component.form.FormWrapper", {
 
     config: {
         formTemplate: null,
-        record: null
+        record: null,
+        settingsHidden: false
     },
 
     setRecord: function (record) {
@@ -20,7 +21,6 @@ Ext.define("Core.component.form.FormWrapper", {
     },
 
     setFormTemplate: function (formTemplate) {
-        debugger;
         this.formTemplate = formTemplate; 
         if (this.record && formTemplate) {
             this.renderForm(this.record, formTemplate);
@@ -29,8 +29,10 @@ Ext.define("Core.component.form.FormWrapper", {
 
     privates: {
         renderForm: function (record, formTemplate) {
-            this.removeAll(true);
-            this.add([
+            var me = this;
+
+            me.removeAll(true);
+            me.add([
                 {
                     dockedItems: [{
                         xtype: "panelheader",
@@ -39,8 +41,8 @@ Ext.define("Core.component.form.FormWrapper", {
                             {
                                 xtype: "button",
                                 iconCls: "x-fa fa-cog",
-                                // handler: "saveTemplate",
-                                // scope: this,
+                                handler: "toggleSettings",
+                                scope: me,
                             },
                         ],
                     }],
@@ -54,58 +56,75 @@ Ext.define("Core.component.form.FormWrapper", {
                     xtype: "formprops",
                     height: "100%",
                     flex: 1,
-                    store: this.formTemplateToStore(formTemplate) || null,
+                    hidden: me.getSettingsHidden(),
+                    store: FormHelper.formTemplateToStore(formTemplate) || null,
                     listeners: {
-                        saveTemplate: "storeToTemplate",
+                        saveTemplate: function (store) {
+                            var formTemplate = FormHelper.storeToTemplate(store);
+                            me.fireEvent("formTemplate", formTemplate);
+                        },
                     },
                 },
             ]);
         },
 
-        formTemplateToStore: function (formTemplate) {
-            var children = [];
+        toggleSettings: function () {
+            var me = this;
+            var formprops = me.down('formprops');
+            
+            if (formprops.hidden) {
+                formprops.show();
+                me.setSettingsHidden(false);
+            } else {
+                formprops.hide();
+                me.setSettingsHidden(true);
+            }
+        }
 
-            if (!formTemplate) return null;
+        // formTemplateToStore: function (formTemplate) {
+        //     var children = [];
 
-            formTemplate.items.forEach((item, id) => {
-                var childrens = [];
-                item.items.forEach((field) => {
-                    childrens.push({ text: field.itemId, leaf: true });
-                });
+        //     if (!formTemplate) return null;
 
-                children.push({
-                    text: `Панель`,
-                    layout: item.layout,
-                    expanded: true,
-                    leaf: false,
-                    children: childrens,
-                });
-            });
+        //     formTemplate.items.forEach((item, id) => {
+        //         var childrens = [];
+        //         item.items.forEach((field) => {
+        //             childrens.push({ text: field.itemId, leaf: true });
+        //         });
 
-            return {
-                root: {
-                    expanded: true,
-                    children: children,
-                },
-            };
-        },
+        //         children.push({
+        //             text: `Панель`,
+        //             layout: item.layout,
+        //             expanded: true,
+        //             leaf: false,
+        //             children: childrens,
+        //         });
+        //     });
 
-        storeToTemplate: function (store) {
-            var root = store.getRootNode();
-            var childrens = root.childNodes;
-            var formTemplate = [];
+        //     return {
+        //         root: {
+        //             expanded: true,
+        //             children: children,
+        //         },
+        //     };
+        // },
 
-            childrens.forEach((panel) => {
-                var node = [];
+        // storeToTemplate: function (store) {
+        //     var root = store.getRootNode();
+        //     var childrens = root.childNodes;
+        //     var formTemplate = [];
 
-                panel.childNodes.forEach((field) => {
-                    node.push({ itemId: field.get("text") });
-                });
+        //     childrens.forEach((panel) => {
+        //         var node = [];
 
-                formTemplate.push({ layout: panel.get("layout") || "hbox", items: node });
-            });
+        //         panel.childNodes.forEach((field) => {
+        //             node.push({ itemId: field.get("text") });
+        //         });
 
-            this.fireEvent("formTemplate", { items: formTemplate });
-        },
+        //         formTemplate.push({ layout: panel.get("layout") || "hbox", items: node });
+        //     });
+
+        //     this.fireEvent("formTemplate", { items: formTemplate });
+        // },
     },
 });

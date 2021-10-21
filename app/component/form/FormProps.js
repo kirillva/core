@@ -37,7 +37,7 @@ Ext.define("Core.component.form.FormProps", {
                             {
                                 xtype: "button",
                                 iconCls: "x-fa fa-save",
-                                handler: "saveTemplate",
+                                handler: "syncTemplate",
                                 scope: this,
                             },
                         ],
@@ -79,8 +79,10 @@ Ext.define("Core.component.form.FormProps", {
 
         saveTemplate: function () {
             var treepanel = this.down("treepanel");
+            var store = treepanel.getStore();
 
-            this.fireEvent("saveTemplate", treepanel.getStore());
+            this.fireEvent("saveTemplate", store);
+            return store;
         },
 
         onSelectionChange: function (treelist, records, eOpts) {
@@ -134,5 +136,12 @@ Ext.define("Core.component.form.FormProps", {
         onDrop: function (node, data, overModel, dropPosition, eOpts) {
             this.saveTemplate();
         },
+
+        syncTemplate: function () {
+            var store = this.saveTemplate();
+            var formTemplate = FormHelper.storeToTemplate(store);
+
+            
+        }
     },
 });
