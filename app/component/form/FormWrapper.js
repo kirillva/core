@@ -70,6 +70,9 @@ Ext.define("Core.component.form.FormWrapper", {
                                 var formTemplate = FormHelper.storeToTemplate(store);
                                 me.fireEvent("formTemplate", formTemplate, me);
                             },
+                            syncTemplate: function (formTemplate) {
+                                me.fireEvent("syncTemplate", formTemplate, me);
+                            }
                         },
                     },
                 ]);

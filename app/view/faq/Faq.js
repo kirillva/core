@@ -41,6 +41,7 @@ Ext.define("Core.view.faq.Faq", {
                         // },
                         listeners: {
                             formTemplate: "updateFormTemplate",
+                            syncTemplate: "syncFormTemplate"
                         },
                     },
                 ]);

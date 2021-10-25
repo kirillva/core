@@ -82,7 +82,6 @@ Ext.define("Core.component.form.FormProps", {
             var treepanel = this.down("treepanel");
             var store = treepanel.getStore();
 
-            this.fireEvent("saveTemplate", store);
             return store;
         },
 
@@ -131,18 +130,20 @@ Ext.define("Core.component.form.FormProps", {
 
             selectedRecord.set('layout', record.id);
 
-            this.saveTemplate();
+            var store = this.saveTemplate();
+            this.fireEvent("saveTemplate", store);
         },
 
         onDrop: function (node, data, overModel, dropPosition, eOpts) {
-            this.saveTemplate();
+            var store = this.saveTemplate();
+            this.fireEvent("saveTemplate", store);
         },
 
         syncTemplate: function () {
             var store = this.saveTemplate();
             var formTemplate = FormHelper.storeToTemplate(store);
 
-            
+            this.fireEvent("syncTemplate", formTemplate);
         },
 
         onBeforeDrop: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
@@ -156,7 +157,7 @@ Ext.define("Core.component.form.FormProps", {
                 return true;
             } 
 
-            if (overModel.isLeaf() && dropPosition == 'before' && record.isLeaf()) {
+            if (overModel.isLeaf() && (dropPosition == 'before' || dropPosition == 'after') && record.isLeaf()) {
                 return true;
             } 
 
