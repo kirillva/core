@@ -52,6 +52,7 @@ Ext.define("Core.component.form.FormProps", {
                     listeners: {
                         selectionchange: "onSelectionChange",
                         drop: "onDrop",
+                        beforedrop: 'onBeforeDrop'
                     },
                 },
                 {
@@ -142,6 +143,24 @@ Ext.define("Core.component.form.FormProps", {
             var formTemplate = FormHelper.storeToTemplate(store);
 
             
+        },
+
+        onBeforeDrop: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
+            var record = data.records && data.records[0];
+
+            if (overModel.isRoot() && dropPosition == 'append' && !record.isLeaf()) {
+                return true;
+            } 
+
+            if ((!overModel.isLeaf() && !overModel.isRoot()) && dropPosition == 'before' && !record.isLeaf()) {
+                return true;
+            } 
+
+            if (overModel.isLeaf() && dropPosition == 'before' && record.isLeaf()) {
+                return true;
+            } 
+
+            return false;
         }
     },
 });
