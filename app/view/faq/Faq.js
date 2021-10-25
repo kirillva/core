@@ -5,31 +5,21 @@ Ext.define("Core.view.faq.Faq", {
 
     layout: "fit",
     height: "100%",
+    
+    mixins: ["FormMixin"],
 
-    viewModel: {
-        data: {
-            record: null,
-            formTemplate: null,
-        },
-    },
+    initComponent: function () {
+        var me = this;
 
-    constructor: function () {
-        this.items = [
-            {
-                xtype: "formwrapper",
-                bind: {
-                    record: "{record}",
-                    formTemplate: "{formTemplate}",
-                },
-                listeners: {
-                    formTemplate: "updateFormTemplate",
-                },
-            },
-        ];
-
-        this.callParent(arguments);
-
+        me.callParent();
         var vm = this.getViewModel();
+
+        var cd_form_templates = Ext.getStore("cd_form_templates");
+        var dd_documents_record = cd_form_templates.getById("dd_documents");
+
+        var formTemplate = dd_documents_record.get("jb_data");
+        // vm.set("formTemplate", formTemplate);
+
         var dd_documents = Ext.getStore("dd_documents");
         dd_documents.load({
             limit: 10000,
@@ -37,35 +27,24 @@ Ext.define("Core.view.faq.Faq", {
                 select: dd_documents.getSelectFields(),
             },
             callback: function (items) {
-                vm.set("record", items[0]);
+                var record = items[0];
+                // vm.set("record", record);
+
+                me.add([
+                    {
+                        xtype: "formwrapper",
+                        record: record,
+                        formTemplate: formTemplate,
+                        // bind: {
+                        //     record: "{record}",
+                        //     formTemplate: "{formTemplate}",
+                        // },
+                        listeners: {
+                            formTemplate: "updateFormTemplate",
+                        },
+                    },
+                ]);
             },
         });
-
-        var cd_form_templates = Ext.getStore("cd_form_templates");
-        var dd_documents = cd_form_templates.getById("dd_documents");
-
-        vm.set("formTemplate", dd_documents.get("jb_data"));
-    },
-
-    privates: {
-        updateFormTemplate: function (formTemplate) {
-            var vm = this.getViewModel();
-            vm.set("formTemplate", formTemplate);
-
-            var cd_form_templates = Ext.getStore("cd_form_templates");
-            var dd_documents = cd_form_templates.getById("dd_documents");
-
-            dd_documents.set("jb_data", JSON.stringify(formTemplate));
-            
-            if (cd_form_templates.needsSync) {
-                cd_form_templates.sync({
-                    callback: function () {
-                        cd_form_templates.load({
-                            limit: 10000,
-                        });
-                    },
-                });
-            }
-        },
-    },
+    }
 });

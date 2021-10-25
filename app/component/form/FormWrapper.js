@@ -27,51 +27,59 @@ Ext.define("Core.component.form.FormWrapper", {
         }
     },
 
+    constructor: function (cfg) {
+        this.callParent([cfg]);
+        if (cfg.record && cfg.formTemplate) {
+            this.renderForm(cfg.record, cfg.formTemplate);
+        }
+    },
+    
     privates: {
         renderForm: function (record, formTemplate) {
             var me = this;
-
-            me.removeAll(true);
-            me.add([
-                {
-                    dockedItems: [{
-                        xtype: "panelheader",
-                        title: "Форма",
-                        items: [
-                            {
-                                xtype: "button",
-                                iconCls: "x-fa fa-cog",
-                                handler: "toggleSettings",
-                                scope: me,
+            if (me.items) {
+                me.removeAll(true);
+                me.add([
+                    {
+                        dockedItems: [{
+                            xtype: "panelheader",
+                            title: "Форма",
+                            items: [
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-cog",
+                                    handler: "toggleSettings",
+                                    scope: me,
+                                },
+                            ],
+                        }],
+                        xtype: "baseform",
+                        height: "100%",
+                        flex: 2,
+                        formTemplate: formTemplate,
+                        formRecord: record,
+                    },
+                    {
+                        xtype: "formprops",
+                        height: "100%",
+                        flex: 1,
+                        hidden: me.getSettingsHidden(),
+                        store: FormHelper.formTemplateToStore(formTemplate) || null,
+                        listeners: {
+                            saveTemplate: function (store) {
+                                var formTemplate = FormHelper.storeToTemplate(store);
+                                me.fireEvent("formTemplate", formTemplate, me);
                             },
-                        ],
-                    }],
-                    xtype: "baseform",
-                    height: "100%",
-                    flex: 2,
-                    formTemplate: formTemplate,
-                    formRecord: record,
-                },
-                {
-                    xtype: "formprops",
-                    height: "100%",
-                    flex: 1,
-                    hidden: me.getSettingsHidden(),
-                    store: FormHelper.formTemplateToStore(formTemplate) || null,
-                    listeners: {
-                        saveTemplate: function (store) {
-                            var formTemplate = FormHelper.storeToTemplate(store);
-                            me.fireEvent("formTemplate", formTemplate);
                         },
                     },
-                },
-            ]);
+                ]);
+            }
         },
 
         toggleSettings: function () {
             var me = this;
             var formprops = me.down('formprops');
-            
+
             if (formprops.hidden) {
                 formprops.show();
                 me.setSettingsHidden(false);
@@ -80,51 +88,5 @@ Ext.define("Core.component.form.FormWrapper", {
                 me.setSettingsHidden(true);
             }
         }
-
-        // formTemplateToStore: function (formTemplate) {
-        //     var children = [];
-
-        //     if (!formTemplate) return null;
-
-        //     formTemplate.items.forEach((item, id) => {
-        //         var childrens = [];
-        //         item.items.forEach((field) => {
-        //             childrens.push({ text: field.itemId, leaf: true });
-        //         });
-
-        //         children.push({
-        //             text: `Панель`,
-        //             layout: item.layout,
-        //             expanded: true,
-        //             leaf: false,
-        //             children: childrens,
-        //         });
-        //     });
-
-        //     return {
-        //         root: {
-        //             expanded: true,
-        //             children: children,
-        //         },
-        //     };
-        // },
-
-        // storeToTemplate: function (store) {
-        //     var root = store.getRootNode();
-        //     var childrens = root.childNodes;
-        //     var formTemplate = [];
-
-        //     childrens.forEach((panel) => {
-        //         var node = [];
-
-        //         panel.childNodes.forEach((field) => {
-        //             node.push({ itemId: field.get("text") });
-        //         });
-
-        //         formTemplate.push({ layout: panel.get("layout") || "hbox", items: node });
-        //     });
-
-        //     this.fireEvent("formTemplate", { items: formTemplate });
-        // },
     },
 });
