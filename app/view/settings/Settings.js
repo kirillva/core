@@ -19,6 +19,9 @@ Ext.define("Core.view.settings.Settings", {
             },{
                 xtype: "editforms",
                 title: 'Формы'
+            },{
+                xtype: "editmenu",
+                title: 'Меню'
             },]
         };
         this.callParent(arguments);
