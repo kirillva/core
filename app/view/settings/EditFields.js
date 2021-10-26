@@ -32,7 +32,6 @@ Ext.define("Core.view.settings.EditFields", {
                 },
             }),
             title: "Доп.поля",
-            margin: "0 12px 0 0",
         });
     },
 

@@ -10,7 +10,7 @@ Ext.define("Core.component.form.FormWrapper", {
     config: {
         formTemplate: null,
         record: null,
-        settingsHidden: false
+        settingsHidden: false,
     },
 
     setRecord: function (record) {
