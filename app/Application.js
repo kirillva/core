@@ -93,8 +93,23 @@ Ext.define("Core.Application", {
 
         Ext.create("Ext.data.Store", {
             storeId: "cd_navigation",
-            idProperty: 'id',
-            data: [{ id: "home", jb_data: [{ title: 'Заголовок 1', store: 'dd_documents', model: "dd_documents_1" }, { title: 'Заголовок 2', store: 'dd_documents', model: "dd_documents_2" }] }],
+            idProperty: "id",
+            data: [
+                {
+                    id: "home",
+                    jb_data: [
+                        { title: "Заголовок 1", store: "dd_documents", model: "dd_documents_1" },
+                        { title: "Заголовок 2", store: "dd_documents", model: "dd_documents_2" },
+                    ],
+                },
+                {
+                    id: "faq",
+                    jb_data: [
+                        { title: "Заголовок 1", store: "pd_users", model: "pd_users_1" },
+                        { title: "Заголовок 2", store: "pd_users", model: "pd_users_1" },
+                    ],
+                },
+            ],
         });
     },
 
