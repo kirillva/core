@@ -5,20 +5,19 @@ Ext.define("Core.view.home.Home", {
     layout: "vbox",
 
     constructor: function () {
-        var dd_documents = Ext.getStore("dd_documents");
-        dd_documents.load({
-            limit: 10000,
-            params: {
-                select: dd_documents.getSelectFields(),
-            }
-        });
-        this.items = [
-            {
+        var cd_navigation = Ext.getStore("cd_navigation");
+        var home = cd_navigation.getById("home");
+        var jb_data = home.get("jb_data");
+
+        this.items = jb_data.map(function (item) {
+            return {
                 xtype: "basegrid",
                 editable: true,
-                store: dd_documents,
-                // autoLoad: true,
-                title: "Главная",
+                store: Ext.create(`Core.store.${item.store}`, {
+                    model: Ext.ClassManager.get(`Core.model.${item.model}`),
+                }),
+                autoLoad: true,
+                title: item.title,
                 width: "100%",
                 plugins: [
                     {
@@ -27,8 +26,8 @@ Ext.define("Core.view.home.Home", {
                     },
                 ],
                 flex: 1,
-            },
-        ];
+            };
+        });
         this.callParent(arguments);
     },
 });

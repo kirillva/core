@@ -40,59 +40,61 @@ Ext.define("Core.Application", {
         });
     },
 
-    preloadStores: function (callback) {
-        const cd_settings = Ext.getStore("cd_settings");
-        cd_settings.load({
-            limit: 10000,
-            callback: function () {
-                const current_user = Ext.getStore("current_user");
-                current_user.load({
-                    limit: 1,
-                    params: {
-                        filter: [
-                            {
-                                property: "id",
-                                value: AuthProvider.getUserId(),
-                            },
-                        ],
-                    },
-                    callback: function () {
-                        const cd_settings = Ext.getStore("cd_additional_fields");
-                        cd_settings.load({
-                            limit: 10000,
-                            callback: function (records) {
-                                records.forEach((item) => {
-                                    var c_name = item.get("c_name");
-                                    var jb_data = item.get("jb_data");
-                                    var alias = item.get('c_alias');
+    preloadStores: async function () {
+        var loadStore = async (options = {}, name) => {
+            return new Promise((resolve, reject) => {
+                const cd_settings = Ext.getStore(name);
+                cd_settings.load(
+                    Object.assign(options, {
+                        callback: function (records) {
+                            resolve(records);
+                        },
+                    })
+                );
+            });
+        };
 
-
-                                    var model = Ext.ClassManager.get(`Core.model.${c_name}`);
-
-                                    if (alias) {
-                                        Ext.define(`${model.displayName}_${alias}`, { 
-                                            extend: 'Ext.data.Model', 
-                                            idProperty: 'id', 
-                                            fields: model.getFields()
-                                            .concat(jb_data.map((item) => Object.assign(item, { dynamic: true }))) 
-                                        });
-                                    } else {
-                                        model.addFields(jb_data.map((item) => Object.assign(item, { dynamic: true })));
-                                    }
-                                });
-
-                                const cd_form_templates = Ext.getStore("cd_form_templates");
-                                cd_form_templates.load({
-                                    limit: 10000,
-                                    callback: function () {
-                                        callback();
-                                    },
-                                });
-                            },
-                        });
-                    },
-                });
+        await loadStore({ limit: 10000 }, "current_user");
+        await loadStore(
+            {
+                limit: 1,
+                params: {
+                    filter: [
+                        {
+                            property: "id",
+                            value: AuthProvider.getUserId(),
+                        },
+                    ],
+                },
             },
+            "current_user"
+        );
+
+        var cd_additional_fields = await loadStore({ limit: 10000 }, "cd_additional_fields");
+        cd_additional_fields.forEach((item) => {
+            var c_name = item.get("c_name");
+            var jb_data = item.get("jb_data");
+            var alias = item.get("c_alias");
+
+            var model = Ext.ClassManager.get(`Core.model.${c_name}`);
+
+            if (alias) {
+                Ext.define(`${model.displayName}_${alias}`, {
+                    extend: "Ext.data.Model",
+                    idProperty: "id",
+                    fields: model.getFields().concat(jb_data.map((item) => Object.assign(item, { dynamic: true }))),
+                });
+            } else {
+                model.addFields(jb_data.map((item) => Object.assign(item, { dynamic: true })));
+            }
+        });
+
+        await loadStore({ limit: 10000 }, "cd_form_templates");
+
+        Ext.create("Ext.data.Store", {
+            storeId: "cd_navigation",
+            idProperty: 'id',
+            data: [{ id: "home", jb_data: [{ title: 'Заголовок 1', store: 'dd_documents', model: "dd_documents_1" }, { title: 'Заголовок 2', store: 'dd_documents', model: "dd_documents_2" }] }],
         });
     },
 
@@ -119,7 +121,7 @@ Ext.define("Core.Application", {
                     AuthProvider.setAuthoriseHeader(AuthProvider.getToken());
                     me.onLoadMetaData(function (loaded) {
                         if (loaded) {
-                            me.preloadStores(function () {
+                            me.preloadStores().then(() => {
                                 callback();
                             });
                         } else {

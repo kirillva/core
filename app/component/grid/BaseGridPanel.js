@@ -57,8 +57,6 @@ Ext.define("Core.component.grid.BaseGridPanel", {
             model = Ext.ClassManager.get(`${model.displayName}_${cfg.alias}`);
         }
 
-        debugger;
-        
         var fields = model.getFields();
 
         var _columns = fields.map((item) => {
