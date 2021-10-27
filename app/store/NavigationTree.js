@@ -18,6 +18,12 @@ Ext.define('Core.store.NavigationTree', {
                 leaf: true
             },
             {
+                text: 'Документы',
+                iconCls: 'x-fa fa-desktop',
+                viewType: 'documents',
+                leaf: true
+            },
+            {
                 text: 'Администрирование',
                 iconCls: 'x-fa fa-user',
                 viewType: 'admin',

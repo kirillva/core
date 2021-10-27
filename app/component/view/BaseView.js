@@ -1,13 +1,13 @@
-Ext.define("Core.view.home.Home", {
+Ext.define("Core.component.view.BaseView", {
     extend: "Ext.container.Container",
-    xtype: "home",
+    xtype: "baseview",
     defaultListenerScope: true,
     layout: "vbox",
 
-    constructor: function () {
+    constructor: function (cfg) {
         var cd_navigation = Ext.getStore("cd_navigation");
-        var home = cd_navigation.getById("home");
-        var jb_data = home.get("jb_data");
+        var record = cd_navigation.getById(cfg.routeId);
+        var jb_data = record.get("jb_data");
 
         this.items = jb_data.map(function (item) {
             return {

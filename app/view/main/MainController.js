@@ -18,6 +18,8 @@ Ext.define('Core.view.main.MainController', {
 
     setCurrentView: function(hashTag) {
         hashTag = (hashTag || '').toLowerCase();
+        
+        
 
         var me = this,
             refs = me.getReferences(),
@@ -36,15 +38,25 @@ Ext.define('Core.view.main.MainController', {
         if (lastView /**  && lastView.isWindow */) {
             lastView.destroy();
         }
+        debugger;
 
         lastView = mainLayout.getActiveItem();
 
-        if (!existingItem) {
+        var cd_navigation = Ext.getStore("cd_navigation");
+        if (cd_navigation.getById(hashTag)) {
             newView = Ext.create({
-                xtype: view,
+                xtype: 'baseview',
                 routeId: hashTag,  // for existingItem search later
                 hideMode: 'offsets'
             });
+        } else {
+            if (!existingItem) {
+                newView = Ext.create({
+                    xtype: view,
+                    routeId: hashTag,  // for existingItem search later
+                    hideMode: 'offsets'
+                });
+            }
         }
 
         if (!newView || !newView.isWindow) {

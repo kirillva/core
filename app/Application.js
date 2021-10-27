@@ -103,7 +103,7 @@ Ext.define("Core.Application", {
                     ],
                 },
                 {
-                    id: "faq",
+                    id: "documents",
                     jb_data: [
                         { title: "Заголовок 1", store: "pd_users", model: "pd_users_1" },
                         { title: "Заголовок 2", store: "pd_users", model: "pd_users_1" },
