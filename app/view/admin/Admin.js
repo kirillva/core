@@ -12,12 +12,7 @@ Ext.define("Core.view.admin.Admin", {
 
     constructor: function () {
         var pd_users = Ext.getStore("pd_users");
-        pd_users.load({
-            limit: 10000,
-            params: {
-                select: pd_users.getSelectFields(),
-            }
-        });
+        pd_users.load();
         this.items = [
             {
                 xtype: "basegrid",

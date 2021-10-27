@@ -64,9 +64,21 @@ Ext.define("Core.Application", {
                                 records.forEach((item) => {
                                     var c_name = item.get("c_name");
                                     var jb_data = item.get("jb_data");
+                                    var alias = item.get('c_alias');
+
 
                                     var model = Ext.ClassManager.get(`Core.model.${c_name}`);
-                                    model.addFields(jb_data.map((item) => Object.assign(item, { dynamic: true })));
+
+                                    if (alias) {
+                                        Ext.define(`${model.displayName}_${alias}`, { 
+                                            extend: 'Ext.data.Model', 
+                                            idProperty: 'id', 
+                                            fields: model.getFields()
+                                            .concat(jb_data.map((item) => Object.assign(item, { dynamic: true }))) 
+                                        });
+                                    } else {
+                                        model.addFields(jb_data.map((item) => Object.assign(item, { dynamic: true })));
+                                    }
                                 });
 
                                 const cd_form_templates = Ext.getStore("cd_form_templates");

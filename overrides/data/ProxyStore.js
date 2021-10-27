@@ -1,7 +1,7 @@
 Ext.define("Ext.overrides.data.ProxyStore", {
     override: "Ext.data.ProxyStore",
     
-    load: function (options) {
+    load: function (options = {}) {
         if (this.getSelectFields) {
             options.params = Object.assign(
                 options.params || {},

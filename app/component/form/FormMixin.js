@@ -21,9 +21,7 @@ Ext.define("Core.component.form.FormMixin", {
             cd_form_templates.sync({
                 callback: function () {
                     sender.unmask();
-                    cd_form_templates.load({
-                        limit: 10000,
-                    });
+                    cd_form_templates.load();
                 },
             });
         }

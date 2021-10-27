@@ -12,12 +12,7 @@ Ext.define("Core.component.grid.BaseGridPanel", {
             showClearAllButton: false,
             showClearButton: true,
             enableOperators: false,
-        },
-        
-        // {
-        //   ptype: "cellediting",
-        //   clicksToEdit: 1,
-        // },
+        }
     ],
 
     viewModel: {
@@ -57,7 +52,15 @@ Ext.define("Core.component.grid.BaseGridPanel", {
     constructor: function (cfg) {
         var me = this;
 
-        var fields = cfg.store.model.getFields();
+        var model = cfg.store.model;
+        if (cfg.alias && model) {
+            model = Ext.ClassManager.get(`${model.displayName}_${cfg.alias}`);
+        }
+
+        debugger;
+        
+        var fields = model.getFields();
+
         var _columns = fields.map((item) => {
             var options = {
                 dataIndex: item.name,

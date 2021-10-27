@@ -45,7 +45,6 @@ Ext.define("Core.view.settings.EditForms", {
 
     privates: {
         onSelectForm: function (combo, record) {
-            debugger;
             if (record) {
                 this.renderFormSetting(record.get('id'));
             }
@@ -63,10 +62,6 @@ Ext.define("Core.view.settings.EditForms", {
             var formSetting = me.down("#formSetting");
             formSetting.mask('Загрузка...');
             store.load({
-                limit: 10000,
-                params: {
-                    select: store.getSelectFields(),
-                },
                 callback: function (items) {
                     var record = items[0];
                     formSetting.removeAll(true);
