@@ -9,9 +9,9 @@ Ext.define("Core.view.settings.EditForms", {
 
     mixins: ["FormMixin"],
     margin: 12,
+
     constructor: function () {
         var me = this;
-
         this.items = [
             {
                 xtype: "combobox",

@@ -1,4 +1,4 @@
-Ext.define("Core.component.grid.BaseGridPanel", {
+Ext.define("Core.component.grid.BaseGrid", {
     extend: "Ext.grid.Panel",
     defaultListenerScope: true,
 

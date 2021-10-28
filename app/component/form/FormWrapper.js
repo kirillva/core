@@ -53,6 +53,9 @@ Ext.define("Core.component.form.FormWrapper", {
                                 },
                             ],
                         }],
+                        style: {
+                            overflow: 'auto'
+                        },
                         xtype: "baseform",
                         height: "100%",
                         flex: 2,

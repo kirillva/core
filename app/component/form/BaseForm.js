@@ -1,4 +1,4 @@
-Ext.define("Core.component.form.Panel", {
+Ext.define("Core.component.form.BaseForm", {
     extend: "Ext.form.Panel",
     defaultListenerScope: true,
     xtype: "baseform",
@@ -10,6 +10,7 @@ Ext.define("Core.component.form.Panel", {
     },
 
     renderField: function (field) {
+        debugger;
         switch (field.type) {
             case "string":
                 return {
@@ -17,7 +18,6 @@ Ext.define("Core.component.form.Panel", {
                     name: field.name,
                     fieldLabel: field.text,
                 };
-
             case "date":
                 return {
                     xtype: field.editor,
@@ -31,9 +31,26 @@ Ext.define("Core.component.form.Panel", {
                     name: field.name,
                     fieldLabel: field.text,
                 };
-
+                
             default:
-                break;
+                break
+                // return {
+                //     xtype: "basegrid",
+                //     editable: true,
+                //     store: Ext.create(`Core.store.dd_documents`, {
+                //         model: Ext.ClassManager.get(`Core.model.dd_documents`),
+                //     }),
+                //     autoLoad: true,
+                //     title: field.text,
+                //     width: "100%",
+                //     plugins: [
+                //         {
+                //             ptype: "rowediting",
+                //             clicksToEdit: 1,
+                //         },
+                //     ],
+                //     flex: 1,
+                // }
         }
 
         return;

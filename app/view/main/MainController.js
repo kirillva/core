@@ -38,12 +38,11 @@ Ext.define('Core.view.main.MainController', {
         if (lastView /**  && lastView.isWindow */) {
             lastView.destroy();
         }
-        debugger;
-
+        
         lastView = mainLayout.getActiveItem();
 
         var cd_navigation = Ext.getStore("cd_navigation");
-        if (cd_navigation.getById(hashTag)) {
+        if (cd_navigation && cd_navigation.getById(hashTag)) {
             newView = Ext.create({
                 xtype: 'baseview',
                 routeId: hashTag,  // for existingItem search later
