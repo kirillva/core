@@ -41,7 +41,7 @@ Ext.define("Core.component.form.BaseForm", {
     },
 
     constructor: function (cfg) {
-        cfg.dockedItems = [
+        this.dockedItems = [
             {
                 xtype: "toolbar",
                 dock: "bottom",
@@ -102,9 +102,9 @@ Ext.define("Core.component.form.BaseForm", {
         this.loadRecord(record);
     },
 
-    bodyStyle: {
-        padding: "10px",
-    },
+    // bodyStyle: {
+    //     padding: "10px",
+    // },
 
     saveForm: function () {
         var me = this;

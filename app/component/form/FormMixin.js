@@ -6,7 +6,8 @@ Ext.define("Core.component.form.FormMixin", {
     },
     
     syncFormTemplate: function (formTemplate, sender) {
-        var name = sender.record && sender.record.store ? sender.record.store.getId() : "";
+        var store = sender.record && sender.record.store ? sender.record.store : null; 
+        var name = store ? store.$className.replace('Core.store.', '') : "";
 
         sender.setFormTemplate(formTemplate);
 

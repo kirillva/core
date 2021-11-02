@@ -2,9 +2,10 @@ Ext.define("Core.component.view.BaseView", {
     extend: "Ext.container.Container",
     xtype: "baseview",
     defaultListenerScope: true,
-    layout: "vbox",
-    style: {
-        overflow: 'auto'
+    
+    layout: {
+        type: "hbox",
+        align: 'stretch'
     },
 
     constructor: function (cfg) {
@@ -12,7 +13,9 @@ Ext.define("Core.component.view.BaseView", {
         var record = cd_navigation.getNodeById(cfg.routeId);
         var jb_data = record.get("jb_data");
 
-        this.items = jb_data.map(function (item) {
+        var items = jb_data.items || [];
+
+        this.items = items.map(function (item) {
             switch (item.xtype) {
                 case "basegrid":
                     return {
@@ -24,7 +27,7 @@ Ext.define("Core.component.view.BaseView", {
                         }),
                         autoLoad: true,
                         title: item.title,
-                        width: "100%",
+                        // width: "100%",
                         plugins: [
                             {
                                 ptype: "rowediting",
@@ -34,7 +37,7 @@ Ext.define("Core.component.view.BaseView", {
                         flex: 1,
                     };
 
-                case "basegrid":
+                case "baseform":
                     return item;
 
                 default:

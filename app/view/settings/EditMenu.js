@@ -3,12 +3,14 @@ Ext.define("Core.view.settings.EditMenu", {
     xtype: "editmenu",
     defaultListenerScope: true,
 
+    layout: 'hbox',
+
+
     constructor: function (cfg) {
         var cd_navigation = Ext.getStore("NavigationTree");
 
         cfg.items = [{
             xtype: "treepanel",
-            width: "100%",
             flex: 1,
             cls: "formtree",
             // dockedItems: {
@@ -38,15 +40,23 @@ Ext.define("Core.view.settings.EditMenu", {
                 },
             },
             listeners: {
-                // selectionchange: "onSelectionChange",
+                selectionchange: "onSelectionChange",
                 // drop: "onDrop",
                 beforedrop: "onBeforeDrop",
             },
+        }, {
+            xtype: "layoutform",
+            flex: 1,
+            
         }];
         this.callParent(arguments);
     },
 
     privates: {
+        onSelectionChange: function () {
+            debugger;
+        },
+        
         onBeforeDrop: function () {
             debugger;
         }

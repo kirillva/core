@@ -187,6 +187,10 @@ Ext.define("Core.component.form.FormProps", {
                 return true;
             }
 
+            if (!overModel.isLeaf() && !overModel.isRoot() && dropPosition == "append" && record.isLeaf()) {
+                return true;
+            }
+
             if (overModel.isLeaf() && (dropPosition == "before" || dropPosition == "after") && record.isLeaf()) {
                 return true;
             }
