@@ -5,14 +5,14 @@ Ext.define("Core.component.form.FormProps", {
 
     config: {
         store: null,
-        selectedRecord: null
+        selectedRecord: null,
     },
 
     layout: "vbox",
 
     constructor: function (cfg) {
         this.callParent(arguments);
-        this.renderForm(cfg.store)
+        this.renderForm(cfg.store);
     },
 
     privates: {
@@ -52,12 +52,31 @@ Ext.define("Core.component.form.FormProps", {
                     listeners: {
                         selectionchange: "onSelectionChange",
                         drop: "onDrop",
-                        beforedrop: 'onBeforeDrop'
+                        beforedrop: "onBeforeDrop",
                     },
                 },
                 {
-                    xtype: "panel",
-                    title: "Свойства",
+                    dockedItems: {
+                        xtype: "panelheader",
+                        title: "Свойства",
+                        items: [
+                            // "-",
+                            // {
+                            //     xtype: "button",
+                            //     iconCls: "x-fa fa-plus",
+                            //     handler: "addLayout",
+                            //     scope: this,
+                            // },
+                            {
+                                xtype: "button",
+                                iconCls: "x-fa fa-save",
+                                handler: "saveSettings",
+                                scope: this,
+                            },
+                        ],
+                    },
+                    xtype: "form",
+                    // title: "Свойства",
                     width: "100%",
                     itemId: "settings",
                     flex: 1,
@@ -75,7 +94,9 @@ Ext.define("Core.component.form.FormProps", {
             var treepanel = this.down("treepanel");
             var store = treepanel.getStore();
 
-            store.getRootNode().appendChild({ text: `Панель`, expanded: true, leaf: false, root: false });
+            store.getRootNode().appendChild(
+                FormHelper.createPanel({ expanded: true, leaf: false, root: false })
+            );
         },
 
         saveTemplate: function () {
@@ -99,36 +120,45 @@ Ext.define("Core.component.form.FormProps", {
             var settings = this.down("#settings");
             settings.removeAll(true);
 
-            var layout = record.get("layout");
+            var data = record.getData();
+            var { layout, text } = data;
 
             if (record.isLeaf()) {
-
             } else {
                 settings.add([
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: 'Название',
+                        value: text,
+                        name: 'text'
+                    },
                     {
                         xtype: "combobox",
                         fieldLabel: "Расположение полей",
                         displayField: "name",
                         valueField: "id",
                         value: layout,
+                        name: 'layout',
                         store: {
                             data: [
                                 { id: "hbox", name: "Горизонтально" },
                                 { id: "vbox", name: "Вертикально" },
                             ],
-                        },
-                        listeners: {
-                            select: 'selectLayout'
-                        },
+                        }
                     },
                 ]);
             }
         },
 
-        selectLayout: function (combo, record, eOpts) {
+        saveSettings: function () {
+            var settings = this.down("#settings");
+            var values = settings ? settings.getValues() : {};
             var selectedRecord = this.getSelectedRecord();
 
-            selectedRecord.set('layout', record.id);
+            debugger;
+            Object.keys(values).map(key=>{
+                selectedRecord.set(key, values[key]);
+            });
 
             var store = this.saveTemplate();
             this.fireEvent("saveTemplate", store);
@@ -149,19 +179,19 @@ Ext.define("Core.component.form.FormProps", {
         onBeforeDrop: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
             var record = data.records && data.records[0];
 
-            if (overModel.isRoot() && dropPosition == 'append' && !record.isLeaf()) {
+            if (overModel.isRoot() && dropPosition == "append" && !record.isLeaf()) {
                 return true;
-            } 
+            }
 
-            if ((!overModel.isLeaf() && !overModel.isRoot()) && dropPosition == 'before' && !record.isLeaf()) {
+            if (!overModel.isLeaf() && !overModel.isRoot() && dropPosition == "before" && !record.isLeaf()) {
                 return true;
-            } 
+            }
 
-            if (overModel.isLeaf() && (dropPosition == 'before' || dropPosition == 'after') && record.isLeaf()) {
+            if (overModel.isLeaf() && (dropPosition == "before" || dropPosition == "after") && record.isLeaf()) {
                 return true;
-            } 
+            }
 
             return false;
-        }
+        },
     },
 });

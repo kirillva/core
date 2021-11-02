@@ -4,7 +4,11 @@ Ext.define('Core.store.NavigationTree', {
     storeId: 'NavigationTree',
 
     fields: [{
-        name: 'text'
+        name: 'text',
+        // type: 'string',
+    },{
+        name: 'jb_data',
+        // type: 'auto',
     }],
 
     root: {
@@ -14,13 +18,30 @@ Ext.define('Core.store.NavigationTree', {
                 text: 'Главная',
                 iconCls: 'x-fa fa-desktop',
                 viewType: 'home',
-                // routeId: 'home',
+                id: 'home',
+                jb_data: [
+                    // { xtype: 'basegrid', title: "Заголовок 1", store: "dd_documents", model: "dd_documents_1" },
+                    // { xtype: 'grid', title: "Заголовок 2", store: "dd_documents", model: "dd_documents_2" },
+                    {
+                        xtype: "baseform",
+                        height: "100%",
+                        flex: 1,
+                        formTemplate: 'dd_documents',
+                        formRecord: 'a124a56e-3762-4882-9fa4-d1972ad291db',
+                        store: 'dd_documents',
+                    }
+                ],
                 leaf: true
             },
             {
                 text: 'Документы',
                 iconCls: 'x-fa fa-desktop',
                 viewType: 'documents',
+                id: 'documents',
+                jb_data: [
+                    { xtype: 'basegrid', title: "Заголовок 1", store: "pd_users", model: "pd_users_1" },
+                    { xtype: 'basegrid', title: "Заголовок 2", store: "pd_users", model: "pd_users_1" },
+                ],
                 leaf: true
             },
             {

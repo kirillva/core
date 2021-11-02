@@ -54,24 +54,44 @@ Ext.define("Core.component.form.FormHelper", {
     //   }
     // },
 
+    createPanel: function (options) {
+        return Object.assign(
+            options, 
+            {
+                text: options.title || `Панель`,
+                // layout: item.layout,
+                // expanded: true,
+                // leaf: false,
+                // children: childrens,
+            }
+        );
+    },
+
     formTemplateToStore: function (formTemplate) {
+        var me = this;
         var children = [];
 
         if (!formTemplate) return null;
 
+        // debugger;
         formTemplate.items.forEach((item, id) => {
             var childrens = [];
-            item.items.forEach((field) => {
-                childrens.push({ text: field.itemId, leaf: true });
-            });
+            
+            if (item.items) {
+                item.items.forEach((field) => {
+                    childrens.push({ text: field.itemId, fieldId: field.itemId, leaf: true });
+                });
+            }
 
-            children.push({
-                text: `Панель`,
-                layout: item.layout,
-                expanded: true,
-                leaf: false,
-                children: childrens,
-            });
+            children.push(
+                me.createPanel({
+                    ...item,
+                    layout: item.layout,
+                    expanded: true,
+                    leaf: false,
+                    children: childrens,
+                })
+            );
         });
 
         return {
@@ -87,14 +107,15 @@ Ext.define("Core.component.form.FormHelper", {
         var childrens = root.childNodes;
         var formTemplate = [];
 
+        debugger;
         childrens.forEach((panel) => {
             var node = [];
 
             panel.childNodes.forEach((field) => {
-                node.push({ itemId: field.get("text") });
+                node.push({ itemId: field.get("fieldId") });
             });
 
-            formTemplate.push({ layout: panel.get("layout") || "hbox", items: node });
+            formTemplate.push({ layout: panel.get("layout") || "hbox", title: panel.get("text"), items: node });
         });
 
         // this.fireEvent("formTemplate", { items: formTemplate });

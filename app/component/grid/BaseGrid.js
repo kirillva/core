@@ -52,6 +52,9 @@ Ext.define("Core.component.grid.BaseGrid", {
     constructor: function (cfg) {
         var me = this;
 
+        if (typeof cfg.store === 'string') {
+            cfg.store = Ext.StoreManager.get(cfg.store)
+        }
         var model = cfg.store.model;
         if (cfg.alias && model) {
             model = Ext.ClassManager.get(`${model.displayName}_${cfg.alias}`);

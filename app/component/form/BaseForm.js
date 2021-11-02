@@ -6,11 +6,12 @@ Ext.define("Core.component.form.BaseForm", {
     config: {
         formRendered: false,
         formRecord: null,
+        store: null,
         formTemplate: null,
     },
 
     renderField: function (field) {
-        debugger;
+        // debugger;
         switch (field.type) {
             case "string":
                 return {
@@ -31,26 +32,9 @@ Ext.define("Core.component.form.BaseForm", {
                     name: field.name,
                     fieldLabel: field.text,
                 };
-                
+
             default:
-                break
-                // return {
-                //     xtype: "basegrid",
-                //     editable: true,
-                //     store: Ext.create(`Core.store.dd_documents`, {
-                //         model: Ext.ClassManager.get(`Core.model.dd_documents`),
-                //     }),
-                //     autoLoad: true,
-                //     title: field.text,
-                //     width: "100%",
-                //     plugins: [
-                //         {
-                //             ptype: "rowediting",
-                //             clicksToEdit: 1,
-                //         },
-                //     ],
-                //     flex: 1,
-                // }
+                break;
         }
 
         return;
@@ -67,12 +51,22 @@ Ext.define("Core.component.form.BaseForm", {
                         handler: "saveForm",
                     },
                 ],
-            }
+            },
         ].concat(cfg.dockedItems);
-        
+
         this.callParent(arguments);
-        this.renderTemplate(cfg.formTemplate);
+        if (typeof cfg.formTemplate === 'string') {
+            var cd_form_templates = Ext.getStore("cd_form_templates");
+            var dd_documents_record = cd_form_templates.getById(cfg.formTemplate);
         
+            var _formTemplate = dd_documents_record.get("jb_data");
+
+            this.renderTemplate(_formTemplate);
+        }
+
+        if (typeof cfg.formTemplate === 'object') {
+            this.renderTemplate(cfg.formTemplate);
+        }
     },
 
     renderTemplate: function (formTemplate) {
@@ -108,8 +102,6 @@ Ext.define("Core.component.form.BaseForm", {
         this.loadRecord(record);
     },
 
-    
-
     bodyStyle: {
         padding: "10px",
     },
@@ -135,9 +127,32 @@ Ext.define("Core.component.form.BaseForm", {
 
     listeners: {
         afterlayout: function () {
-            var formRecord = this.getFormRecord();
-            if (formRecord && !this.getFormRendered()) {
-                this.renderItems(formRecord);
+            var me = this;
+            var formRecord = me.getFormRecord();
+            var store = me.store;
+
+            if (typeof formRecord === "string" && typeof store === "string") {
+                store = Ext.create(`Core.store.${store}`);
+                store.load({
+                    params: {
+                        filter: [
+                            {
+                                property: "id",
+                                value: formRecord,
+                            },
+                        ],
+                    },
+                    callback: function (records) {
+                        var record = store.getById(formRecord);
+                        if (formRecord && !me.getFormRendered()) {
+                            me.renderItems(record);
+                        }
+                    },
+                });
+            } else {
+                if (formRecord && !me.getFormRendered()) {
+                    me.renderItems(formRecord);
+                }
             }
         },
     },

@@ -30,6 +30,7 @@ Ext.define('Core.view.main.MainController', {
             node = store.findNode('routeId', hashTag) ||
                    store.findNode('viewType', hashTag),
             view = (node && node.get('viewType')) || 'page404',
+            jb_data = (node && node.get('jb_data')) || null,
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
@@ -41,22 +42,22 @@ Ext.define('Core.view.main.MainController', {
         
         lastView = mainLayout.getActiveItem();
 
-        var cd_navigation = Ext.getStore("cd_navigation");
-        if (cd_navigation && cd_navigation.getById(hashTag)) {
+        // var cd_navigation = Ext.getStore("NavigationTree");
+        // if (cd_navigation && cd_navigation.getNodeById(hashTag)) {
+        //     newView = Ext.create({
+        //         xtype: 'baseview',
+        //         routeId: hashTag,  // for existingItem search later
+        //         hideMode: 'offsets'
+        //     });
+        // } else {
+        if (!existingItem) {
             newView = Ext.create({
-                xtype: 'baseview',
+                xtype: jb_data ? 'baseview' : view,
                 routeId: hashTag,  // for existingItem search later
                 hideMode: 'offsets'
             });
-        } else {
-            if (!existingItem) {
-                newView = Ext.create({
-                    xtype: view,
-                    routeId: hashTag,  // for existingItem search later
-                    hideMode: 'offsets'
-                });
-            }
         }
+        // }
 
         if (!newView || !newView.isWindow) {
             // !newView means we have an existing view, but if the newView isWindow
