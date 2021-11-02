@@ -5,7 +5,6 @@ Ext.define("Core.view.settings.EditMenu", {
 
     layout: 'hbox',
 
-
     constructor: function (cfg) {
         var cd_navigation = Ext.getStore("NavigationTree");
 
@@ -47,14 +46,18 @@ Ext.define("Core.view.settings.EditMenu", {
         }, {
             xtype: "layoutform",
             flex: 1,
-            
         }];
         this.callParent(arguments);
     },
 
     privates: {
-        onSelectionChange: function () {
-            debugger;
+        onSelectionChange: function (treelist, record, eOpts)  {
+            var _record = record[0];
+            var layoutform = this.down('layoutform');
+            if (layoutform && _record) {
+                layoutform.loadRecord(_record);
+            }
+            
         },
         
         onBeforeDrop: function () {

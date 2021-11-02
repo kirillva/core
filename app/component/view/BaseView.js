@@ -12,6 +12,8 @@ Ext.define("Core.component.view.BaseView", {
         var cd_navigation = Ext.getStore("NavigationTree");
         var record = cd_navigation.getNodeById(cfg.routeId);
         var jb_data = record.get("jb_data");
+        var layout = record.get('layout');
+        cfg.layout = { type: layout || 'hbox', align: 'stretch' };
 
         var items = jb_data.items || [];
 

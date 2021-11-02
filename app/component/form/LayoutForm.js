@@ -6,34 +6,45 @@ Ext.define("Core.component.form.LayoutForm", {
     constructor: function (cfg) {
         cfg.items = [{
             xtype: 'textfield',
-            fieldLabel: 'template',
-            name: 'template'
-        },]
+            fieldLabel: 'Наименование',
+            name: 'text'
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Константа',
+            name: 'viewType'
+        },{
+            xtype: "combobox",
+            fieldLabel: "Тип шаблона",
+            name: 'layout',
+            store: {
+                data: [
+                    { id: "hbox", name: "Горизонтально" },
+                    { id: "vbox", name: "Вертикально" }
+                ],
+            },
+            queryMode: "local",
+            displayField: "name",
+            valueField: "id",
+            editable: false,
+        }];
+        cfg.dockedItems = {
+            xtype: "panelheader",
+            title: "Свойства",
+            items: [
+                {
+                    xtype: "button",
+                    iconCls: "x-fa fa-save",
+                    handler: "saveSettings",
+                    scope: this,
+                },
+            ],
+        };
         this.callParent([cfg]);
-        // cfg.dockedItems = [
-        //     {
-        //         xtype: "toolbar",
-        //         dock: "bottom",
-        //         items: [
-        //             {
-        //                 text: "Сохранить",
-        //                 handler: "saveForm",
-        //             },
-        //         ],
-        //     },
-        // ].concat(cfg.dockedItems);
+    },
 
-        // if (typeof cfg.formTemplate === 'string') {
-        //     var cd_form_templates = Ext.getStore("cd_form_templates");
-        //     var dd_documents_record = cd_form_templates.getById(cfg.formTemplate);
-        
-        //     var _formTemplate = dd_documents_record.get("jb_data");
-
-        //     this.renderTemplate(_formTemplate);
-        // }
-
-        // if (typeof cfg.formTemplate === 'object') {
-        //     this.renderTemplate(cfg.formTemplate);
-        // }
+    privates: {
+        saveSettings: function () {
+            this.updateRecord();
+        }
     }
 });

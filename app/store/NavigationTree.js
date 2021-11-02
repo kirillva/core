@@ -5,12 +5,13 @@ Ext.define("Core.store.NavigationTree", {
 
     fields: [
         {
-            name: "text",
-            // type: 'string',
+            name: "text"
         },
         {
-            name: "jb_data",
-            // type: 'auto',
+            name: "jb_data"
+        },
+        {
+            name: "layout"
         },
     ],
 
