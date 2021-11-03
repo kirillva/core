@@ -85,6 +85,7 @@ Ext.define("Core.component.form.BaseForm", {
         var fieldsMap = record.fieldsMap;
 
         var items = [];
+        me.suspendLayouts();
 
         record.fields.forEach((item) => {
             var name = item.name.replace(".", "___");
@@ -99,12 +100,9 @@ Ext.define("Core.component.form.BaseForm", {
 
         me.add(items);
 
-        this.loadRecord(record);
+        me.resumeLayouts(true);
+        me.loadRecord(record);
     },
-
-    // bodyStyle: {
-    //     padding: "10px",
-    // },
 
     saveForm: function () {
         var me = this;

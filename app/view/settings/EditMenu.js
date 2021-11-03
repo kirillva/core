@@ -55,6 +55,7 @@ Ext.define("Core.view.settings.EditMenu", {
             var _record = record[0];
             var layoutform = this.down('layoutform');
             if (layoutform && _record) {
+                layoutform.form.reset();
                 layoutform.loadRecord(_record);
             }
             

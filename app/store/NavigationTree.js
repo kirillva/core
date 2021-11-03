@@ -23,14 +23,13 @@ Ext.define("Core.store.NavigationTree", {
                 iconCls: "x-fa fa-desktop",
                 viewType: "home",
                 id: "home",
+                layout: 'hbox',
                 jb_data: {
                     items: [
                         { xtype: 'basegrid', title: "Заголовок 1", store: "dd_documents", model: "dd_documents_1" },
-                        // { xtype: 'grid', title: "Заголовок 2", store: "dd_documents", model: "dd_documents_2" },
+                        { xtype: 'basegrid', title: "Заголовок 2", store: "dd_documents", model: "dd_documents_2" },
                         {
                             xtype: "baseform",
-                            // height: "100%",
-                            // flex: 1,
                             formTemplate: "dd_documents",
                             formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
                             store: "dd_documents",
@@ -44,6 +43,7 @@ Ext.define("Core.store.NavigationTree", {
                 iconCls: "x-fa fa-desktop",
                 viewType: "documents",
                 id: "documents",
+                layout: 'vbox',
                 jb_data: {
                     items: [
                         { xtype: "basegrid", title: "Заголовок 1", store: "pd_users", model: "pd_users_1" },
