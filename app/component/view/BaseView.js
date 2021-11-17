@@ -3,40 +3,25 @@ Ext.define("Core.component.view.BaseView", {
     xtype: "baseview",
     defaultListenerScope: true,
 
-    layout: {
-        type: "hbox",
-        align: "stretch",
-    },
+    layout: 'fit',
 
     config: {
         viewTemplate: null,
         viewRendered: false,
+        record: null
     },
 
     constructor: function (cfg) {
-        var items = this.getTemplate([
-            {
-                xtype: "panel",
-                itemId: "view_0",
-                layout: 'fit',
-                flex: 1,
-            },
-            {
-                xtype: "panel",
-                itemId: "view_1",
-                layout: 'fit',
-                flex: 1,
-            },
-            {
-                xtype: "panel",
-                itemId: "view_2",
-                layout: 'fit',
-                flex: 1,
-            },
-        ]);
+        var layout = cfg.node.get('layout');
+        var items = Shared.getTemplate(layout);
 
+        var cd_navigation = Ext.getStore("NavigationTree");
+        var record = cd_navigation.getNodeById(cfg.routeId);
+
+        this.record = record;
         this.items = items;
         this.callParent(arguments);
+        
         this.setViewRendered(false);
     },
 
@@ -53,9 +38,9 @@ Ext.define("Core.component.view.BaseView", {
 
         renderView: function () {
             var me = this;
-            var cd_navigation = Ext.getStore("NavigationTree");
-            var record = cd_navigation.getNodeById(me.routeId);
-            var jb_data = record.get("jb_data");
+            // var cd_navigation = Ext.getStore("NavigationTree");
+            // var record = cd_navigation.getNodeById(me.routeId);
+            var jb_data = this.record.get("jb_data");
 
             if (me.getViewRendered()) return;
 

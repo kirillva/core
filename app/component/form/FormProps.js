@@ -155,7 +155,6 @@ Ext.define("Core.component.form.FormProps", {
             var values = settings ? settings.getValues() : {};
             var selectedRecord = this.getSelectedRecord();
 
-            debugger;
             Object.keys(values).map(key=>{
                 selectedRecord.set(key, values[key]);
             });

@@ -45,7 +45,7 @@ Ext.define("Core.view.settings.EditMenu", {
             },
         }, {
             xtype: "layoutform",
-            flex: 1,
+            flex: 2,
         }];
         this.callParent(arguments);
     },

@@ -18,8 +18,8 @@ Ext.define("Core.component.form.LayoutForm", {
             name: 'layout',
             store: {
                 data: [
-                    { id: "hbox", name: "Горизонтально" },
-                    { id: "vbox", name: "Вертикально" }
+                    { id: "layout_1", name: "Шаблон 1" },
+                    { id: "layout_2", name: "Шаблон 2" }
                 ],
             },
             queryMode: "local",

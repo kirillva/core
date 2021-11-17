@@ -54,6 +54,7 @@ Ext.define('Core.view.main.MainController', {
             newView = Ext.create({
                 xtype: jb_data ? 'baseview' : view,
                 routeId: hashTag,  // for existingItem search later
+                node: node,
                 hideMode: 'offsets'
             });
         }

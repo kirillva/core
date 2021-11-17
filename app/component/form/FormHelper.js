@@ -107,7 +107,6 @@ Ext.define("Core.component.form.FormHelper", {
         var childrens = root.childNodes;
         var formTemplate = [];
 
-        debugger;
         childrens.forEach((panel) => {
             var node = [];
 
