@@ -13,23 +13,41 @@ Ext.define("Core.view.settings.EditForms", {
     constructor: function () {
         var me = this;
         this.items = [
+            // {
+            //     xtype: "combobox",
+            //     fieldLabel: "Выбор формы",
+            //     width: "100%",
+            //     store: {
+            //         data: [
+            //             { id: "1", table: 'dd_documents', name: "dd_documents_1" },
+            //             { id: "2", table: 'dd_documents', name: "dd_documents_2" }
+            //         ],
+            //     },
+            //     queryMode: "local",
+            //     displayField: "name",
+            //     valueField: "id",
+            //     // focusable: false,
+            //     editable: false,
+            //     listeners: {
+            //         beforeselect: 'onSelectForm',
+            //     },
+            // },
             {
-                xtype: "combobox",
-                fieldLabel: "Выбор формы",
+                xtype: "basegrid",
+                store: Ext.create("Core.store.cd_form_templates"),
+                autoLoad: true,
+                title: "Настройка форм",
                 width: "100%",
-                store: {
-                    data: [
-                        { id: "dd_documents", name: "dd_documents" },
-                        { id: "pd_users", name: "pd_users" }
-                    ],
-                },
-                queryMode: "local",
-                displayField: "name",
-                valueField: "id",
-                // focusable: false,
-                editable: false,
+                flex: 1,
+                // margin: "0 12px 0 0",
+                plugins: [
+                    {
+                        ptype: "rowediting",
+                        clicksToEdit: 2,
+                    },
+                ],
                 listeners: {
-                    beforeselect: 'onSelectForm',
+                    rowclick: "onSelectForm",
                 },
             },
             {
@@ -45,20 +63,42 @@ Ext.define("Core.view.settings.EditForms", {
 
     privates: {
         onSelectForm: function (combo, record) {
-            if (record) {
-                this.renderFormSetting(record.get('id'));
+            if (record && !record.phantom) {
+                this.renderFormSetting(record);
             }
         },
 
-        renderFormSetting: function (name, callback) {
+        generateDefaultForm: function (store) {
+            var fields = store.getModel().fields;
+            var _fields = [];
+
+            fields.forEach(field => {
+                if (field.name != 'jb_data' && !field.hidden) {
+                    _fields.push({
+                        itemId: field.name
+                    });
+                }
+            });
+
+            return {
+                items: [{
+                    items: _fields
+                }]
+            }
+        },
+
+        renderFormSetting: function (record) {
             var me = this;
+
+            var name = record.get('c_alias');
+            var table = record.get('c_name');
 
             var cd_form_templates = Ext.getStore("cd_form_templates");
             var dd_documents_record = cd_form_templates.getById(name);
 
-            var formTemplate = dd_documents_record.get("jb_data");
+            var store = Ext.getStore(table);
+            var formTemplate = dd_documents_record.get("jb_data") || me.generateDefaultForm(store);
 
-            var store = Ext.getStore(name);
             var formSetting = me.down("#formSetting");
             formSetting.mask('Загрузка...');
             store.load({

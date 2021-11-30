@@ -46,8 +46,8 @@ Ext.define("Core.store.NavigationTree", {
                 layout: 'layout_2',
                 jb_data: {
                     items: [
-                        { xtype: "basegrid", title: "Заголовок 1", store: "pd_users", model: "pd_users_1" },
-                        { xtype: "basegrid", title: "Заголовок 2", store: "pd_users", model: "pd_users_1" },
+                        { xtype: "basegrid", title: "Заголовок 1", store: "pd_users", model: "pd_users_3" },
+                        { xtype: "basegrid", title: "Заголовок 2", store: "pd_users", model: "pd_users_4" },
                         {
                             xtype: "baseform",
                             formTemplate: "1",
