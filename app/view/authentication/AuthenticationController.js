@@ -11,12 +11,26 @@ Ext.define('Core.view.authentication.AuthenticationController', {
     onLoginButton: function(sender) {
         var me = this;
         sender.mask('Загрузка...')
-        AuthProvider.singIn("master", "2S4KEq", true, function () {
-            Ext.getCurrentApp().onReady(function (name) {
-                // if (name) me.redirectTo(name);
-                sender.unmask();
-                me.redirectTo('home', true);
-            });
+        var view = this.getView();
+        var values = view ? view.getValues() : {};
+        AuthProvider.singIn(values.userid, values.password, true, function (response) {
+            if (response.success) {
+                Ext.getCurrentApp().onReady(function (name) {
+                    // if (name) me.redirectTo(name);
+                    sender.unmask();
+                    me.redirectTo('home', true);
+                });
+            } else {
+                Ext.Msg.show({
+                    title: "Ошибка",
+                    message: response.msg,
+                    buttons: Ext.Msg.OK,
+                    // icon: Ext.Msg.ERROR,
+                    fn: function (btn) {
+                        sender.unmask();
+                    },
+                });
+            }
         });
     },
 

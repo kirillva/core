@@ -90,7 +90,7 @@ Ext.define('Core.view.authentication.LockScreen', {
                             ui: 'soft-blue',
                             iconAlign: 'right',
                             iconCls: 'x-fa fa-angle-right',
-                            text: 'Login',
+                            text: 'Войти',
                             formBind: true,
                             listeners: {
                                 click: 'onLoginButton'

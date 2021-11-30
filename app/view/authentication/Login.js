@@ -92,7 +92,7 @@ Ext.define('Core.view.authentication.Login', {
                     // ui: 'soft-green',
                     iconAlign: 'right',
                     // iconCls: 'x-fa fa-angle-right',
-                    text: 'Login',
+                    text: 'Вход',
                     formBind: true,
                     listeners: {
                         click: 'onLoginButton'

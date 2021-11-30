@@ -1,6 +1,6 @@
 Ext.define('Core.model.cd_additional_fields', {
     extend: 'Ext.data.Model',
-    idProperty: 'c_name',
+    idProperty: 'c_alias',
 
     fields: [
         { name: "c_name", type: "string", text: "Имя таблицы", column: "gridcolumn", editor: 'textfield' },

@@ -30,7 +30,7 @@ Ext.define("Core.store.NavigationTree", {
                         { xtype: 'basegrid', title: "Заголовок 2", store: "dd_documents", model: "dd_documents_2" },
                         {
                             xtype: "baseform",
-                            formTemplate: "dd_documents",
+                            formTemplate: "1",
                             formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
                             store: "dd_documents",
                         },
@@ -50,7 +50,7 @@ Ext.define("Core.store.NavigationTree", {
                         { xtype: "basegrid", title: "Заголовок 2", store: "pd_users", model: "pd_users_1" },
                         {
                             xtype: "baseform",
-                            formTemplate: "dd_documents",
+                            formTemplate: "1",
                             formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
                             store: "dd_documents",
                         },
