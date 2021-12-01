@@ -47,7 +47,7 @@ Ext.define("Core.Application", {
                 cd_settings.load(
                     Object.assign(options, {
                         callback: function (records) {
-                            resolve(records);
+                            resolve(records || []);
                         },
                     })
                 );

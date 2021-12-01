@@ -22,6 +22,7 @@ Ext.define('Core.view.main.Main', {
     },
 
     constructor: function () {
+        debugger;
         var record = Ext.getStore("current_user").getById(AuthProvider.getUserId());
         this.callParent(arguments);
         var vm = this.getViewModel();

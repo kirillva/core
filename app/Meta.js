@@ -15,28 +15,35 @@
         setDirectProvider: function (callback) {
             var me = this;
 
-            Ext.Ajax.request({
-                url: Ext.String.format(Ext.getConf('RPC.REMOTING_API'), Ext.getConf('REMOTING_ADDRESS')),
+            var data = LocalMeta.getData();
+            data.url = Ext.String.format(Ext.getConf('RPC_URL'), Ext.getConf('REMOTING_ADDRESS'));
+            me.createDirect(data);
+            
+            if (typeof callback == 'function')
+                callback(200);
 
-                success: function (response, opts) {
-                    var text = response.responseText;
-                    var data = JSON.parse(text);
+            // Ext.Ajax.request({
+            //     url: Ext.String.format(Ext.getConf('RPC.REMOTING_API'), Ext.getConf('REMOTING_ADDRESS')),
 
-                    if (!data.meta || data.meta.success === true) {
-                        data.url = Ext.String.format(Ext.getConf('RPC_URL'), Ext.getConf('REMOTING_ADDRESS'));
-                        me.createDirect(data);
-                    }
+            //     success: function (response, opts) {
+            //         var text = response.responseText;
+            //         var data = JSON.parse(text);
 
-                    if (callback)
-                        callback(data.code || 200);
-                },
+            //         if (!data.meta || data.meta.success === true) {
+            //             data.url = Ext.String.format(Ext.getConf('RPC_URL'), Ext.getConf('REMOTING_ADDRESS'));
+            //             me.createDirect(data);
+            //         }
 
-                failure: function (response, opts) {
-                    console.log('Ошибка при чтение мета данных. ' + response.statusText);
-                    if (typeof callback == 'function')
-                        callback(response.status);
-                }
-            });
+            //         if (callback)
+            //             callback(data.code || 200);
+            //     },
+
+            //     failure: function (response, opts) {
+            //         console.log('Ошибка при чтение мета данных. ' + response.statusText);
+            //         if (typeof callback == 'function')
+            //             callback(response.status);
+            //     }
+            // });
         },
 
 

@@ -146,7 +146,7 @@ Ext.define('Core.AuthProvider', {
                         }
                         if (meta.token != null) {
                             // Audit.auth_success(meta.user.userName);
-                            me.setAuthorize(meta.token, meta.user.login, rememberMe, meta.user.claims.split('.').filter(item=>item).join(','), meta.user.id);
+                            me.setAuthorize(meta.token, meta.user.login, rememberMe, meta.user.claims.split('.').filter(item=>item).join(','), meta.user.userId);
                             me.setAuthoriseHeader(meta.token);
                             callback({
                                 success: true,

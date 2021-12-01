@@ -3,7 +3,7 @@ Ext.define('Core.DefinedNames', {
     singleton: true,
 
     names: {
-        "projectName": "Город"
+        "projectName": "Голосование"
     },
 
     get: function (property) {

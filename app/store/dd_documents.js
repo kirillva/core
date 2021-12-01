@@ -18,10 +18,10 @@ Ext.define('Core.store.dd_documents', {
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'core.dd_documents.Query',
-            create: 'core.dd_documents.Add',
-            update: 'core.dd_documents.Update',
-            destroy: 'core.dd_documents.Delete'
+            read: 'dd_documents.Query',
+            create: 'dd_documents.Add',
+            update: 'dd_documents.Update',
+            destroy: 'dd_documents.Delete'
         },
         reader: {
             successProperty: 'success',

@@ -1,24 +1,24 @@
-Ext.define('Core.store.current_user', {
+Ext.define('Core.store.cs_appartament', {
     extend: 'Ext.data.Store',
-    model: 'Core.model.pd_users',
+    model: 'Core.model.cs_appartament',
 
-    alias: 'store.current_user',
-    storeId: 'current_user',
+    alias: 'store.cs_appartament',
+    storeId: 'cs_appartament',
 
     remoteFilter: true,
     remoteSort: true,
     remoteGroup: true,
-
     mixins: [
         'Core.data.Selectable'
     ],
 
-    autoLoad: false,
-    
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'pd_users.Query'
+            read: 'cs_appartament.Query',
+            create: 'cs_appartament.Add',
+            update: 'cs_appartament.Update',
+            destroy: 'cs_appartament.Delete'
         },
         reader: {
             successProperty: 'success',

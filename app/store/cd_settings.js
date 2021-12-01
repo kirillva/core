@@ -15,10 +15,10 @@
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'core.cd_settings.Query',
-            create: 'core.cd_settings.Add',
-            update: 'core.cd_settings.Update',
-            destroy: 'core.cd_settings.Delete'
+            read: 'cd_settings.Query',
+            create: 'cd_settings.Add',
+            update: 'cd_settings.Update',
+            destroy: 'cd_settings.Delete'
         },
         reader: {
             successProperty: 'success',

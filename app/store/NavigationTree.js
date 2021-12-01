@@ -26,63 +26,65 @@ Ext.define("Core.store.NavigationTree", {
                 layout: 'layout_1',
                 jb_data: {
                     items: [
-                        { xtype: 'basegrid', title: "Заголовок 1", store: "dd_documents", model: "dd_documents_1" },
-                        { xtype: 'basegrid', title: "Заголовок 2", store: "dd_documents", model: "dd_documents_2" },
-                        {
-                            xtype: "baseform",
-                            formTemplate: "1",
-                            formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
-                            store: "dd_documents",
-                        },
+                        { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street" },
+                        { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house" },
+                        { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament" },
+                        { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people" },
+                        // {
+                        //     xtype: "baseform",
+                        //     formTemplate: "1",
+                        //     formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
+                        //     store: "dd_documents",
+                        // },
                     ],
                 },
                 leaf: true,
             },
-            {
-                text: "Документы",
-                iconCls: "x-fa fa-desktop",
-                viewType: "documents",
-                id: "documents",
-                layout: 'layout_2',
-                jb_data: {
-                    items: [
-                        { xtype: "basegrid", title: "Заголовок 1", store: "pd_users", model: "pd_users_3" },
-                        { xtype: "basegrid", title: "Заголовок 2", store: "pd_users", model: "pd_users_4" },
-                        {
-                            xtype: "baseform",
-                            formTemplate: "1",
-                            formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
-                            store: "dd_documents",
-                        },
-                    ],
-                },
-                leaf: true,
-            },
+            // {
+            //     text: "Документы",
+            //     iconCls: "x-fa fa-desktop",
+            //     viewType: "documents",
+            //     id: "documents",
+            //     layout: 'layout_2',
+            //     jb_data: {
+            //         items: [
+            //             { xtype: "basegrid", title: "Заголовок 1", store: "pd_users", model: "pd_users_3" },
+            //             { xtype: "basegrid", title: "Заголовок 2", store: "pd_users", model: "pd_users_4" },
+            //             {
+            //                 xtype: "baseform",
+            //                 formTemplate: "1",
+            //                 formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
+            //                 store: "dd_documents",
+            //             },
+            //         ],
+            //     },
+            //     leaf: true,
+            // },
             {
                 text: "Администрирование",
                 iconCls: "x-fa fa-user",
                 viewType: "admin",
                 leaf: true,
             },
-            {
-                text: "Настройки",
-                iconCls: "x-fa fa-cog",
-                viewType: "settings",
-                // visible: false,
-                leaf: true,
-            },
+            // {
+            //     text: "Настройки",
+            //     iconCls: "x-fa fa-cog",
+            //     viewType: "settings",
+            //     // visible: false,
+            //     leaf: true,
+            // },
             // {
             //     text: 'Форма',
             //     iconCls: 'x-fa fa-search',
             //     viewType: 'formresults',
             //     leaf: true
             // },
-            {
-                text: "Помощь",
-                iconCls: "x-fa fa-question",
-                viewType: "faq",
-                leaf: true,
-            },
+            // {
+            //     text: "Помощь",
+            //     iconCls: "x-fa fa-question",
+            //     viewType: "faq",
+            //     leaf: true,
+            // },
             {
                 text: "Выход",
                 iconCls: "x-fa fa-sign-out",

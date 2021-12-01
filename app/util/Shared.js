@@ -33,6 +33,12 @@ Ext.define("Core.util.Shared", {
                             layout: "fit",
                             flex: 1,
                         },
+                        {
+                            xtype: "panel",
+                            itemId: "view_3",
+                            layout: "fit",
+                            flex: 3,
+                        },
                     ],
                 };
 

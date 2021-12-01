@@ -1,24 +1,24 @@
-Ext.define('Core.store.current_user', {
+Ext.define('Core.store.cd_people', {
     extend: 'Ext.data.Store',
-    model: 'Core.model.pd_users',
+    model: 'Core.model.cd_people',
 
-    alias: 'store.current_user',
-    storeId: 'current_user',
+    alias: 'store.cd_people',
+    storeId: 'cd_people',
 
     remoteFilter: true,
     remoteSort: true,
     remoteGroup: true,
-
     mixins: [
         'Core.data.Selectable'
     ],
 
-    autoLoad: false,
-    
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'pd_users.Query'
+            read: 'cd_people.Query',
+            create: 'cd_people.Add',
+            update: 'cd_people.Update',
+            destroy: 'cd_people.Delete'
         },
         reader: {
             successProperty: 'success',

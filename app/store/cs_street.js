@@ -1,24 +1,24 @@
-Ext.define('Core.store.current_user', {
+Ext.define('Core.store.cs_street', {
     extend: 'Ext.data.Store',
-    model: 'Core.model.pd_users',
+    model: 'Core.model.cs_street',
 
-    alias: 'store.current_user',
-    storeId: 'current_user',
+    alias: 'store.cs_street',
+    storeId: 'cs_street',
 
     remoteFilter: true,
     remoteSort: true,
     remoteGroup: true,
-
     mixins: [
         'Core.data.Selectable'
     ],
 
-    autoLoad: false,
-    
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'pd_users.Query'
+            read: 'cs_street.Query',
+            create: 'cs_street.Add',
+            update: 'cs_street.Update',
+            destroy: 'cs_street.Delete'
         },
         reader: {
             successProperty: 'success',

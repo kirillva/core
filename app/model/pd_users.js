@@ -32,20 +32,20 @@ Ext.define("Core.model.pd_users", {
       column: "booleancolumn",
       editor: "checkbox",
     },
-    { name: "f_created_user", type: "int", text: "Создатель", defaultValue: 0 },
-    {
-      name: "d_created_date",
-      type: "date",
-      text: "Дата создания",
-      column: "datecolumn",
-    },
-    { name: "f_change_user", type: "int", text: "Автор изменений", defaultValue: 0 },
-    {
-      name: "d_change_date",
-      type: "date",
-      text: "Дата изменений",
-      column: "datecolumn",
-    },
+    // { name: "f_created_user", type: "int", text: "Создатель", defaultValue: 0 },
+    // {
+    //   name: "d_created_date",
+    //   type: "date",
+    //   text: "Дата создания",
+    //   column: "datecolumn",
+    // },
+    // { name: "f_change_user", type: "int", text: "Автор изменений", defaultValue: 0 },
+    // {
+    //   name: "d_change_date",
+    //   type: "date",
+    //   text: "Дата изменений",
+    //   column: "datecolumn",
+    // },
     {
       name: "sn_delete",
       type: "boolean",
@@ -60,12 +60,12 @@ Ext.define("Core.model.pd_users", {
     //   editor: "textfield",
     // },
     
-    {
-      name: "jb_data",
-      // type: "json",
-      text: "Дополнительные поля",
-      hidden: true,
-      hideable: false,
-    },
+    // {
+    //   name: "jb_data",
+    //   // type: "json",
+    //   text: "Дополнительные поля",
+    //   hidden: true,
+    //   hideable: false,
+    // },
   ],
 });
