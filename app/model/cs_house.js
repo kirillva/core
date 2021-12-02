@@ -5,6 +5,7 @@ Ext.define('Core.model.cs_house', {
 
     fields: [
         { name: 'id', type: 'string', isGuid: true, hidden: true, hideable: false, },
+        { name: 'f_street', type: 'string', isGuid: true, hidden: true, hideable: false, },
         { name: 'c_full_number', type: 'string', text: "Дом", column: "gridcolumn", editor: 'textfield' }
     ]
 });

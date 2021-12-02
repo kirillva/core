@@ -26,10 +26,10 @@ Ext.define("Core.store.NavigationTree", {
                 layout: 'layout_1',
                 jb_data: {
                     items: [
-                        { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street" },
-                        { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house" },
-                        { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament" },
-                        { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people" },
+                        { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street", rowediting: { clicksToEdit: 2 },},
+                        { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house", rowediting: { clicksToEdit: 2 }, },
+                        { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament", rowediting: { clicksToEdit: 2 }, },
+                        { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people", rowediting: { clicksToEdit: 2 }, },
                         // {
                         //     xtype: "baseform",
                         //     formTemplate: "1",

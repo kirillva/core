@@ -14,12 +14,15 @@ Ext.define("Core.component.view.BaseView", {
     constructor: function (cfg) {
         var layout = cfg.node.get('layout');
         var items = Shared.getTemplate(layout);
-
+        var { listeners, ..._items } = items;
+        
         var cd_navigation = Ext.getStore("NavigationTree");
         var record = cd_navigation.getNodeById(cfg.routeId);
 
         this.record = record;
-        this.items = items;
+        this.items = _items;
+
+        this.listeners = { ...cfg.listeners || {}, ...listeners }
         this.callParent(arguments);
         
         this.setViewRendered(false);
@@ -32,10 +35,6 @@ Ext.define("Core.component.view.BaseView", {
     },
 
     privates: {
-        getTemplate: function (template) {
-            return template;
-        },
-
         renderView: function () {
             var me = this;
             // var cd_navigation = Ext.getStore("NavigationTree");
@@ -50,6 +49,8 @@ Ext.define("Core.component.view.BaseView", {
             me.suspendLayouts();
             items.forEach((item, id) => {
                 var container = me.down(`#view_${id}`);
+                var rowediting = item.rowediting || {};
+
                 if (container) {
                     switch (item.xtype) {
                         case "basegrid":
@@ -66,6 +67,7 @@ Ext.define("Core.component.view.BaseView", {
                                     {
                                         ptype: "rowediting",
                                         clicksToEdit: 1,
+                                        ...rowediting
                                     },
                                 ],
                                 flex: 1,

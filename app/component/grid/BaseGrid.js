@@ -150,6 +150,17 @@ Ext.define("Core.component.grid.BaseGrid", {
         emptyMsg: "Информация отсутствует",
     },
 
+    listeners: {
+        select: function (sender, record, index, eOpts) {
+            var basegrid = this;
+            var baseview = basegrid.up('baseview');
+            
+            if (baseview && basegrid) {
+                baseview.fireEvent('select', sender, record, index, basegrid);
+            }
+        }
+    },
+
     privates: {
         changeSelectable: function () {
             var vm = this.getViewModel();
@@ -186,13 +197,20 @@ Ext.define("Core.component.grid.BaseGrid", {
 
         removeRow: function (grid, rowIndex, colIndex) {
             var record = grid.getStore().getAt(rowIndex);
-            if (record) {
-                if (record.phantom || !record.fieldsMap.sn_delete) {
-                    grid.getStore().removeAt(rowIndex);
-                } else {
-                    record.set("sn_delete", true);
-                }
-            }
+            Ext.Msg.show({
+                title: "Ошибка",
+                message: "<div>Вы действительно хотите удалить запись?</div>",
+                buttons: Ext.Msg.YESNO,
+                fn: function (btn) {
+                    if (record && btn === 'yes') {
+                        if (record.phantom || !record.fieldsMap.sn_delete) {
+                            grid.getStore().removeAt(rowIndex);
+                        } else {
+                            record.set("sn_delete", true);
+                        }
+                    }
+                },
+            });
         },
 
         deleteRows: function () {
@@ -211,6 +229,13 @@ Ext.define("Core.component.grid.BaseGrid", {
         },
 
         undoRows: function () {
+            var basegrid = this;
+            var baseview = basegrid.up('baseview');
+            debugger;
+            if (baseview && basegrid) {
+                baseview.fireEvent('reset', basegrid);
+            }
+            this.updateSelection(null);
             this.getStore().reload();
         },
     },
