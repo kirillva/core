@@ -150,7 +150,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                 emptyMsg: "Информация отсутствует",
             }
         } else {
-            cfg.store.pageSize = cfg.pageSize || 10000;
+            cfg.store.pageSize = cfg.pageSize || 100;
         }
 
         cfg.plugins = (this.plugins || []).concat(cfg.plugins || []);
@@ -210,10 +210,14 @@ Ext.define("Core.component.grid.BaseGrid", {
         addRow: function () {
             var store = this.getStore();
             var [record] = store.insert(0, [{}]);
-            // debugger;
+
+            if (record.getField('f_user')) {
+                record.set('f_user', AuthProvider.getUserId());
+            }
             store.getFilters().each(item=>{
                 record.set(item.getProperty(), item.getValue());
             });
+            
             if (record) {
                 this.editingPlugin.startEdit(record)
             }
@@ -221,17 +225,23 @@ Ext.define("Core.component.grid.BaseGrid", {
 
         removeRow: function (grid, rowIndex, colIndex) {
             var me = this;
-            var record = grid.getStore().getAt(rowIndex);
+            var store = grid.getStore();
+            var record = store.getAt(rowIndex);
             Ext.Msg.show({
                 title: "Внимание",
                 message: "<div>Вы действительно хотите удалить одну запись?</div>",
                 buttons: Ext.Msg.YESNO,
                 fn: function (btn) {
                     if (record && btn === 'yes') {
-                        if (record.phantom || !record.fieldsMap[this.sn_delete]) {
-                            grid.getStore().removeAt(rowIndex);
+                        if (record.phantom || !record.fieldsMap[me.sn_delete]) {
+                            store.removeAt(rowIndex);
                         } else {
                             record.set(me.sn_delete, true);
+                            if (store.needsSync) {
+                                store.sync({callback: function () {
+                                    store.reload();
+                                }});
+                            }
                         }
                     }
                 },
@@ -241,6 +251,7 @@ Ext.define("Core.component.grid.BaseGrid", {
         deleteRows: function () {
             var me = this;
             var selection = me.getSelection();
+            var store = me.getStore();
             Ext.Msg.show({
                 title: "Внимание",
                 message: "<div>Вы действительно хотите удалить выбранные записи?</div>",
@@ -253,10 +264,15 @@ Ext.define("Core.component.grid.BaseGrid", {
                                 phantom.push(record);
                             } else {
                                 record.set(me.sn_delete, true);
+                                if (store.needsSync) {
+                                    store.sync({callback: function () {
+                                        store.reload();
+                                    }});
+                                }
                             }
                         });
             
-                        me.getStore().remove(phantom);
+                        store.remove(phantom);
                     }
                 },
             });

@@ -19,5 +19,7 @@ Ext.define('Core.model.cs_house', {
             },
         },
         { name: 'b_disabled', type: 'boolean', hidden: true, hideable: false, },
+        
+        { name: 'f_user', type: 'string', isGuid: true, hidden: true, hideable: false, },
     ]
 });

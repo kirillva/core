@@ -11,7 +11,11 @@ Ext.define('Core.model.cd_people', {
         
         { name: 'c_first_name', type: 'string', text: "Фамилия", column: "gridcolumn", editor: 'textfield' },
         { name: 'c_last_name', type: 'string', text: "Имя", column: "gridcolumn", editor: 'textfield' },
-        { name: 'c_middle_name', type: 'string', text: "Отчество", column: "gridcolumn", editor: 'textfield' }
+        { name: 'c_middle_name', type: 'string', text: "Отчество", column: "gridcolumn", editor: 'textfield' },
+
+        
+        { name: 'f_user', type: 'string', hidden: true, hideable: false, },
+        { name: 'f_type', type: 'string', hidden: true, hideable: false, defaultValue: 15 },
     ]
 });
 

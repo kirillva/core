@@ -12,6 +12,7 @@ Ext.define('Core.store.cd_people', {
         'Core.data.Selectable'
     ],
     sorters: ['c_first_name'],
+    
     proxy: {
         type: 'itdirect',
         api: {

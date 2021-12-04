@@ -58,9 +58,13 @@ Ext.define("Core.component.view.BaseView", {
                                 ...item,
                                 xtype: "basegrid",
                                 editable: true,
-                                store: Ext.create(`Core.store.${item.store}`, {
-                                    model: Ext.ClassManager.get(`Core.model.${item.model}`),
-                                }),
+                                store: (
+                                    typeof item.store === 'string' ?
+                                        Ext.create(`Core.store.${item.store}`, {
+                                            model: Ext.ClassManager.get(`Core.model.${item.model}`),
+                                        }) 
+                                        : item.store
+                                ),
                                 autoLoad: true,
                                 title: item.title,
                                 height: '100%',

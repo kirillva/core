@@ -32,7 +32,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Улица",
-                            store: "cs_street",
+                            store: Ext.create("Core.store.cs_street", {filters: [{property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_street",
                             rowediting: {
                                 clicksToEdit: 2,
@@ -48,7 +48,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Дом",
-                            store: "cs_house",
+                            store: Ext.create("Core.store.cs_house", {filters: [{property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_house",
                             rowediting: {
                                 clicksToEdit: 2,
@@ -64,7 +64,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Квартира",
-                            store: "cs_appartament",
+                            store: Ext.create("Core.store.cs_appartament", {filters: [{property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_appartament",
                             rowediting: {
                                 clicksToEdit: 2,
@@ -109,6 +109,14 @@ Ext.define("Core.store.NavigationTree", {
                             rowediting: { clicksToEdit: 2 },
                             disableAddRow: true,
                             sn_delete: "b_disabled",
+                            rowediting: {
+                                clicksToEdit: 2,
+                                listeners: {
+                                    edit: function (editor, e) {
+                                        editor.grid.syncStore();
+                                    },
+                                },
+                            },
                         },
                         // {
                         //     xtype: "baseform",
