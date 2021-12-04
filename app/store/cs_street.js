@@ -11,7 +11,7 @@ Ext.define('Core.store.cs_street', {
     mixins: [
         'Core.data.Selectable'
     ],
-
+    sorters: ['c_name'],
     proxy: {
         type: 'itdirect',
         api: {

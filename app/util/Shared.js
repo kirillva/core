@@ -191,12 +191,23 @@ Ext.define("Core.util.Shared", {
                             items: [{
                                 xtype: 'combobox',
                                 fieldLabel: 'Улица',
-                                store: Ext.StoreManager.get('cs_street') || Ext.create('Core.store.cs_street'),
+                                store: Ext.create('Core.store.cs_street'),
                                 displayField: 'c_name',
                                 valueField: 'id',
                                 itemId: 'street',
                                 minChars: 1,
                                 listeners: {
+                                    change: function (sender, newValue, oldValue, eOpts ) {
+                                        if (!newValue) {
+                                            var container = sender.up();
+                                            var house = container.getComponent('house');
+                                            var appartament = container.getComponent('appartament');
+                                            var people = sender.up().up().down('basegrid');
+                                            house.setValue();
+                                            appartament.setValue();
+                                            Shared.removeFilters('view_0', house, appartament, people);
+                                        }
+                                    },
                                     select: function (sender, record, index, basegrid) {
                                         var container = sender.up();
                                         var house = container.getComponent('house');
@@ -215,13 +226,21 @@ Ext.define("Core.util.Shared", {
                             },{
                                 xtype: 'combobox',
                                 fieldLabel: 'Дом',
-                                store: Ext.StoreManager.get('cs_house') || Ext.create('Core.store.cs_house'),
+                                store: Ext.create('Core.store.cs_house'),
                                 displayField: 'c_full_number',
                                 valueField: 'id',
                                 itemId: 'house',
                                 minChars: 1,
                                 listeners: {
-                                    
+                                    change: function (sender, newValue, oldValue, eOpts ) {
+                                        if (!newValue) {
+                                            var container = sender.up();
+                                            var appartament = container.getComponent('appartament');
+                                            var people = sender.up().up().down('basegrid');
+                                            appartament.setValue();
+                                            Shared.removeFilters('view_1', null, appartament, people);
+                                        }
+                                    },
                                     select: function (sender, record, index, basegrid) {
                                         var container = sender.up();
                                         var appartament = container.getComponent('appartament');
@@ -238,13 +257,18 @@ Ext.define("Core.util.Shared", {
                             },{
                                 xtype: 'combobox',
                                 fieldLabel: 'Квартира',
-                                store: Ext.StoreManager.get('cs_appartament') || Ext.create('Core.store.cs_appartament'),
+                                store: Ext.create('Core.store.cs_appartament'),
                                 displayField: 'c_number',
                                 valueField: 'id',
                                 itemId: 'appartament',
                                 minChars: 1,
                                 listeners: {
-                                    
+                                    change: function (sender, newValue, oldValue, eOpts ) {
+                                        if (!newValue) {
+                                            var people = sender.up().up().down('basegrid');
+                                            Shared.removeFilters('view_2', null, null, people);
+                                        }
+                                    },
                                     select: function (sender, record, index, basegrid) {
                                         var people = sender.up().up().down('basegrid');
                                         var id = record.id;

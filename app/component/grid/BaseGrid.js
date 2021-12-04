@@ -32,6 +32,8 @@ Ext.define("Core.component.grid.BaseGrid", {
         },
     },
 
+    sn_delete: 'sn_delete',
+
     columns: [
         {
             xtype: "actioncolumn",
@@ -131,6 +133,26 @@ Ext.define("Core.component.grid.BaseGrid", {
             ],
         };
 
+        if (cfg.pagingtoolbar) {
+            this.bbar = {
+                xtype: "pagingtoolbar",
+                padding: 10,
+                plugins: [
+                    {
+                        ptype: "pagesize",
+                        data: [10, 25, 50, 100, 250, 500, 1000, 10000],
+                        reloadOnChange: true,
+                    },
+                ],
+                ui: "white-paging",
+                displayInfo: true,
+                displayMsg: "Отображаются элементы {0} - {1} из {2}",
+                emptyMsg: "Информация отсутствует",
+            }
+        } else {
+            cfg.store.pageSize = cfg.pageSize || 10000;
+        }
+
         cfg.plugins = (this.plugins || []).concat(cfg.plugins || []);
 
         this.callParent([cfg]);
@@ -143,23 +165,7 @@ Ext.define("Core.component.grid.BaseGrid", {
         var vm = this.getViewModel();
         vm.set("title", value);
     },
-
-    bbar: {
-        xtype: "pagingtoolbar",
-        padding: 10,
-        plugins: [
-            {
-                ptype: "pagesize",
-                data: [10, 25, 50, 100, 250, 500, 1000, 10000],
-                reloadOnChange: true,
-            },
-        ],
-        ui: "white-paging",
-        displayInfo: true,
-        displayMsg: "Отображаются элементы {0} - {1} из {2}",
-        emptyMsg: "Информация отсутствует",
-    },
-
+    
     listeners: {
         select: function (sender, record, index, eOpts) {
             var basegrid = this;
@@ -204,23 +210,28 @@ Ext.define("Core.component.grid.BaseGrid", {
         addRow: function () {
             var store = this.getStore();
             var [record] = store.insert(0, [{}]);
+            // debugger;
+            store.getFilters().each(item=>{
+                record.set(item.getProperty(), item.getValue());
+            });
             if (record) {
                 this.editingPlugin.startEdit(record)
             }
         },
 
         removeRow: function (grid, rowIndex, colIndex) {
+            var me = this;
             var record = grid.getStore().getAt(rowIndex);
             Ext.Msg.show({
                 title: "Внимание",
-                message: "<div>Вы действительно хотите удалить запись?</div>",
+                message: "<div>Вы действительно хотите удалить одну запись?</div>",
                 buttons: Ext.Msg.YESNO,
                 fn: function (btn) {
                     if (record && btn === 'yes') {
-                        if (record.phantom || !record.fieldsMap.sn_delete) {
+                        if (record.phantom || !record.fieldsMap[this.sn_delete]) {
                             grid.getStore().removeAt(rowIndex);
                         } else {
-                            record.set("sn_delete", true);
+                            record.set(me.sn_delete, true);
                         }
                     }
                 },
@@ -232,20 +243,21 @@ Ext.define("Core.component.grid.BaseGrid", {
             var selection = me.getSelection();
             Ext.Msg.show({
                 title: "Внимание",
-                message: "<div>Вы действительно хотите удалить запись?</div>",
+                message: "<div>Вы действительно хотите удалить выбранные записи?</div>",
                 buttons: Ext.Msg.YESNO,
                 fn: function (btn) {
                     var phantom = [];
-                    
-                    selection.forEach((record) => {
-                        if (record.phantom) {
-                            phantom.push(record);
-                        } else {
-                            record.set("sn_delete", true);
-                        }
-                    });
-        
-                    me.getStore().remove(phantom);
+                    if (btn === 'yes') { 
+                        selection.forEach((record) => {
+                            if (record.phantom) {
+                                phantom.push(record);
+                            } else {
+                                record.set(me.sn_delete, true);
+                            }
+                        });
+            
+                        me.getStore().remove(phantom);
+                    }
                 },
             });
             

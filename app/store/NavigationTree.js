@@ -5,17 +5,17 @@ Ext.define("Core.store.NavigationTree", {
 
     fields: [
         {
-            name: "text"
+            name: "text",
         },
         {
-            name: "jb_data"
+            name: "jb_data",
         },
         {
-            name: "layout"
+            name: "layout",
         },
         {
-            name: 'allow'
-        }
+            name: "allow",
+        },
     ],
 
     root: {
@@ -23,15 +23,60 @@ Ext.define("Core.store.NavigationTree", {
         children: [
             {
                 text: "Адреса",
-                iconCls: "x-fa fa-desktop",
+                iconCls: "x-fa fa-home",
                 viewType: "home",
                 id: "home",
-                layout: 'layout_1',
+                layout: "layout_1",
                 jb_data: {
                     items: [
-                        { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street", rowediting: { clicksToEdit: 2 }, disableAddRow: false },
-                        { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
-                        { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
+                        {
+                            xtype: "basegrid",
+                            title: "Улица",
+                            store: "cs_street",
+                            model: "cs_street",
+                            rowediting: {
+                                clicksToEdit: 2,
+                                listeners: {
+                                    edit: function (editor, e) {
+                                        editor.grid.syncStore();
+                                    },
+                                },
+                            },
+                            disableAddRow: false,
+                            sn_delete: "b_disabled",
+                        },
+                        {
+                            xtype: "basegrid",
+                            title: "Дом",
+                            store: "cs_house",
+                            model: "cs_house",
+                            rowediting: {
+                                clicksToEdit: 2,
+                                listeners: {
+                                    edit: function (editor, e) {
+                                        editor.grid.syncStore();
+                                    },
+                                },
+                            },
+                            disableAddRow: true,
+                            sn_delete: "b_disabled",
+                        },
+                        {
+                            xtype: "basegrid",
+                            title: "Квартира",
+                            store: "cs_appartament",
+                            model: "cs_appartament",
+                            rowediting: {
+                                clicksToEdit: 2,
+                                listeners: {
+                                    edit: function (editor, e) {
+                                        editor.grid.syncStore();
+                                    },
+                                },
+                            },
+                            disableAddRow: true,
+                            sn_delete: "b_disabled",
+                        },
                         // { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people", rowediting: { clicksToEdit: 2 }, },
                         // {
                         //     xtype: "baseform",
@@ -47,16 +92,24 @@ Ext.define("Core.store.NavigationTree", {
             },
             {
                 text: "Избиратели",
-                iconCls: "x-fa fa-desktop",
+                iconCls: "x-fa fa-users",
                 viewType: "vote",
                 id: "vote",
-                layout: 'layout_2',
+                layout: "layout_2",
                 jb_data: {
                     items: [
                         // { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street", rowediting: { clicksToEdit: 2 }, disableAddRow: false },
                         // { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
                         // { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
-                        { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
+                        {
+                            xtype: "basegrid",
+                            title: "Избиратели",
+                            store: "cd_people",
+                            model: "cd_people",
+                            rowediting: { clicksToEdit: 2 },
+                            disableAddRow: true,
+                            sn_delete: "b_disabled",
+                        },
                         // {
                         //     xtype: "baseform",
                         //     formTemplate: "1",

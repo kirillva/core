@@ -11,7 +11,7 @@ Ext.define('Core.store.cs_appartament', {
     mixins: [
         'Core.data.Selectable'
     ],
-
+    sorters: ['n_number'],
     proxy: {
         type: 'itdirect',
         api: {
