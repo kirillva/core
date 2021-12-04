@@ -114,7 +114,7 @@ Ext.define('Core.view.main.Main', {
             flex: 1,
             items: [
                 {
-                    xtype: 'treelist',
+                    xtype: 'maintreelist',
                     reference: 'navigationTreeList',
                     itemId: 'navigationTreeList',
                     ui: 'navigation',
@@ -129,6 +129,7 @@ Ext.define('Core.view.main.Main', {
                 {
                     xtype: 'container',
                     flex: 1,
+                    height: 0,
                     reference: 'mainCardPanel',
                     cls: 'sencha-dash-right-main-container',
                     itemId: 'contentPanel',

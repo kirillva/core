@@ -6,6 +6,11 @@ Ext.define("Core.util.Shared", {
         console.log(msg);
     },
 
+    isAccessAllowed: function (allow = [], reject = []) {
+        var roles = AuthProvider.getRoles();
+        return Boolean(Ext.Array.intersect(allow, roles).length);
+    },
+
     removeFilters: function (itemId, house, appartament, people) {
         switch (itemId) {
             case 'view_0':
@@ -117,7 +122,10 @@ Ext.define("Core.util.Shared", {
                             var people = panel.ownerCt.down('#view_3').down('basegrid');
                             var itemId = panel.itemId;
                             
-                            Shared.removeFilters(itemId, house, appartament, people);
+                            // debugger;
+                            if (!record.phantom) {
+                                Shared.removeFilters(itemId, house, appartament, people);
+                            }
                         },
                         select: function (sender, record, index, basegrid) {
                             var panel = basegrid.up('panel');
@@ -126,9 +134,12 @@ Ext.define("Core.util.Shared", {
                             var people = panel.ownerCt.down('#view_3').down('basegrid');
                             var id = record.id;
                             var itemId = panel.itemId;
-                            
-                            Shared.removeFilters(itemId, house, appartament, people);
-                            Shared.addFilters(itemId, id, house, appartament, people);
+
+                            // debugger;
+                            if (!record.phantom) {
+                                Shared.removeFilters(itemId, house, appartament, people);
+                                Shared.addFilters(itemId, id, house, appartament, people);
+                            }
                         }
                     }
                 };

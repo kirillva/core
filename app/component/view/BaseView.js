@@ -63,9 +63,11 @@ Ext.define("Core.component.view.BaseView", {
                                 }),
                                 autoLoad: true,
                                 title: item.title,
+                                height: '100%',
                                 plugins: [
                                     {
                                         ptype: "rowediting",
+                                        itemId: 'rowediting',
                                         clicksToEdit: 1,
                                         ...rowediting
                                     },

@@ -102,7 +102,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                     handler: 'changeSelectable',
                     scope: me,
                 },
-                "-",
+                // "-",
                 {
                     xtype: "button",
                     iconCls: "x-fa fa-plus",
@@ -192,13 +192,15 @@ Ext.define("Core.component.grid.BaseGrid", {
         },
 
         addRow: function () {
+            debugger;
             this.getStore().add({});
+            this.scrollTo (0, this.container.lastBox.height) 
         },
 
         removeRow: function (grid, rowIndex, colIndex) {
             var record = grid.getStore().getAt(rowIndex);
             Ext.Msg.show({
-                title: "Ошибка",
+                title: "Внимание",
                 message: "<div>Вы действительно хотите удалить запись?</div>",
                 buttons: Ext.Msg.YESNO,
                 fn: function (btn) {
@@ -214,24 +216,32 @@ Ext.define("Core.component.grid.BaseGrid", {
         },
 
         deleteRows: function () {
-            var selection = this.getSelection();
-            var phantom = [];
-
-            selection.forEach((record) => {
-                if (record.phantom) {
-                    phantom.push(record);
-                } else {
-                    record.set("sn_delete", true);
-                }
+            var me = this;
+            var selection = me.getSelection();
+            Ext.Msg.show({
+                title: "Внимание",
+                message: "<div>Вы действительно хотите удалить запись?</div>",
+                buttons: Ext.Msg.YESNO,
+                fn: function (btn) {
+                    var phantom = [];
+                    
+                    selection.forEach((record) => {
+                        if (record.phantom) {
+                            phantom.push(record);
+                        } else {
+                            record.set("sn_delete", true);
+                        }
+                    });
+        
+                    me.getStore().remove(phantom);
+                },
             });
-
-            this.getStore().remove(phantom);
+            
         },
 
         undoRows: function () {
             var basegrid = this;
             var baseview = basegrid.up('baseview');
-            debugger;
             if (baseview && basegrid) {
                 baseview.fireEvent('reset', basegrid);
             }

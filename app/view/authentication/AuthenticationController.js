@@ -15,7 +15,8 @@ Ext.define('Core.view.authentication.AuthenticationController', {
         var values = view ? view.getValues() : {};
         AuthProvider.singIn(values.userid, values.password, true, function (response) {
             if (response.success) {
-                Ext.getCurrentApp().onReady(function (name) {
+                var app = Ext.getCurrentApp();
+                app.onReady(function (name) {
                     // if (name) me.redirectTo(name);
                     sender.unmask();
                     me.redirectTo('home', true);

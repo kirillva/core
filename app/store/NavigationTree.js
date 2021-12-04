@@ -13,6 +13,9 @@ Ext.define("Core.store.NavigationTree", {
         {
             name: "layout"
         },
+        {
+            name: 'allow'
+        }
     ],
 
     root: {
@@ -38,6 +41,8 @@ Ext.define("Core.store.NavigationTree", {
                         // },
                     ],
                 },
+                visible: true,
+                // allow: ['monkey'],
                 leaf: true,
             },
             // {
@@ -64,6 +69,8 @@ Ext.define("Core.store.NavigationTree", {
                 text: "Администрирование",
                 iconCls: "x-fa fa-user",
                 viewType: "admin",
+                // allow: ['admin'],
+                visible: false,
                 leaf: true,
             },
             // {
@@ -132,7 +139,6 @@ Ext.define("Core.store.NavigationTree", {
                         viewType: "lockscreen",
                         leaf: true,
                     },
-
                     {
                         text: "Login",
                         iconCls: "x-fa fa-check",

@@ -109,7 +109,8 @@ Ext.define('Core.AuthProvider', {
      * возвращается список ролей
      */
     getRoles: function () {
-        return localStorage.getItem('roles').toLowerCase();
+        var roles = (localStorage.getItem('roles') || '').toLowerCase();
+        return roles.split('.').filter(item=>item);
     },
 
     getUserName: function () {
@@ -146,7 +147,7 @@ Ext.define('Core.AuthProvider', {
                         }
                         if (meta.token != null) {
                             // Audit.auth_success(meta.user.userName);
-                            me.setAuthorize(meta.token, meta.user.login, rememberMe, meta.user.claims.split('.').filter(item=>item).join(','), meta.user.userId);
+                            me.setAuthorize(meta.token, meta.user.login, rememberMe, meta.user.claims, meta.user.userId);
                             me.setAuthoriseHeader(meta.token);
                             callback({
                                 success: true,

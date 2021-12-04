@@ -945,6 +945,8 @@ Ext.define('Core.grid.FilterBar', {
             return;
         }
 
+        filterData.filterArray = this.ownerGrid.store.filters.items;
+
         column = filterData.columns.get(field.dataIndex);
         newVal = (grid.store.remoteFilter ? field.getSubmitValue() : field.getValue());
 

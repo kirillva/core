@@ -19,23 +19,28 @@ Ext.define("Core.container.PanelHeader", {
     constructor: function (cfg) {
         cfg.items = [
             {
-                xtype: "toolbar",
+                xtype: "container",
                 dock: "top",
+                layout: 'hbox',
+                padding: '5 10',
                 cls: "x-panel-header-default",
                 items: [
                     {
                         xtype: "title",
                         cls: "x-panel-header-title-default",
                         text: cfg.title,
+                        height: '100%',
+                        flex: 1,
                         bind: {
                             text: "{title}",
                         },
                     },
-                    "->",
+                    // "->",
                     ...cfg.items,
                 ],
             },
         ];
+
         this.callParent([cfg]);
     },
 });

@@ -10,7 +10,7 @@ Ext.define('Core.view.authentication.Login', {
         'Ext.button.Button'
     ],
 
-    title: 'Let\'s Log In',
+    title: 'Авторизация',
     defaultFocus: 'authdialog', // Focus the Auth Form to force field focus as well
 
     items: [
@@ -34,7 +34,7 @@ Ext.define('Core.view.authentication.Login', {
             items: [
                 {
                     xtype: 'label',
-                    text: 'Sign into your account'
+                    text: 'Войдите в свой аккаунт'
                 },
                 {
                     xtype: 'textfield',
@@ -44,7 +44,7 @@ Ext.define('Core.view.authentication.Login', {
                     height: 55,
                     hideLabel: true,
                     allowBlank : false,
-                    emptyText: 'user id',
+                    emptyText: 'Логин',
                     triggers: {
                         glyphed: {
                             cls: 'trigger-glyph-noop auth-email-trigger'
@@ -56,7 +56,7 @@ Ext.define('Core.view.authentication.Login', {
                     cls: 'auth-textbox',
                     height: 55,
                     hideLabel: true,
-                    emptyText: 'Password',
+                    emptyText: 'Пароль',
                     inputType: 'password',
                     name: 'password',
                     bind: '',
@@ -67,24 +67,24 @@ Ext.define('Core.view.authentication.Login', {
                         }
                     }
                 },
-                {
-                    xtype: 'container',
-                    layout: 'hbox',
-                    items: [
-                        {
-                            xtype: 'checkboxfield',
-                            flex : 1,
-                            cls: 'form-panel-font-color rememberMeCheckbox',
-                            height: 30,
-                            bind: '',
-                            boxLabel: 'Remember me'
-                        },
-                        {
-                            xtype: 'box',
-                            html: '<a href="#passwordreset" class="link-forgot-password"> Forgot Password ?</a>'
-                        }
-                    ]
-                },
+                // {
+                //     xtype: 'container',
+                //     layout: 'hbox',
+                //     items: [
+                //         {
+                //             xtype: 'checkboxfield',
+                //             flex : 1,
+                //             cls: 'form-panel-font-color rememberMeCheckbox',
+                //             height: 30,
+                //             bind: '',
+                //             boxLabel: 'Запомнить пароль'
+                //         },
+                //         {
+                //             xtype: 'box',
+                //             html: '<a href="#passwordreset" class="link-forgot-password"> Forgot Password ?</a>'
+                //         }
+                //     ]
+                // },
                 {
                     xtype: 'button',
                     reference: 'loginButton',

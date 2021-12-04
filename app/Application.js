@@ -100,6 +100,17 @@ Ext.define("Core.Application", {
             }
         });
     },
+
+
+    listeners: {
+        auth: function () {
+            debugger;
+            // var mainView = this.getMainView();
+            // var maintreelist = mainView && mainView.down('maintreelist');
+            // maintreelist && maintreelist.applyStore(maintreelist.store);
+        } 
+    },
+
     privates: {
         /**
          * приложение готово
