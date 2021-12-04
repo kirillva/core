@@ -36,7 +36,7 @@ Ext.define('Core.view.main.MainController', {
             newView;
 
         // Kill any previously routed window
-        if (lastView /**  && lastView.isWindow */) {
+        if (lastView && lastView.isWindow) {
             lastView.destroy();
         }
         
@@ -101,6 +101,7 @@ Ext.define('Core.view.main.MainController', {
     },
 
     onToggleNavigationSize: function () {
+        debugger;
         var me = this,
             refs = me.getReferences(),
             navigationList = refs.navigationTreeList,

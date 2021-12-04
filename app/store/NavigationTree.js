@@ -22,17 +22,41 @@ Ext.define("Core.store.NavigationTree", {
         expanded: true,
         children: [
             {
-                text: "Главная",
+                text: "Адреса",
                 iconCls: "x-fa fa-desktop",
                 viewType: "home",
                 id: "home",
                 layout: 'layout_1',
                 jb_data: {
                     items: [
-                        { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street", rowediting: { clicksToEdit: 2 },},
-                        { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house", rowediting: { clicksToEdit: 2 }, },
-                        { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament", rowediting: { clicksToEdit: 2 }, },
-                        { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people", rowediting: { clicksToEdit: 2 }, },
+                        { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street", rowediting: { clicksToEdit: 2 }, disableAddRow: false },
+                        { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
+                        { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
+                        // { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people", rowediting: { clicksToEdit: 2 }, },
+                        // {
+                        //     xtype: "baseform",
+                        //     formTemplate: "1",
+                        //     formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
+                        //     store: "dd_documents",
+                        // },
+                    ],
+                },
+                visible: true,
+                // allow: ['monkey'],
+                leaf: true,
+            },
+            {
+                text: "Избиратели",
+                iconCls: "x-fa fa-desktop",
+                viewType: "vote",
+                id: "vote",
+                layout: 'layout_2',
+                jb_data: {
+                    items: [
+                        // { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street", rowediting: { clicksToEdit: 2 }, disableAddRow: false },
+                        // { xtype: 'basegrid', title: "Дом", store: "cs_house", model: "cs_house", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
+                        // { xtype: 'basegrid', title: "Квартира", store: "cs_appartament", model: "cs_appartament", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
+                        { xtype: 'basegrid', title: "Избиратели", store: "cd_people", model: "cd_people", rowediting: { clicksToEdit: 2 }, disableAddRow: true },
                         // {
                         //     xtype: "baseform",
                         //     formTemplate: "1",

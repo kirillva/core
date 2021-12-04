@@ -19,6 +19,7 @@ Ext.define("Core.component.grid.BaseGrid", {
         data: {
             title: "",
             selectable: false,
+            disableAddRow: true
         },
     },
 
@@ -70,6 +71,8 @@ Ext.define("Core.component.grid.BaseGrid", {
                 xtype: item.column,
                 hidden: item.hidden,
                 editor: item.editor,
+                flex: 1,
+                align: 'left'
             };
 
             if (item.hideable || item.hideable === false) {
@@ -107,6 +110,10 @@ Ext.define("Core.component.grid.BaseGrid", {
                     xtype: "button",
                     iconCls: "x-fa fa-plus",
                     handler: 'addRow',
+                    disabled: cfg.disableAddRow,
+                    bind: {
+                        disabled: '{disableAddRow}'
+                    },
                     scope: me,
                 },
                 {
@@ -127,6 +134,9 @@ Ext.define("Core.component.grid.BaseGrid", {
         cfg.plugins = (this.plugins || []).concat(cfg.plugins || []);
 
         this.callParent([cfg]);
+
+        var vm = this.getViewModel();
+        vm.set('disableAddRow', cfg.disableAddRow);
     },
 
     setTitle: function (value) {
@@ -192,9 +202,11 @@ Ext.define("Core.component.grid.BaseGrid", {
         },
 
         addRow: function () {
-            debugger;
-            this.getStore().add({});
-            this.scrollTo (0, this.container.lastBox.height) 
+            var store = this.getStore();
+            var [record] = store.insert(0, [{}]);
+            if (record) {
+                this.editingPlugin.startEdit(record)
+            }
         },
 
         removeRow: function (grid, rowIndex, colIndex) {

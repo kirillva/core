@@ -157,7 +157,7 @@ Ext.define('Core.AuthProvider', {
                             // Audit.auth_fail(_login);
                             me.setAuthorize();
                             me.setAuthoriseHeader('');
-                            var msg = 'Ошибка токена';
+                            var msg = 'Неверный логин или пароль';
                             callback({
                                 success: false,
                                 msg: msg
