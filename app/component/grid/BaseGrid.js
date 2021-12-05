@@ -259,6 +259,11 @@ Ext.define("Core.component.grid.BaseGrid", {
                     if (record && btn === 'yes') {
                         if (record.phantom || !record.fieldsMap[me.sn_delete]) {
                             store.removeAt(rowIndex);
+                            if (store.needsSync) {
+                                store.sync({callback: function () {
+                                    store.reload();
+                                }});
+                            }
                         } else {
                             record.set(me.sn_delete, true);
                             if (store.needsSync) {
@@ -284,7 +289,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                     var phantom = [];
                     if (btn === 'yes') { 
                         selection.forEach((record) => {
-                            if (record.phantom) {
+                            if (record.phantom || !record.fieldsMap[me.sn_delete]) {
                                 phantom.push(record);
                             } else {
                                 record.set(me.sn_delete, true);
@@ -297,6 +302,11 @@ Ext.define("Core.component.grid.BaseGrid", {
                         });
             
                         store.remove(phantom);
+                        if (store.needsSync) {
+                            store.sync({callback: function () {
+                                store.reload();
+                            }});
+                        }
                     }
                 },
             });

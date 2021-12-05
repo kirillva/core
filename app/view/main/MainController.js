@@ -36,9 +36,13 @@ Ext.define('Core.view.main.MainController', {
             newView;
 
         // Kill any previously routed window
-        if (lastView && (lastView.isWindow || hashTag == 'login')) {
-            debugger;
+        if (lastView && lastView.isWindow) {
             lastView.destroy();
+        }
+        if (lastView && hashTag == 'login' && mainCard.items) {
+            mainCard.items.each(item => {
+                item.destroy();
+            });
         }
 
         lastView = mainLayout.getActiveItem();

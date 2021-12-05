@@ -7,5 +7,5 @@
   "REMOTE_NAMESPACE": "PN",
   "port": 3000,
   "APP_ID": 4,
-  "virtualDirPath": ""
+  "virtualDirPath": "/arm/vote/dev"
 }

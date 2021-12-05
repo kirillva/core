@@ -17,8 +17,8 @@ Ext.define('Core.view.authentication.AuthenticationController', {
             if (response.success) {
                 var app = Ext.getCurrentApp();
                 app.onReady(function (name) {
-                    var cd_navigation = Ext.getStore("NavigationTree");
-                    cd_navigation.loadAuth();
+                    // var cd_navigation = Ext.getStore("NavigationTree");
+                    // cd_navigation.loadAuth();
                     sender.unmask();
                     me.redirectTo('home', true);
                 });

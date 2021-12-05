@@ -116,7 +116,6 @@ Ext.define("Core.store.NavigationTree", {
                             },
                             rowediting: { clicksToEdit: 2 },
                             disableAddRow: true,
-                            sn_delete: "b_disabled",
                             rowediting: {
                                 clicksToEdit: 2,
                                 listeners: {
