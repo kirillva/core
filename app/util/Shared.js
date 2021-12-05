@@ -49,54 +49,60 @@ Ext.define("Core.util.Shared", {
             case 'view_0':
                 if (house) {
                     house.store.addFilter({
+                        default: true,
                         value: id,
                         property: 'f_street',
                         operator: '='
                     });
                     house.store.reload();
                 }
-                // if (appartament) {
-                //     appartament.store.addFilter({
-                //         value: id,
-                //         property: 'f_house___f_street',
-                //         operator: '='
-                //     });
-                //     appartament.store.reload();
-                // }
-                // if (people) {
-                //     people.store.addFilter({
-                //         value: id,
-                //         property: 'f_appartament___f_house___f_street',
-                //         operator: '='
-                //     });
-                //     people.store.reload();
-                // }
+                if (appartament) {
+                    appartament.store.addFilter({
+                        default: true,
+                        value: id,
+                        property: 'f_house___f_street',
+                        operator: '='
+                    });
+                    appartament.store.reload();
+                }
+                if (people) {
+                    people.store.addFilter({
+                        default: true,
+                        value: id,
+                        property: 'f_appartament___f_house___f_street',
+                        operator: '='
+                    });
+                    people.store.reload();
+                }
                 hvm && hvm.set('disableAddRow', false);
                 break;
                 
             case 'view_1':
                 if (appartament) {
                     appartament.store.addFilter({
+                        default: true,
                         value: id,
                         property: 'f_house',
                         operator: '='
                     });
                     appartament.store.reload();
                 }
-                // if (people) {
-                //     people.store.addFilter({
-                //         value: id,
-                //         property: 'f_appartament___f_house',
-                //         operator: '='
-                //     });
-                //     people.store.reload();
-                // }
+                if (people) {
+                    people.store.addFilter({
+                        default: true,
+                        value: id,
+                        property: 'f_appartament___f_house',
+                        operator: '='
+                    });
+                    people.store.reload();
+                }
                 avm && avm.set('disableAddRow', false);
                 break;
 
             case 'view_2':
                 if (people) {
                     people.store.addFilter({
+                        default: true,
                         value: id,
                         property: 'f_appartament',
                         operator: '='
@@ -244,24 +250,28 @@ Ext.define("Core.util.Shared", {
                         type: "hbox",
                         align: "stretch",
                     },
+                    margin: '0 0 0 5',
                     items: [
                         {
                             xtype: "panel",
                             itemId: "view_0",
                             layout: "fit",
                             flex: 1,
+                            margin: '0 5 0 0'
                         },
                         {
                             xtype: "panel",
                             itemId: "view_1",
                             layout: "fit",
                             flex: 1,
+                            margin: '0 5 0 0'
                         },
                         {
                             xtype: "panel",
                             itemId: "view_2",
                             layout: "fit",
                             flex: 1,
+                            margin: '0 5 0 0'
                         },
                         // {
                         //     xtype: "panel",
@@ -303,13 +313,14 @@ Ext.define("Core.util.Shared", {
                         type: "vbox",
                         align: "stretch",
                     },
+                    margin: '0 0 0 5',
                     items: [
                         {
                             layout: {
                                 type: "hbox",
                                 align: "stretch",
                             },
-                            margin: '5px 10px',
+                            margin: '5 0',
                             defaults: {
                                 margin: '0 10px',
                             },
