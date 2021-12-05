@@ -3,7 +3,7 @@
  * @class IServ.UI.grid.FilterBar
  * @author Ing. Leonardo D'Onofrio (leonardo_donofrio at hotmail.com)
  */
-Ext.define('Core.grid.plugin.FilterBar', {
+Ext.define('Core.grid.FilterBar', {
     extend: 'Ext.AbstractPlugin',
     alias: 'plugin.filterbar',
     requires: [
@@ -600,8 +600,10 @@ Ext.define('Core.grid.plugin.FilterBar', {
         //11.6.2015 Peter Sliacky
         //tuto podmienku som pridal po migracii z Ext JS 6.0.0.227 na 6.0.0.415, pretoze store.filters bol undifined
         //bolo by teda dobre toto opravit
+        debugger
         if (grid.store.filters) {
             grid.store.filters.each(function (filter) {
+                // filter = filter.getState();
                 // try to parse initial filters, for now filterFn is unsuported
                 if (filter.property && !Ext.isEmpty(filter.value) && filterData.columns.get(filter.property)) {
                     if (!filter.type) {

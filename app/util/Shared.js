@@ -55,22 +55,22 @@ Ext.define("Core.util.Shared", {
                     });
                     house.store.reload();
                 }
-                if (appartament) {
-                    appartament.store.addFilter({
-                        value: id,
-                        property: 'f_house___f_street',
-                        operator: '='
-                    });
-                    appartament.store.reload();
-                }
-                if (people) {
-                    people.store.addFilter({
-                        value: id,
-                        property: 'f_appartament___f_house___f_street',
-                        operator: '='
-                    });
-                    people.store.reload();
-                }
+                // if (appartament) {
+                //     appartament.store.addFilter({
+                //         value: id,
+                //         property: 'f_house___f_street',
+                //         operator: '='
+                //     });
+                //     appartament.store.reload();
+                // }
+                // if (people) {
+                //     people.store.addFilter({
+                //         value: id,
+                //         property: 'f_appartament___f_house___f_street',
+                //         operator: '='
+                //     });
+                //     people.store.reload();
+                // }
                 hvm && hvm.set('disableAddRow', false);
                 break;
                 
@@ -83,14 +83,14 @@ Ext.define("Core.util.Shared", {
                     });
                     appartament.store.reload();
                 }
-                if (people) {
-                    people.store.addFilter({
-                        value: id,
-                        property: 'f_appartament___f_house',
-                        operator: '='
-                    });
-                    people.store.reload();
-                }
+                // if (people) {
+                //     people.store.addFilter({
+                //         value: id,
+                //         property: 'f_appartament___f_house',
+                //         operator: '='
+                //     });
+                //     people.store.reload();
+                // }
                 avm && avm.set('disableAddRow', false);
                 break;
 
@@ -316,7 +316,7 @@ Ext.define("Core.util.Shared", {
                             items: [{
                                 xtype: 'combobox',
                                 fieldLabel: 'Улица',
-                                store: Ext.create('Core.store.cs_street'),
+                                store: Ext.create('Core.store.cs_street', {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                                 displayField: 'c_name',
                                 valueField: 'id',
                                 itemId: 'street',
@@ -359,7 +359,7 @@ Ext.define("Core.util.Shared", {
                             },{
                                 xtype: 'combobox',
                                 fieldLabel: 'Дом',
-                                store: Ext.create('Core.store.cs_house'),
+                                store: Ext.create('Core.store.cs_house', {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                                 displayField: 'c_full_number',
                                 valueField: 'id',
                                 itemId: 'house',
@@ -397,7 +397,7 @@ Ext.define("Core.util.Shared", {
                             },{
                                 xtype: 'combobox',
                                 fieldLabel: 'Квартира',
-                                store: Ext.create('Core.store.cs_appartament'),
+                                store: Ext.create('Core.store.cs_appartament', {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                                 displayField: 'c_number',
                                 valueField: 'id',
                                 itemId: 'appartament',

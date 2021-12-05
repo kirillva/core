@@ -31,7 +31,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Улица",
-                            store: Ext.create("Core.store.cs_street", {filters: [{property: 'b_disabled', operator: '=', value: false}]}),
+                            store: Ext.create("Core.store.cs_street", {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_street",
                             autoLoad:  true,
                             rowediting: {
@@ -41,6 +41,9 @@ Ext.define("Core.store.NavigationTree", {
                                         editor.grid.setSelection(null);
                                         editor.grid.syncStore();
                                     },
+                                    canceledit: function (editor, e) {
+                                        editor.grid.store.reload();
+                                    },
                                 },
                             },
                             disableAddRow: false,
@@ -49,7 +52,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Дом",
-                            store: Ext.create("Core.store.cs_house", {filters: [{property: 'b_disabled', operator: '=', value: false}]}),
+                            store: Ext.create("Core.store.cs_house", {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_house",
                             autoLoad:  true,
                             rowediting: {
@@ -59,6 +62,9 @@ Ext.define("Core.store.NavigationTree", {
                                         editor.grid.setSelection(null);
                                         editor.grid.syncStore();
                                     },
+                                    canceledit: function (editor, e) {
+                                        editor.grid.store.reload();
+                                    },
                                 },
                             },
                             disableAddRow: true,
@@ -67,7 +73,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Квартира",
-                            store: Ext.create("Core.store.cs_appartament", {filters: [{property: 'b_disabled', operator: '=', value: false}]}),
+                            store: Ext.create("Core.store.cs_appartament", {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_appartament",
                             autoLoad:  true,
                             rowediting: {
@@ -76,6 +82,9 @@ Ext.define("Core.store.NavigationTree", {
                                     edit: function (editor, e) {
                                         editor.grid.setSelection(null);
                                         editor.grid.syncStore();
+                                    },
+                                    canceledit: function (editor, e) {
+                                        editor.grid.store.reload();
                                     },
                                 },
                             },
@@ -120,7 +129,11 @@ Ext.define("Core.store.NavigationTree", {
                                 clicksToEdit: 2,
                                 listeners: {
                                     edit: function (editor, e) {
+                                        editor.grid.setSelection(null);
                                         editor.grid.syncStore();
+                                    },
+                                    canceledit: function (editor, e) {
+                                        editor.grid.store.reload();
                                     },
                                 },
                             },

@@ -5,14 +5,7 @@ Ext.define("Core.component.grid.BaseGrid", {
     xtype: "basegrid",
 
     plugins: [
-        {
-            ptype: "filterbar",
-            renderHidden: false,
-            showShowHideButton: false,
-            showClearAllButton: false,
-            showClearButton: true,
-            enableOperators: false,
-        }
+        
     ],
 
     viewModel: {
@@ -162,7 +155,15 @@ Ext.define("Core.component.grid.BaseGrid", {
             cfg.store.pageSize = cfg.pageSize || 100;
         }
 
-        cfg.plugins = (this.plugins || []).concat(cfg.plugins || []);
+        cfg.plugins = ([{
+            ptype: "filterbar",
+            renderHidden: false,
+            showShowHideButton: false,
+            showClearAllButton: false,
+            showClearButton: true,
+            enableOperators: false,
+            ...(cfg.filterbar || {})
+        }]).concat(cfg.plugins || []);
 
         this.callParent([cfg]);
         // debugger;
