@@ -21,12 +21,9 @@ Ext.define('Core.view.main.Main', {
         render: 'onMainViewRender'
     },
 
-    constructor: function () {
-        var record = Ext.getStore("current_user").getById(AuthProvider.getUserId());
-        this.callParent(arguments);
-        var vm = this.getViewModel();
-        vm.set('name', record.get('c_login'));
-    },
+    // constructor: function () {
+    //     this.callParent(arguments);
+    // },
 
     items: [
         {

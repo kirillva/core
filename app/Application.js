@@ -4,13 +4,13 @@ Ext.define("Core.Application", {
     requires: ["Core.*"],
 
     stores: [
-        "NavigationTree",
         "cd_settings",
         "current_user",
         "cd_additional_fields",
         "pd_users",
         "dd_documents",
         "cd_form_templates",
+        "NavigationTree",
     ],
 
     // defaultToken: 'dashboard',
@@ -70,26 +70,26 @@ Ext.define("Core.Application", {
             "current_user"
         );
 
-        var cd_additional_fields = await loadStore({ limit: 10000 }, "cd_additional_fields");
-        cd_additional_fields.forEach((item) => {
-            var c_name = item.get("c_name");
-            var jb_data = item.get("jb_data");
-            var alias = item.get("c_alias");
+        // var cd_additional_fields = await loadStore({ limit: 10000 }, "cd_additional_fields");
+        // cd_additional_fields.forEach((item) => {
+        //     var c_name = item.get("c_name");
+        //     var jb_data = item.get("jb_data");
+        //     var alias = item.get("c_alias");
 
-            var model = Ext.ClassManager.get(`Core.model.${c_name}`);
+        //     var model = Ext.ClassManager.get(`Core.model.${c_name}`);
 
-            if (alias) {
-                Ext.define(`${model.displayName}_${alias}`, {
-                    extend: "Ext.data.Model",
-                    idProperty: "id",
-                    fields: model.getFields().concat(jb_data.map((item) => Object.assign(item, { dynamic: true }))),
-                });
-            } else {
-                model.addFields(jb_data.map((item) => Object.assign(item, { dynamic: true })));
-            }
-        });
+        //     if (alias) {
+        //         Ext.define(`${model.displayName}_${alias}`, {
+        //             extend: "Ext.data.Model",
+        //             idProperty: "id",
+        //             fields: model.getFields().concat(jb_data.map((item) => Object.assign(item, { dynamic: true }))),
+        //         });
+        //     } else {
+        //         model.addFields(jb_data.map((item) => Object.assign(item, { dynamic: true })));
+        //     }
+        // });
 
-        await loadStore({ limit: 10000 }, "cd_form_templates");
+        // await loadStore({ limit: 10000 }, "cd_form_templates");
 
     },
 
@@ -99,16 +99,6 @@ Ext.define("Core.Application", {
                 window.location.reload();
             }
         });
-    },
-
-
-    listeners: {
-        auth: function () {
-            debugger;
-            // var mainView = this.getMainView();
-            // var maintreelist = mainView && mainView.down('maintreelist');
-            // maintreelist && maintreelist.applyStore(maintreelist.store);
-        } 
     },
 
     privates: {
@@ -128,6 +118,8 @@ Ext.define("Core.Application", {
                     me.onLoadMetaData(function (loaded) {
                         if (loaded) {
                             me.preloadStores().then(() => {
+                                var cd_navigation = Ext.getStore("NavigationTree");
+                                cd_navigation.loadAuth();
                                 callback();
                             });
                         } else {

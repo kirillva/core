@@ -12,6 +12,7 @@ Ext.define("Core.component.view.BaseView", {
     },
 
     constructor: function (cfg) {
+        debugger;
         var layout = cfg.node.get('layout');
         var items = Shared.getTemplate(layout);
         var { listeners, ..._items } = items;
@@ -47,6 +48,7 @@ Ext.define("Core.component.view.BaseView", {
             this.setViewRendered(true);
 
             me.suspendLayouts();
+            
             items.forEach((item, id) => {
                 var container = me.down(`#view_${id}`);
                 var rowediting = item.rowediting || {};
@@ -65,7 +67,6 @@ Ext.define("Core.component.view.BaseView", {
                                         }) 
                                         : item.store
                                 ),
-                                autoLoad: true,
                                 title: item.title,
                                 height: '100%',
                                 plugins: [

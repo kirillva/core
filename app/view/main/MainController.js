@@ -36,10 +36,11 @@ Ext.define('Core.view.main.MainController', {
             newView;
 
         // Kill any previously routed window
-        if (lastView && lastView.isWindow) {
+        if (lastView && (lastView.isWindow || hashTag == 'login')) {
+            debugger;
             lastView.destroy();
         }
-        
+
         lastView = mainLayout.getActiveItem();
 
         // var cd_navigation = Ext.getStore("NavigationTree");
@@ -167,6 +168,9 @@ Ext.define('Core.view.main.MainController', {
 
     onRouteChange:function(id){
         this.setCurrentView(id);
+        var vm = this.getViewModel();
+        var record = Ext.getStore("current_user").getById(AuthProvider.getUserId());
+        record && vm && vm.set('name', record.get('c_login'));
     },
 
     onSearchRouteChange: function () {

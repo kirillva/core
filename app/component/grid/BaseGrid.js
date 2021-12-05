@@ -19,7 +19,8 @@ Ext.define("Core.component.grid.BaseGrid", {
         data: {
             title: "",
             selectable: false,
-            disableAddRow: true
+            disableAddRow: true,
+            addRecordData: {}
         },
     },
 
@@ -52,12 +53,15 @@ Ext.define("Core.component.grid.BaseGrid", {
         },
     ],
 
+    autoLoad: false,
+
     constructor: function (cfg) {
         var me = this;
 
         if (typeof cfg.store === 'string') {
             cfg.store = Ext.StoreManager.get(cfg.store)
         }
+
         var model = cfg.store.model;
         if (cfg.alias && model) {
             model = Ext.ClassManager.get(`${model.displayName}_${cfg.alias}`);
@@ -114,6 +118,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                     handler: 'addRow',
                     disabled: cfg.disableAddRow,
                     bind: {
+                        tooltip: '{disableAddRow}',
                         disabled: '{disableAddRow}'
                     },
                     scope: me,
@@ -133,6 +138,9 @@ Ext.define("Core.component.grid.BaseGrid", {
             ],
         };
 
+        if (cfg.getParams) {
+            cfg.store.proxy.extraParams.params = cfg.getParams();
+        }
         if (cfg.pagingtoolbar) {
             this.bbar = {
                 xtype: "pagingtoolbar",
@@ -156,7 +164,15 @@ Ext.define("Core.component.grid.BaseGrid", {
         cfg.plugins = (this.plugins || []).concat(cfg.plugins || []);
 
         this.callParent([cfg]);
-
+        // debugger;
+        
+        // this.getStore().load({
+        //     params: {
+        //         params: [null, null, null, null]
+        //     },
+        //     limit: 10000,
+        // });
+        // this.getStore().proxy.extraParams.params = [null, null, null, null];
         var vm = this.getViewModel();
         vm.set('disableAddRow', cfg.disableAddRow);
     },
@@ -214,6 +230,14 @@ Ext.define("Core.component.grid.BaseGrid", {
             if (record.getField('f_user')) {
                 record.set('f_user', AuthProvider.getUserId());
             }
+
+            var vm = this.getViewModel();
+            var addRecordData = vm.get('addRecordData');
+
+            Object.keys(addRecordData).forEach(key=>{
+                record.set(key, addRecordData[key]);
+            });
+            
             store.getFilters().each(item=>{
                 record.set(item.getProperty(), item.getValue());
             });

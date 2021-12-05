@@ -42,6 +42,12 @@ Ext.define('Core.LocalMeta', {
                   "len": 1
                 }
               ],
+              "cf_bss_cs_peoples": [
+                {
+                  "name": "Select",
+                  "len": 1
+                },
+              ],
               "pd_users": [
                 {
                   "name": "Query",

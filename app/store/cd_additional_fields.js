@@ -8,8 +8,9 @@ Ext.define('Core.store.cd_additional_fields', {
     // remoteFilter: true,
     // remoteSort: true,
     // remoteGroup: true,
-    data: []
+    data: [],
 
+    autoLoad: false,
     // proxy: {
     //     type: 'itdirect',
     //     api: {

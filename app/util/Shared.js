@@ -21,18 +21,18 @@ Ext.define("Core.util.Shared", {
                 house && house.store.removeFilter('f_street');
                 appartament && appartament.store.removeFilter('f_house___f_street');
                 people && people.store.removeFilter('f_appartament___f_house___f_street');
-                hvm && hvm.set('disableAddRow', true);
+                hvm && hvm.set('disableAddRow', 'Необходимо выбрать улицу');
                 // break;
                 
             case 'view_1':
                 appartament &&  appartament.store.removeFilter('f_house');
                 people &&  people.store.removeFilter('f_appartament___f_house');
-                avm && avm.set('disableAddRow', true);
+                avm && avm.set('disableAddRow', 'Необходимо выбрать дом');
                 // break;
 
             case 'view_2':
                 people && people.store.removeFilter('f_appartament');
-                pvm && pvm.set('disableAddRow', true);
+                pvm && pvm.set('disableAddRow', 'Необходимо выбрать квартиру');
                 break;
 
             default:
@@ -110,7 +110,132 @@ Ext.define("Core.util.Shared", {
                 break;
         }
     },
-    
+    removeExtraParams: function (itemId, house, appartament, people) {
+        var avm = appartament && appartament.getViewModel();
+        var hvm = house && house.getViewModel();
+        var pvm = people && people.getViewModel();
+        
+        switch (itemId) {
+            case 'view_0':
+                house && house.store.removeFilter('f_street');
+                appartament && appartament.store.removeFilter('f_house___f_street');
+                people && people.store.removeFilter('f_appartament___f_house___f_street');
+                hvm && hvm.set('disableAddRow', true);
+                // break;
+                
+            case 'view_1':
+                appartament &&  appartament.store.removeFilter('f_house');
+                people &&  people.store.removeFilter('f_appartament___f_house');
+                avm && avm.set('disableAddRow', true);
+                // break;
+
+            case 'view_2':
+                people && people.store.removeFilter('f_appartament');
+                if (pvm) {
+                    pvm.set('disableAddRow', true);
+                    pvm.set('addRecordData', 
+                        Object.assign(
+                            pvm.get('addRecordData'), 
+                            {
+                                f_appartament: null,
+                                f_user: AuthProvider.getUserId()
+                            }
+                        )
+                    );
+                    people.store.proxy.extraParams.params = [AuthProvider.getUserId(), null, null, null]
+                    people.store.reload();
+                }
+                break;
+
+            default:
+                break;
+        }
+    },
+
+    setExtraParams: function (itemId, id, house, appartament, people) {
+        var avm = appartament && appartament.getViewModel();
+        var hvm = house && house.getViewModel();
+        var pvm = people && people.getViewModel();
+
+        switch (itemId) {
+            case 'view_0':
+                if (house) {
+                    house.store.addFilter({
+                        value: id,
+                        property: 'f_street',
+                        operator: '='
+                    });
+                    house.store.reload();
+                }
+                if (appartament) {
+                    appartament.store.addFilter({
+                        value: id,
+                        property: 'f_house___f_street',
+                        operator: '='
+                    });
+                    appartament.store.reload();
+                }
+                // if (people) {
+                //     people.store.addFilter({
+                //         value: id,
+                //         property: 'f_appartament___f_house___f_street',
+                //         operator: '='
+                //     });
+                //     people.store.reload();
+                // }
+                hvm && hvm.set('disableAddRow', false);
+                break;
+                
+            case 'view_1':
+                if (appartament) {
+                    appartament.store.addFilter({
+                        value: id,
+                        property: 'f_house',
+                        operator: '='
+                    });
+                    appartament.store.reload();
+                }
+                // if (people) {
+                //     people.store.addFilter({
+                //         value: id,
+                //         property: 'f_appartament___f_house',
+                //         operator: '='
+                //     });
+                //     people.store.reload();
+                // }
+                avm && avm.set('disableAddRow', false);
+                break;
+
+            case 'view_2':
+                // if (people) {
+                //     people.store.addFilter({
+                //         value: id,
+                //         property: 'f_appartament',
+                //         operator: '='
+                //     });
+                //     people.store.reload();
+                // }
+                // debugger;
+                people.store.proxy.extraParams.params = [AuthProvider.getUserId(), null, null, id]
+                people.store.reload();
+                if (pvm) {
+                    pvm.set('disableAddRow', false);
+                    pvm.set('addRecordData', 
+                        Object.assign(
+                            pvm.get('addRecordData'), 
+                            {
+                                f_appartament: id,
+                                f_user: AuthProvider.getUserId()
+                            }
+                        )
+                    );
+                }
+                break;
+
+            default:
+                break;
+        }
+    },
     getTemplate: function (type) {
         switch (type) {
             case "layout_1":
@@ -205,7 +330,7 @@ Ext.define("Core.util.Shared", {
                                             var people = sender.up().up().down('basegrid');
                                             house.setValue();
                                             appartament.setValue();
-                                            Shared.removeFilters('view_0', house, appartament, people);
+                                            Shared.removeExtraParams('view_0', house, appartament, people);
                                         }
                                     },
                                     select: function (sender, record, index, basegrid) {
@@ -219,8 +344,8 @@ Ext.define("Core.util.Shared", {
                                         house.setValue();
                                         appartament.setValue();
 
-                                        Shared.removeFilters('view_0', house, appartament, people);
-                                        Shared.addFilters('view_0', id, house, appartament, people);
+                                        Shared.removeExtraParams('view_0', house, appartament, people);
+                                        Shared.setExtraParams('view_0', id, house, appartament, people);
                                     }
                                 }
                             },{
@@ -238,7 +363,7 @@ Ext.define("Core.util.Shared", {
                                             var appartament = container.getComponent('appartament');
                                             var people = sender.up().up().down('basegrid');
                                             appartament.setValue();
-                                            Shared.removeFilters('view_1', null, appartament, people);
+                                            Shared.removeExtraParams('view_1', null, appartament, people);
                                         }
                                     },
                                     select: function (sender, record, index, basegrid) {
@@ -250,8 +375,8 @@ Ext.define("Core.util.Shared", {
             
                                         appartament.setValue();
 
-                                        Shared.removeFilters('view_1', null, appartament, people);
-                                        Shared.addFilters('view_1', id, null, appartament, people);
+                                        Shared.removeExtraParams('view_1', null, appartament, people);
+                                        Shared.setExtraParams('view_1', id, null, appartament, people);
                                     }
                                 }
                             },{
@@ -266,15 +391,15 @@ Ext.define("Core.util.Shared", {
                                     change: function (sender, newValue, oldValue, eOpts ) {
                                         if (!newValue) {
                                             var people = sender.up().up().down('basegrid');
-                                            Shared.removeFilters('view_2', null, null, people);
+                                            Shared.removeExtraParams('view_2', null, null, people);
                                         }
                                     },
                                     select: function (sender, record, index, basegrid) {
                                         var people = sender.up().up().down('basegrid');
                                         var id = record.id;
 
-                                        Shared.removeFilters('view_2', null, null, people);
-                                        Shared.addFilters('view_2', id, null, null, people);
+                                        Shared.removeExtraParams('view_2', null, null, people);
+                                        Shared.setExtraParams('view_2', id, null, null, people);
                                     }
                                 }
                             },]

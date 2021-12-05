@@ -12,11 +12,17 @@ Ext.define('Core.store.cd_people', {
         'Core.data.Selectable'
     ],
     sorters: ['c_first_name'],
-    
+    autoLoad: false,
     proxy: {
         type: 'itdirect',
+        // paramOrder: [
+        //     'f_user',
+        //     'f_street',
+        //     'f_appartament',
+        //     'f_house'
+        // ],
         api: {
-            read: 'cd_people.Query',
+            read: 'cf_bss_cs_peoples.Select',
             create: 'cd_people.Add',
             update: 'cd_people.Update',
             destroy: 'cd_people.Delete'

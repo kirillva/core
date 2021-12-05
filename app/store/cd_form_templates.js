@@ -9,7 +9,8 @@ Ext.define('Core.store.cd_form_templates', {
     // remoteSort: true,
     // remoteGroup: true,
 
-    data: []
+    data: [],
+    autoLoad: false,
     // proxy: {
     //     type: 'itdirect',
     //     api: {
