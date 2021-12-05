@@ -15,6 +15,7 @@ Ext.define("Core.view.search.Search", {
                 type: "vbox",
                 align: "stretch",
             },
+            flex: 1,
             items: [
                 {
                     xtype: "searchform",
@@ -175,9 +176,9 @@ Ext.define("Core.view.search.Search", {
 
         onSubmit: function (values) {
             var dataview = this.down("#results");
-            dataview.mask("Загрузка...");
-            var filter = this.getFilterValues(values);
             if (values.f_appartament) {
+                dataview.mask("Загрузка...");
+                var filter = this.getFilterValues(values);
                 PN.cf_bss_cs_peoples.Select(
                     {
                         params: [null, values.f_street || null, values.f_house || null, values.f_appartament || null],
@@ -187,7 +188,9 @@ Ext.define("Core.view.search.Search", {
                     },
                     function (response, options, success) {
                         dataview.unmask();
-                        dataview.store.setData(response.records);
+                        if (success) {
+                            dataview.store.setData(response.records);
+                        }
                     }
                 );
             }

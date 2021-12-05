@@ -2,7 +2,7 @@ Ext.define("Core.view.search.SearchForm", {
     extend: "Ext.form.Panel",
     xtype: "searchform",
     defaultListenerScope: true,
-    
+
     viewModel: {
         data: {
             record: null,
@@ -10,12 +10,14 @@ Ext.define("Core.view.search.SearchForm", {
     },
 
     styles: {
-        'border-radius': '5'
+        "border-radius": "5",
     },
     bodyStyle: {
-        'padding': '10px'
+        padding: "10px",
     },
-
+    defaults: {
+        width: '100%',
+    },
     items: [
         {
             xtype: "combobox",
@@ -24,6 +26,7 @@ Ext.define("Core.view.search.SearchForm", {
                 filters: [{ default: true, property: "b_disabled", operator: "=", value: false }],
             }),
             displayField: "c_name",
+            allowBlank: false,
             valueField: "id",
             name: "f_street",
             itemId: "f_street",
@@ -31,9 +34,9 @@ Ext.define("Core.view.search.SearchForm", {
             labelWidth: 100,
             minChars: 1,
             listeners: {
-                change: 'onChange',
-                select: 'onSelect',
-            }
+                change: "onChange",
+                select: "onSelect",
+            },
         },
         {
             xtype: "combobox",
@@ -46,13 +49,14 @@ Ext.define("Core.view.search.SearchForm", {
             name: "f_house",
             itemId: "f_house",
             disabled: true,
+            allowBlank: false,
             flex: 1,
             labelWidth: 100,
             minChars: 1,
             listeners: {
-                change: 'onChange',
-                select: 'onSelect',
-            }
+                change: "onChange",
+                select: "onSelect",
+            },
         },
         {
             xtype: "combobox",
@@ -65,52 +69,56 @@ Ext.define("Core.view.search.SearchForm", {
             name: "f_appartament",
             itemId: "f_appartament",
             disabled: true,
+            allowBlank: false,
             flex: 1,
             labelWidth: 100,
             minChars: 1,
             listeners: {
-                change: 'onChange',
-                select: 'onSelect',
-            }
+                change: "onChange",
+                select: "onSelect",
+            },
         },
         {
             xtype: "textfield",
             fieldLabel: "Фамилия",
             name: "c_first_name",
             itemId: "c_first_name",
+            allowBlank: false,
             flex: 1,
             labelWidth: 100,
             listeners: {
-                focusleave: 'onLeave',
+                focusleave: "onLeave",
                 // change: 'onChange',
-                select: 'onSelect',
-            }
+                select: "onSelect",
+            },
         },
         {
             xtype: "textfield",
             fieldLabel: "Имя",
             name: "c_last_name",
             itemId: "c_last_name",
+            allowBlank: false,
             flex: 1,
             labelWidth: 100,
             listeners: {
-                focusleave: 'onLeave',
+                focusleave: "onLeave",
                 // change: 'onChange',
-                select: 'onSelect',
-            }
+                select: "onSelect",
+            },
         },
         {
             xtype: "textfield",
             fieldLabel: "Отчество",
             name: "c_middle_name",
             itemId: "c_middle_name",
+            allowBlank: false,
             flex: 1,
             labelWidth: 100,
             listeners: {
-                focusleave: 'onLeave',
+                focusleave: "onLeave",
                 // change: 'onChange',
-                select: 'onSelect',
-            }
+                select: "onSelect",
+            },
         },
         {
             xtype: "numberfield",
@@ -120,12 +128,11 @@ Ext.define("Core.view.search.SearchForm", {
             flex: 1,
             labelWidth: 100,
             listeners: {
-                focusleave: 'onLeave',
+                focusleave: "onLeave",
                 // change: 'onChange',
-                select: 'onSelect',
-            }
+                select: "onSelect",
+            },
         },
-        
     ],
 
     buttons: [
@@ -137,12 +144,15 @@ Ext.define("Core.view.search.SearchForm", {
                 var form = this.up("form");
                 if (form.isValid()) {
                     form.fireEvent("save", form.getValues());
-                    form.setValues({ 
-                        c_first_name: '',
-                        c_last_name: '',
-                        c_middle_name: '',
-                        n_birth_year: null
-                    })
+                    debugger;
+                    form.form.setValues(
+                        Object.assign(form.form.getValues(), {
+                            c_first_name: "",
+                            c_last_name: "",
+                            c_middle_name: "",
+                            n_birth_year: null,
+                        })
+                    );
                 }
             },
         },
@@ -157,27 +167,26 @@ Ext.define("Core.view.search.SearchForm", {
                     item.store.addFilter({
                         value: id,
                         property: _property,
-                        operator: '='
+                        operator: "=",
                     });
                     item.setValue(null);
                 }
                 item.enable();
-            }
+            };
             switch (name) {
                 case "f_street":
-                    fn('f_house', 'f_street');
+                    fn("f_house", "f_street");
                     break;
 
                 case "f_house":
-                    fn('f_appartament', 'f_house');
+                    fn("f_appartament", "f_house");
                     break;
 
                 default:
                     break;
             }
-            
         },
-        
+
         disableField: function (id, name) {
             var me = this;
             var fn = function (_name, _property) {
@@ -186,19 +195,19 @@ Ext.define("Core.view.search.SearchForm", {
                     item.store.removeFilter({
                         value: id,
                         property: _property,
-                        operator: '='
+                        operator: "=",
                     });
                 }
                 item.setValue(null);
                 item.disable();
-            }
+            };
 
             switch (name) {
                 case "f_street":
-                    fn('f_house', 'f_street');
+                    fn("f_house", "f_street");
 
                 case "f_house":
-                    fn('f_appartament', 'f_house');
+                    fn("f_appartament", "f_house");
 
                 default:
                     break;
@@ -209,14 +218,14 @@ Ext.define("Core.view.search.SearchForm", {
             // if (!value) {
             this.fireEvent("submit", this.getValues());
             this.disableField(value, sender.name);
-            // } 
+            // }
         },
         onChange: function (sender, value) {
             // debugger;
             if (!value) {
                 this.fireEvent("submit", this.getValues());
                 this.disableField(value, sender.name);
-            } 
+            }
         },
 
         onSelect: function (sender, record) {
