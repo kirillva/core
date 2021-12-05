@@ -20,6 +20,7 @@ Ext.define("Core.view.search.Search", {
                     xtype: "searchform",
                     listeners: {
                         submit: "onSubmit",
+                        save: "onSave",
                     },
                 },
             ],
@@ -39,9 +40,9 @@ Ext.define("Core.view.search.Search", {
             itemSelector: "div.item-wrap",
             tpl: new Ext.XTemplate(
                 '<tpl for=".">',
-                '<div style="cursor: pointer;margin-bottom: 10px;" class="item-wrap">',
-                "<b>Фамилия: {c_first_name}; Имя: {c_last_name}; Отчество: {c_middle_name}</b><div>{c_type}</div><div>Год рождения: {n_birth_year}</div>",
-                "<div><b>(Указать как голосовавшего)</b></div>",
+                '<div style="cursor: pointer;margin-bottom: 10px;background-color:#FFF;padding: 15px;border-radius: 5px;" class="item-wrap">',
+                "<b>{c_first_name} {c_last_name} {c_middle_name}</b><div>{c_type}</div><div>Год рождения: {n_birth_year}</div>",
+                "<div style='background-color: #5fa2dd;width:200px;color:#FFF;height:32px;display: flex;'><span style='margin:auto'>Выбрать</span></div>",
                 "</div>",
                 "</tpl>"
             ),
@@ -52,25 +53,25 @@ Ext.define("Core.view.search.Search", {
         },
     ],
 
-    // constructor: function () {
-    //     // var pd_users = Ext.getStore("pd_users");
-    //     // pd_users.load();
-    //     this.items = [
-
-    //     ];
-    //     this.callParent(arguments);
-    // },
-
     privates: {
+        onSave: function (values) {
+            this.addRecord(values);
+        },
         onItemClick: function (sender, record, item, index, e, eOpts) {
+            var searchform = this.down('searchform');
+            searchform && searchform.form.setValues(record.getData())
+        },
+
+        addRecord: function (values) {
             var dataview = this.down("#results");
             dataview.mask("Создание...");
 
-            var c_first_name = record.get("c_first_name");
-            var c_last_name = record.get("c_last_name");
-            var c_middle_name = record.get("c_middle_name");
-            var f_appartament = record.get("f_appartament");
-            var n_birth_year = record.get("n_birth_year");
+            var c_first_name = values.c_first_name;
+            var c_last_name = values.c_last_name;
+            var c_middle_name = values.c_middle_name;
+            var f_appartament = values.f_appartament;
+            var n_birth_year = values.n_birth_year;
+
             var f_type = 15;
             var f_user = AuthProvider.getUserId();
 
@@ -94,8 +95,6 @@ Ext.define("Core.view.search.Search", {
                         f_user,
                     },
                     function (response, options, success) {
-                        // var cd_people = Ext.StoreManager.get('cd_people');
-                        // cd_people.reload();
                         dataview.unmask();
                     }
                 );

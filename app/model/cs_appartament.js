@@ -9,7 +9,7 @@ Ext.define("Core.model.cs_appartament", {
         { name: "f_house___f_street", type: "string", isGuid: true, hidden: true, hideable: false, persist: false },
         {
             name: "n_number",
-            type: "int",
+            type: "number",
             isGuid: true,
             hidden: true,
             hideable: false,

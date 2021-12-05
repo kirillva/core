@@ -6,7 +6,7 @@ Ext.define("Core.model.pd_users", {
   fields: [
     {
       name: "id",
-      type: "int",
+      type: "number",
       text: "Идентификатор",
       hidden: true,
       hideable: false,

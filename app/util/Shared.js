@@ -15,24 +15,24 @@ Ext.define("Core.util.Shared", {
         var avm = appartament && appartament.getViewModel();
         var hvm = house && house.getViewModel();
         var pvm = people && people.getViewModel();
-        
-        switch (itemId) {
-            case 'view_0':
-                house && house.store.removeFilter('f_street');
-                appartament && appartament.store.removeFilter('f_house___f_street');
-                people && people.store.removeFilter('f_appartament___f_house___f_street');
-                hvm && hvm.set('disableAddRow', 'Необходимо выбрать улицу');
-                // break;
-                
-            case 'view_1':
-                appartament &&  appartament.store.removeFilter('f_house');
-                people &&  people.store.removeFilter('f_appartament___f_house');
-                avm && avm.set('disableAddRow', 'Необходимо выбрать дом');
-                // break;
 
-            case 'view_2':
-                people && people.store.removeFilter('f_appartament');
-                pvm && pvm.set('disableAddRow', 'Необходимо выбрать квартиру');
+        switch (itemId) {
+            case "view_0":
+                house && house.store.removeFilter("f_street");
+                appartament && appartament.store.removeFilter("f_house___f_street");
+                people && people.store.removeFilter("f_appartament___f_house___f_street");
+                hvm && hvm.set("disableAddRow", "Необходимо выбрать улицу");
+            // break;
+
+            case "view_1":
+                appartament && appartament.store.removeFilter("f_house");
+                people && people.store.removeFilter("f_appartament___f_house");
+                avm && avm.set("disableAddRow", "Необходимо выбрать дом");
+            // break;
+
+            case "view_2":
+                people && people.store.removeFilter("f_appartament");
+                pvm && pvm.set("disableAddRow", "Необходимо выбрать квартиру");
                 break;
 
             default:
@@ -46,13 +46,13 @@ Ext.define("Core.util.Shared", {
         var pvm = people && people.getViewModel();
 
         switch (itemId) {
-            case 'view_0':
+            case "view_0":
                 if (house) {
                     house.store.addFilter({
                         default: true,
                         value: id,
-                        property: 'f_street',
-                        operator: '='
+                        property: "f_street",
+                        operator: "=",
                     });
                     house.store.reload();
                 }
@@ -60,8 +60,8 @@ Ext.define("Core.util.Shared", {
                     appartament.store.addFilter({
                         default: true,
                         value: id,
-                        property: 'f_house___f_street',
-                        operator: '='
+                        property: "f_house___f_street",
+                        operator: "=",
                     });
                     appartament.store.reload();
                 }
@@ -69,21 +69,21 @@ Ext.define("Core.util.Shared", {
                     people.store.addFilter({
                         default: true,
                         value: id,
-                        property: 'f_appartament___f_house___f_street',
-                        operator: '='
+                        property: "f_appartament___f_house___f_street",
+                        operator: "=",
                     });
                     people.store.reload();
                 }
-                hvm && hvm.set('disableAddRow', false);
+                hvm && hvm.set("disableAddRow", false);
                 break;
-                
-            case 'view_1':
+
+            case "view_1":
                 if (appartament) {
                     appartament.store.addFilter({
                         default: true,
                         value: id,
-                        property: 'f_house',
-                        operator: '='
+                        property: "f_house",
+                        operator: "=",
                     });
                     appartament.store.reload();
                 }
@@ -91,25 +91,25 @@ Ext.define("Core.util.Shared", {
                     people.store.addFilter({
                         default: true,
                         value: id,
-                        property: 'f_appartament___f_house',
-                        operator: '='
+                        property: "f_appartament___f_house",
+                        operator: "=",
                     });
                     people.store.reload();
                 }
-                avm && avm.set('disableAddRow', false);
+                avm && avm.set("disableAddRow", false);
                 break;
 
-            case 'view_2':
+            case "view_2":
                 if (people) {
                     people.store.addFilter({
                         default: true,
                         value: id,
-                        property: 'f_appartament',
-                        operator: '='
+                        property: "f_appartament",
+                        operator: "=",
                     });
                     people.store.reload();
                 }
-                pvm && pvm.set('disableAddRow', false);
+                pvm && pvm.set("disableAddRow", false);
                 break;
 
             default:
@@ -124,32 +124,30 @@ Ext.define("Core.util.Shared", {
         var extraParams = people.store.proxy.extraParams.params;
 
         switch (itemId) {
-            case 'view_0':
-                house && house.store.removeFilter('f_street');
-                appartament && appartament.store.removeFilter('f_house___f_street');
-                people && people.store.removeFilter('f_appartament___f_house___f_street');
-                hvm && hvm.set('disableAddRow', true);
+            case "view_0":
+                house && house.store.removeFilter("f_street");
+                appartament && appartament.store.removeFilter("f_house___f_street");
+                people && people.store.removeFilter("f_appartament___f_house___f_street");
+                hvm && hvm.set("disableAddRow", true);
                 // break;
                 extraParams[1] = null;
-            case 'view_1':
-                appartament &&  appartament.store.removeFilter('f_house');
-                people &&  people.store.removeFilter('f_appartament___f_house');
-                avm && avm.set('disableAddRow', true);
+            case "view_1":
+                appartament && appartament.store.removeFilter("f_house");
+                people && people.store.removeFilter("f_appartament___f_house");
+                avm && avm.set("disableAddRow", true);
                 // break;
                 extraParams[2] = null;
 
-            case 'view_2':
-                people && people.store.removeFilter('f_appartament');
+            case "view_2":
+                people && people.store.removeFilter("f_appartament");
                 if (pvm) {
-                    pvm.set('disableAddRow', true);
-                    pvm.set('addRecordData', 
-                        Object.assign(
-                            pvm.get('addRecordData'), 
-                            {
-                                f_appartament: null,
-                                f_user: AuthProvider.getUserId()
-                            }
-                        )
+                    pvm.set("disableAddRow", true);
+                    pvm.set(
+                        "addRecordData",
+                        Object.assign(pvm.get("addRecordData"), {
+                            f_appartament: null,
+                            f_user: AuthProvider.getUserId(),
+                        })
                     );
                     extraParams[3] = null;
                     people.store.proxy.extraParams.params = extraParams;
@@ -168,29 +166,29 @@ Ext.define("Core.util.Shared", {
         var pvm = people && people.getViewModel();
 
         switch (itemId) {
-            case 'view_0':
+            case "view_0":
                 if (house) {
                     house.store.addFilter({
                         value: id,
-                        property: 'f_street',
-                        operator: '='
+                        property: "f_street",
+                        operator: "=",
                     });
                     house.store.reload();
                 }
                 if (appartament) {
                     appartament.store.addFilter({
                         value: id,
-                        property: 'f_house___f_street',
-                        operator: '='
+                        property: "f_house___f_street",
+                        operator: "=",
                     });
                     appartament.store.reload();
                 }
                 people.store.proxy.extraParams.params = [
-                    AuthProvider.getUserId(), 
+                    AuthProvider.getUserId(),
                     id,
-                    people.store.proxy.extraParams.params[2], 
-                    people.store.proxy.extraParams.params[3]
-                ]
+                    people.store.proxy.extraParams.params[2],
+                    people.store.proxy.extraParams.params[3],
+                ];
                 // if (people) {
                 //     people.store.addFilter({
                 //         value: id,
@@ -199,24 +197,24 @@ Ext.define("Core.util.Shared", {
                 //     });
                 //     people.store.reload();
                 // }
-                hvm && hvm.set('disableAddRow', false);
+                hvm && hvm.set("disableAddRow", false);
                 break;
-                
-            case 'view_1':
+
+            case "view_1":
                 if (appartament) {
                     appartament.store.addFilter({
                         value: id,
-                        property: 'f_house',
-                        operator: '='
+                        property: "f_house",
+                        operator: "=",
                     });
                     appartament.store.reload();
                 }
                 people.store.proxy.extraParams.params = [
-                    AuthProvider.getUserId(), 
-                    people.store.proxy.extraParams.params[1], 
+                    AuthProvider.getUserId(),
+                    people.store.proxy.extraParams.params[1],
                     id,
-                    people.store.proxy.extraParams.params[3]
-                ]
+                    people.store.proxy.extraParams.params[3],
+                ];
                 // if (people) {
                 //     people.store.addFilter({
                 //         value: id,
@@ -225,10 +223,10 @@ Ext.define("Core.util.Shared", {
                 //     });
                 //     people.store.reload();
                 // }
-                avm && avm.set('disableAddRow', false);
+                avm && avm.set("disableAddRow", false);
                 break;
 
-            case 'view_2':
+            case "view_2":
                 // if (people) {
                 //     people.store.addFilter({
                 //         value: id,
@@ -239,22 +237,20 @@ Ext.define("Core.util.Shared", {
                 // }
                 // debugger;
                 people.store.proxy.extraParams.params = [
-                    AuthProvider.getUserId(), 
-                    people.store.proxy.extraParams.params[1], 
-                    people.store.proxy.extraParams.params[2], 
-                    id
-                ]
+                    AuthProvider.getUserId(),
+                    people.store.proxy.extraParams.params[1],
+                    people.store.proxy.extraParams.params[2],
+                    id,
+                ];
                 people.store.reload();
                 if (pvm) {
-                    pvm.set('disableAddRow', false);
-                    pvm.set('addRecordData', 
-                        Object.assign(
-                            pvm.get('addRecordData'), 
-                            {
-                                f_appartament: id,
-                                f_user: AuthProvider.getUserId()
-                            }
-                        )
+                    pvm.set("disableAddRow", false);
+                    pvm.set(
+                        "addRecordData",
+                        Object.assign(pvm.get("addRecordData"), {
+                            f_appartament: id,
+                            f_user: AuthProvider.getUserId(),
+                        })
                     );
                 }
                 break;
@@ -271,28 +267,28 @@ Ext.define("Core.util.Shared", {
                         type: "hbox",
                         align: "stretch",
                     },
-                    padding: '0 5 0 5',
+                    padding: "0 5 0 5",
                     items: [
                         {
                             xtype: "panel",
                             itemId: "view_0",
                             layout: "fit",
                             flex: 1,
-                            margin: '0 5 0 0'
+                            margin: "0 5 0 0",
                         },
                         {
                             xtype: "panel",
                             itemId: "view_1",
                             layout: "fit",
                             flex: 1,
-                            margin: '0 5 0 0'
+                            margin: "0 5 0 0",
                         },
                         {
                             xtype: "panel",
                             itemId: "view_2",
                             layout: "fit",
                             flex: 1,
-                            margin: '0 5 0 0'
+                            margin: "0 5 0 0",
                         },
                         // {
                         //     xtype: "panel",
@@ -303,19 +299,19 @@ Ext.define("Core.util.Shared", {
                     ],
                     listeners: {
                         reset: function (basegrid) {
-                            var panel = basegrid.up('panel');
+                            var panel = basegrid.up("panel");
 
-                            var house = panel.ownerCt.down('#view_1').down('basegrid');
-                            var appartament = panel.ownerCt.down('#view_2').down('basegrid');
+                            var house = panel.ownerCt.down("#view_1").down("basegrid");
+                            var appartament = panel.ownerCt.down("#view_2").down("basegrid");
                             // var people = panel.ownerCt.down('#view_3').down('basegrid');
                             var itemId = panel.itemId;
 
                             Shared.removeFilters(itemId, house, appartament /** , people */);
                         },
                         select: function (sender, record, index, basegrid) {
-                            var panel = basegrid.up('panel');
-                            var house = panel.ownerCt.down('#view_1').down('basegrid');
-                            var appartament = panel.ownerCt.down('#view_2').down('basegrid');
+                            var panel = basegrid.up("panel");
+                            var house = panel.ownerCt.down("#view_1").down("basegrid");
+                            var appartament = panel.ownerCt.down("#view_2").down("basegrid");
                             // var people = panel.ownerCt.down('#view_3').down('basegrid');
                             var id = record.id;
                             var itemId = panel.itemId;
@@ -324,8 +320,8 @@ Ext.define("Core.util.Shared", {
                                 Shared.removeFilters(itemId, house, appartament /** , people */);
                                 Shared.addFilters(itemId, id, house, appartament /** , people */);
                             }
-                        }
-                    }
+                        },
+                    },
                 };
 
             case "layout_2":
@@ -334,132 +330,148 @@ Ext.define("Core.util.Shared", {
                         type: "vbox",
                         align: "stretch",
                     },
-                    padding: '0 5 0 5',
+                    padding: "0 5 0 5",
                     items: [
-                        {
-                            layout: {
-                                type: "hbox",
-                                align: "stretch",
-                            },
-                            margin: '5 0',
-                            defaults: {
-                                margin: '0 10px',
-                            },
-                            items: [{
-                                xtype: 'combobox',
-                                fieldLabel: 'Улица',
-                                store: Ext.create('Core.store.cs_street', {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
-                                displayField: 'c_name',
-                                valueField: 'id',
-                                itemId: 'street',
-                                flex: 1,
-                                labelWidth: 100,
-                                minChars: 1,
-                                listeners: {
-                                    change: function (sender, newValue, oldValue, eOpts ) {
-                                        if (!newValue) {
-                                            var container = sender.up();
-                                            var house = container.getComponent('house');
-                                            var appartament = container.getComponent('appartament');
-                                            var people = sender.up().up().down('basegrid');
-                                            house.setValue();
-                                            appartament.setValue();
-                                            
-                                            house.disable();
-                                            appartament.disable();
-                                            
-                                            Shared.removeExtraParams('view_0', house, appartament, people);
-                                        }
-                                    },
-                                    select: function (sender, record, index, basegrid) {
-                                        var container = sender.up();
-                                        var house = container.getComponent('house');
-                                        var appartament = container.getComponent('appartament');
-                                        
-                                        var people = sender.up().up().down('basegrid');
-                                        var id = record.id;
-            
-                                        house.setValue();
-                                        appartament.setValue();
+                        // {
+                        //     layout: {
+                        //         type: "hbox",
+                        //         align: "stretch",
+                        //     },
+                        //     margin: "5 0",
+                        //     defaults: {
+                        //         margin: "0 10px",
+                        //     },
+                        //     items: [
+                        //         {
+                        //             xtype: "combobox",
+                        //             fieldLabel: "Улица",
+                        //             store: Ext.create("Core.store.cs_street", {
+                        //                 filters: [
+                        //                     { default: true, property: "b_disabled", operator: "=", value: false },
+                        //                 ],
+                        //             }),
+                        //             displayField: "c_name",
+                        //             valueField: "id",
+                        //             itemId: "street",
+                        //             flex: 1,
+                        //             labelWidth: 100,
+                        //             minChars: 1,
+                        //             listeners: {
+                        //                 change: function (sender, newValue, oldValue, eOpts) {
+                        //                     if (!newValue) {
+                        //                         var container = sender.up();
+                        //                         var house = container.getComponent("house");
+                        //                         var appartament = container.getComponent("appartament");
+                        //                         var people = sender.up().up().down("basegrid");
+                        //                         house.setValue();
+                        //                         appartament.setValue();
 
-                                        house.enable();
+                        //                         house.disable();
+                        //                         appartament.disable();
 
-                                        Shared.removeExtraParams('view_0', house, appartament, people);
-                                        Shared.setExtraParams('view_0', id, house, appartament, people);
-                                    }
-                                }
-                            },{
-                                xtype: 'combobox',
-                                fieldLabel: 'Дом',
-                                store: Ext.create('Core.store.cs_house', {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
-                                displayField: 'c_full_number',
-                                valueField: 'id',
-                                itemId: 'house',
-                                disabled: true,
-                                flex: 1,
-                                labelWidth: 100,
-                                minChars: 1,
-                                listeners: {
-                                    change: function (sender, newValue, oldValue, eOpts ) {
-                                        if (!newValue) {
-                                            var container = sender.up();
-                                            var appartament = container.getComponent('appartament');
-                                            var people = sender.up().up().down('basegrid');
+                        //                         Shared.removeExtraParams("view_0", house, appartament, people);
+                        //                     }
+                        //                 },
+                        //                 select: function (sender, record, index, basegrid) {
+                        //                     var container = sender.up();
+                        //                     var house = container.getComponent("house");
+                        //                     var appartament = container.getComponent("appartament");
 
-                                            appartament.setValue();
-                                            appartament.disable();
+                        //                     var people = sender.up().up().down("basegrid");
+                        //                     var id = record.id;
 
-                                            Shared.removeExtraParams('view_1', null, appartament, people);
-                                        }
-                                    },
-                                    select: function (sender, record, index, basegrid) {
-                                        var container = sender.up();
-                                        var appartament = container.getComponent('appartament');
-                                        
-                                        var people = sender.up().up().down('basegrid');
-                                        var id = record.id;
-            
-                                        appartament.setValue();
-                                        appartament.enable();
+                        //                     house.setValue();
+                        //                     appartament.setValue();
 
-                                        Shared.removeExtraParams('view_1', null, appartament, people);
-                                        Shared.setExtraParams('view_1', id, null, appartament, people);
-                                    }
-                                }
-                            },{
-                                xtype: 'combobox',
-                                fieldLabel: 'Квартира',
-                                store: Ext.create('Core.store.cs_appartament', {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
-                                displayField: 'c_number',
-                                valueField: 'id',
-                                itemId: 'appartament',
-                                disabled: true,
-                                flex: 1,
-                                labelWidth: 100,
-                                minChars: 1,
-                                listeners: {
-                                    change: function (sender, newValue, oldValue, eOpts ) {
-                                        if (!newValue) {
-                                            var people = sender.up().up().down('basegrid');
-                                            Shared.removeExtraParams('view_2', null, null, people);
-                                        }
-                                    },
-                                    select: function (sender, record, index, basegrid) {
-                                        var people = sender.up().up().down('basegrid');
-                                        var id = record.id;
+                        //                     house.enable();
 
-                                        Shared.removeExtraParams('view_2', null, null, people);
-                                        Shared.setExtraParams('view_2', id, null, null, people);
-                                    }
-                                }
-                            },]
-                        },
+                        //                     Shared.removeExtraParams("view_0", house, appartament, people);
+                        //                     Shared.setExtraParams("view_0", id, house, appartament, people);
+                        //                 },
+                        //             },
+                        //         },
+                        //         {
+                        //             xtype: "combobox",
+                        //             fieldLabel: "Дом",
+                        //             store: Ext.create("Core.store.cs_house", {
+                        //                 filters: [
+                        //                     { default: true, property: "b_disabled", operator: "=", value: false },
+                        //                 ],
+                        //             }),
+                        //             displayField: "c_full_number",
+                        //             valueField: "id",
+                        //             itemId: "house",
+                        //             disabled: true,
+                        //             flex: 1,
+                        //             labelWidth: 100,
+                        //             minChars: 1,
+                        //             listeners: {
+                        //                 change: function (sender, newValue, oldValue, eOpts) {
+                        //                     if (!newValue) {
+                        //                         var container = sender.up();
+                        //                         var appartament = container.getComponent("appartament");
+                        //                         var people = sender.up().up().down("basegrid");
+
+                        //                         appartament.setValue();
+                        //                         appartament.disable();
+
+                        //                         Shared.removeExtraParams("view_1", null, appartament, people);
+                        //                     }
+                        //                 },
+                        //                 select: function (sender, record, index, basegrid) {
+                        //                     var container = sender.up();
+                        //                     var appartament = container.getComponent("appartament");
+
+                        //                     var people = sender.up().up().down("basegrid");
+                        //                     var id = record.id;
+
+                        //                     appartament.setValue();
+                        //                     appartament.enable();
+
+                        //                     Shared.removeExtraParams("view_1", null, appartament, people);
+                        //                     Shared.setExtraParams("view_1", id, null, appartament, people);
+                        //                 },
+                        //             },
+                        //         },
+                        //         {
+                        //             xtype: "combobox",
+                        //             fieldLabel: "Квартира",
+                        //             store: Ext.create("Core.store.cs_appartament", {
+                        //                 filters: [
+                        //                     { default: true, property: "b_disabled", operator: "=", value: false },
+                        //                 ],
+                        //             }),
+                        //             displayField: "c_number",
+                        //             valueField: "id",
+                        //             itemId: "appartament",
+                        //             disabled: true,
+                        //             flex: 1,
+                        //             labelWidth: 100,
+                        //             minChars: 1,
+                        //             listeners: {
+                        //                 change: function (sender, newValue, oldValue, eOpts) {
+                        //                     if (!newValue) {
+                        //                         var people = sender.up().up().down("basegrid");
+                        //                         Shared.removeExtraParams("view_2", null, null, people);
+                        //                     }
+                        //                 },
+                        //                 select: function (sender, record, index, basegrid) {
+                        //                     var people = sender.up().up().down("basegrid");
+                        //                     var id = record.id;
+
+                        //                     Shared.removeExtraParams("view_2", null, null, people);
+                        //                     Shared.setExtraParams("view_2", id, null, null, people);
+                        //                 },
+                        //             },
+                        //         },
+                        //     ],
+                        // },
                         {
                             xtype: "panel",
                             itemId: "view_0",
                             layout: "fit",
                             flex: 1,
-                        }
+                        },
                     ],
                 };
             default:

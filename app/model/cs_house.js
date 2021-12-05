@@ -12,7 +12,7 @@ Ext.define('Core.model.cs_house', {
         { name: 'c_house_litera', type: 'string', text: "Литера", column: "gridcolumn", editor: 'textfield' },
         {
             name: "n_number",
-            type: "int",
+            type: "number",
             isGuid: true,
             hidden: true,
             hideable: false,

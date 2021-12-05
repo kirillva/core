@@ -74,6 +74,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                 ],
                 cls: "content-column",
                 width: 50,
+                hideable: false,
                 hidden: cfg.allowDelete ? false : true,
                 // text: "Действия",
                 tooltip: "edit ",
@@ -109,6 +110,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                     xtype: "button",
                     iconCls: "x-fa fa-plus",
                     handler: 'addRow',
+                    hidden: cfg.allowAdd ? false : true,
                     disabled: cfg.disableAddRow,
                     bind: {
                         tooltip: '{disableAddRow}',
@@ -125,6 +127,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                 {
                     xtype: "button",
                     iconCls: "x-fa fa-save",
+                    hidden: cfg.allowDelete ? false : true,
                     handler: 'syncStore',
                     scope: me,
                 },
@@ -154,15 +157,23 @@ Ext.define("Core.component.grid.BaseGrid", {
             cfg.store.pageSize = cfg.pageSize || 100;
         }
 
-        cfg.plugins = ([{
-            ptype: "filterbar",
-            renderHidden: false,
-            showShowHideButton: false,
-            showClearAllButton: false,
-            showClearButton: true,
-            enableOperators: false,
-            ...(cfg.filterbar || {})
-        }]).concat(cfg.plugins || []);
+        cfg.plugins = ([
+            // {
+            //     ptype: "filterbar",
+            //     renderHidden: false,
+            //     showShowHideButton: false,
+            //     showClearAllButton: false,
+            //     showClearButton: true,
+            //     enableOperators: false,
+            //     ...(cfg.filterbar || {})
+            // }
+
+            {
+                ptype: "gridfilters",
+            }
+
+
+        ]).concat(cfg.plugins || []);
 
         this.callParent([cfg]);
         // debugger;

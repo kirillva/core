@@ -58,7 +58,7 @@ Ext.define("Core.component.view.BaseView", {
                             container.add({
                                 ...item,
                                 xtype: "basegrid",
-                                editable: true,
+                                editable: item.editable,
                                 store: (
                                     typeof item.store === 'string' ?
                                         Ext.create(`Core.store.${item.store}`, {

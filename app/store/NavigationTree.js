@@ -42,6 +42,7 @@ Ext.define("Core.store.NavigationTree", {
                             store: Ext.create("Core.store.cs_street", {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_street",
                             autoLoad:  true,
+                            editable: true,
                             rowediting: {
                                 clicksToEdit: 2,
                                 listeners: {
@@ -63,6 +64,7 @@ Ext.define("Core.store.NavigationTree", {
                             store: Ext.create("Core.store.cs_house", {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_house",
                             autoLoad:  true,
+                            editable: true,
                             rowediting: {
                                 clicksToEdit: 2,
                                 listeners: {
@@ -81,6 +83,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Квартира",
+                            editable: true,
                             store: Ext.create("Core.store.cs_appartament", {filters: [{default: true, property: 'b_disabled', operator: '=', value: false}]}),
                             model: "cs_appartament",
                             autoLoad:  true,
@@ -126,14 +129,18 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Избиратели",
-                            allowDelete: true,
-                            store: 'cd_people',
+                            allowDelete: false,
+                            allowAdd: false,
+                            store: Ext.create("Core.store.cd_people"),
                             model: "cd_people",
+                            editable: false,
                             getParams: function () {
                                 return [AuthProvider.getUserId(), null, null, null];
                             },
                             rowediting: { clicksToEdit: 2 },
                             disableAddRow: true,
+                            pagingtoolbar: true,
+                            // autoLoad: true,
                             rowediting: {
                                 clicksToEdit: 2,
                                 listeners: {

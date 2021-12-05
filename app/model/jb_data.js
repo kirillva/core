@@ -4,7 +4,7 @@ Ext.define("Core.model.jb_data", {
     // identifier: "sequential",
 
     fields: [
-        // { name: "id", text: 'id', type: "int"},
+        // { name: "id", text: 'id', type: "number"},
         
         { name: "hidden", text: 'hidden', type: "boolean", column: "booleancolumn" },
         { name: "dynamic", text: 'dynamic', type: "boolean", editor: "checkbox" },

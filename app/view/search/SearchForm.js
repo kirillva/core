@@ -9,6 +9,13 @@ Ext.define("Core.view.search.SearchForm", {
         },
     },
 
+    styles: {
+        'border-radius': '5'
+    },
+    bodyStyle: {
+        'padding': '10px'
+    },
+
     items: [
         {
             xtype: "combobox",
@@ -74,7 +81,8 @@ Ext.define("Core.view.search.SearchForm", {
             flex: 1,
             labelWidth: 100,
             listeners: {
-                change: 'onChange',
+                focusleave: 'onLeave',
+                // change: 'onChange',
                 select: 'onSelect',
             }
         },
@@ -86,7 +94,8 @@ Ext.define("Core.view.search.SearchForm", {
             flex: 1,
             labelWidth: 100,
             listeners: {
-                change: 'onChange',
+                focusleave: 'onLeave',
+                // change: 'onChange',
                 select: 'onSelect',
             }
         },
@@ -98,21 +107,36 @@ Ext.define("Core.view.search.SearchForm", {
             flex: 1,
             labelWidth: 100,
             listeners: {
-                change: 'onChange',
+                focusleave: 'onLeave',
+                // change: 'onChange',
                 select: 'onSelect',
             }
         },
+        {
+            xtype: "numberfield",
+            fieldLabel: "Год",
+            name: "n_birth_year",
+            itemId: "n_birth_year",
+            flex: 1,
+            labelWidth: 100,
+            listeners: {
+                focusleave: 'onLeave',
+                // change: 'onChange',
+                select: 'onSelect',
+            }
+        },
+        
     ],
 
     buttons: [
         {
-            text: "Поиск",
-            formBind: true, //only enabled once the form is valid
+            text: "Добавить нового",
+            formBind: true,
             disabled: true,
             handler: function () {
                 var form = this.up("form");
                 if (form.isValid()) {
-                    form.fireEvent("submit", form.getValues());
+                    form.fireEvent("save", form.getValues());
                 }
             },
         },
@@ -174,15 +198,24 @@ Ext.define("Core.view.search.SearchForm", {
                     break;
             }
         },
-        
+        onLeave: function (sender, value) {
+            // debugger;
+            // if (!value) {
+            this.fireEvent("submit", this.getValues());
+            this.disableField(value, sender.name);
+            // } 
+        },
         onChange: function (sender, value) {
+            // debugger;
             if (!value) {
+                this.fireEvent("submit", this.getValues());
                 this.disableField(value, sender.name);
-            }
+            } 
         },
 
         onSelect: function (sender, record) {
             if (record) {
+                this.fireEvent("submit", this.getValues());
                 this.enableField(record.id, sender.name);
             }
         },

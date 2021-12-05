@@ -106,7 +106,6 @@ Ext.define('Core.view.main.MainController', {
     },
 
     onToggleNavigationSize: function () {
-        debugger;
         var me = this,
             refs = me.getReferences(),
             navigationList = refs.navigationTreeList,
