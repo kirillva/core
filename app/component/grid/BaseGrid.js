@@ -28,25 +28,6 @@ Ext.define("Core.component.grid.BaseGrid", {
 
     sn_delete: 'sn_delete',
 
-    columns: [
-        {
-            xtype: "actioncolumn",
-            align: "center",
-            items: [
-                {
-                    xtype: "button",
-                    iconCls: "x-fa fa-trash",
-                    handler: "removeRow",
-                },
-            ],
-            cls: "content-column",
-            width: 50,
-            hidden: true,
-            // text: "Действия",
-            tooltip: "edit ",
-        },
-    ],
-
     autoLoad: false,
 
     constructor: function (cfg) {
@@ -80,7 +61,24 @@ Ext.define("Core.component.grid.BaseGrid", {
             }
             return options;
         });
-        this.columns = _columns.concat(this.columns);
+        this.columns = _columns.concat([
+            {
+                xtype: "actioncolumn",
+                align: "center",
+                items: [
+                    {
+                        xtype: "button",
+                        iconCls: "x-fa fa-trash",
+                        handler: "removeRow",
+                    },
+                ],
+                cls: "content-column",
+                width: 50,
+                hidden: cfg.allowDelete ? false : true,
+                // text: "Действия",
+                tooltip: "edit ",
+            },
+        ]);
 
         this.dockedItems = {
             xtype: "panelheader",
@@ -97,14 +95,15 @@ Ext.define("Core.component.grid.BaseGrid", {
                         hidden: "{!selectable}",
                     },
                 },
-                // {
-                //     xtype: "button",
-                //     bind: {
-                //         iconCls: "{selectable ? 'x-fa fa-check-square' : 'x-fa fa-square'}",
-                //     },
-                //     handler: 'changeSelectable',
-                //     scope: me,
-                // },
+                {
+                    xtype: "button",
+                    hidden: cfg.allowDelete ? false : true,
+                    bind: {
+                        iconCls: "{selectable ? 'x-fa fa-check-square' : 'x-fa fa-square'}",
+                    },
+                    handler: 'changeSelectable',
+                    scope: me,
+                },
                 // "-",
                 {
                     xtype: "button",

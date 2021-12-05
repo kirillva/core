@@ -21,6 +21,14 @@ Ext.define("Core.store.NavigationTree", {
     loadAuth: function () {
         var items = [
             {
+                text: "Поиск",
+                iconCls: "x-fa fa-search",
+                viewType: "search",
+                // allow: ['admin'],
+                visible: true,
+                leaf: true,
+            },
+            {
                 text: "Адреса",
                 iconCls: "x-fa fa-home",
                 viewType: "vote",
@@ -118,6 +126,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Избиратели",
+                            allowDelete: true,
                             store: 'cd_people',
                             model: "cd_people",
                             getParams: function () {

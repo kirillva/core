@@ -120,7 +120,9 @@ Ext.define("Core.util.Shared", {
         var avm = appartament && appartament.getViewModel();
         var hvm = house && house.getViewModel();
         var pvm = people && people.getViewModel();
-        
+
+        var extraParams = people.store.proxy.extraParams.params;
+
         switch (itemId) {
             case 'view_0':
                 house && house.store.removeFilter('f_street');
@@ -128,12 +130,13 @@ Ext.define("Core.util.Shared", {
                 people && people.store.removeFilter('f_appartament___f_house___f_street');
                 hvm && hvm.set('disableAddRow', true);
                 // break;
-                
+                extraParams[1] = null;
             case 'view_1':
                 appartament &&  appartament.store.removeFilter('f_house');
                 people &&  people.store.removeFilter('f_appartament___f_house');
                 avm && avm.set('disableAddRow', true);
                 // break;
+                extraParams[2] = null;
 
             case 'view_2':
                 people && people.store.removeFilter('f_appartament');
@@ -148,7 +151,8 @@ Ext.define("Core.util.Shared", {
                             }
                         )
                     );
-                    people.store.proxy.extraParams.params = [AuthProvider.getUserId(), null, null, null]
+                    extraParams[3] = null;
+                    people.store.proxy.extraParams.params = extraParams;
                     people.store.reload();
                 }
                 break;
@@ -181,6 +185,12 @@ Ext.define("Core.util.Shared", {
                     });
                     appartament.store.reload();
                 }
+                people.store.proxy.extraParams.params = [
+                    AuthProvider.getUserId(), 
+                    id,
+                    people.store.proxy.extraParams.params[2], 
+                    people.store.proxy.extraParams.params[3]
+                ]
                 // if (people) {
                 //     people.store.addFilter({
                 //         value: id,
@@ -201,6 +211,12 @@ Ext.define("Core.util.Shared", {
                     });
                     appartament.store.reload();
                 }
+                people.store.proxy.extraParams.params = [
+                    AuthProvider.getUserId(), 
+                    people.store.proxy.extraParams.params[1], 
+                    id,
+                    people.store.proxy.extraParams.params[3]
+                ]
                 // if (people) {
                 //     people.store.addFilter({
                 //         value: id,
@@ -222,7 +238,12 @@ Ext.define("Core.util.Shared", {
                 //     people.store.reload();
                 // }
                 // debugger;
-                people.store.proxy.extraParams.params = [AuthProvider.getUserId(), null, null, id]
+                people.store.proxy.extraParams.params = [
+                    AuthProvider.getUserId(), 
+                    people.store.proxy.extraParams.params[1], 
+                    people.store.proxy.extraParams.params[2], 
+                    id
+                ]
                 people.store.reload();
                 if (pvm) {
                     pvm.set('disableAddRow', false);

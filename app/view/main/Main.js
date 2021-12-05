@@ -80,18 +80,14 @@ Ext.define('Core.view.main.Main', {
                 //     hrefTarget: '_self',
                 //     tooltip: 'Помощь'
                 // },
+                
                 {
-                    ui: 'header',
+                    // ui: 'header',
                     xtype: 'tbtext',
+                    style: { textAlign: 'end' },
+                    flex: 1,
                     bind: {
-                        text: 'Техническая поддержка. Звонки: +79613399624'
-                    },
-                },
-                {
-                    ui: 'header',
-                    xtype: 'tbtext',
-                    bind: {
-                        html: '<a target="_blank" rel="noopener noreferrer" href="https://t.me/+wb3lkYNLZF40MzBi">Телеграм чат</a>'
+                        html: 'Техническая поддержка. Звонки: <a target="_blank" rel="noopener noreferrer" href="tel:+79613399624">+79613399624</a> <a target="_blank" rel="noopener noreferrer" href="https://t.me/+wb3lkYNLZF40MzBi">Телеграм чат</a>'
                     },
                 },
                 // {
