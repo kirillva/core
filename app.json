@@ -447,7 +447,8 @@
         {
             "path": "resources",
             "output": "shared"
-        }
+        },
+        "configs"
     ],
 
     /**
