@@ -65,6 +65,7 @@ Ext.define("Core.view.search.Search", {
 
         addRecord: function (values) {
             var dataview = this.down("#results");
+            var searchform = this.down("searchform");
             dataview.mask("Создание...");
 
             var c_first_name = values.c_first_name;
@@ -96,6 +97,14 @@ Ext.define("Core.view.search.Search", {
                         f_user,
                     },
                     function (response, options, success) {
+                        searchform && searchform.form.setValues(
+                            Object.assign(searchform.form.getValues(), {
+                                c_first_name: "",
+                                c_last_name: "",
+                                c_middle_name: "",
+                                n_birth_year: null,
+                            })
+                        );
                         dataview.unmask();
                     }
                 );
