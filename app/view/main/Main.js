@@ -81,11 +81,17 @@ Ext.define('Core.view.main.Main', {
                 //     tooltip: 'Помощь'
                 // },
                 {
-                    iconCls:'x-fa fa-question',
                     ui: 'header',
                     xtype: 'tbtext',
                     bind: {
-                        text: 'Техническая поддержка: +79613399624'
+                        text: 'Техническая поддержка. Звонки: +79613399624'
+                    },
+                },
+                {
+                    ui: 'header',
+                    xtype: 'tbtext',
+                    bind: {
+                        html: '<a target="_blank" rel="noopener noreferrer" href="https://t.me/+wb3lkYNLZF40MzBi">Телеграм чат</a>'
                     },
                 },
                 // {
