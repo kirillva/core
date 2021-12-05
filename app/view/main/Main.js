@@ -73,12 +73,20 @@ Ext.define('Core.view.main.Main', {
                 //     hrefTarget: '_self',
                 //     tooltip: 'Перейти к поиску'
                 // },
+                // {
+                //     iconCls:'x-fa fa-question',
+                //     ui: 'header',
+                //     href: '#faq',
+                //     hrefTarget: '_self',
+                //     tooltip: 'Помощь'
+                // },
                 {
                     iconCls:'x-fa fa-question',
                     ui: 'header',
-                    href: '#faq',
-                    hrefTarget: '_self',
-                    tooltip: 'Помощь'
+                    xtype: 'tbtext',
+                    bind: {
+                        text: 'Техническая поддержка: +79613399624'
+                    },
                 },
                 // {
                 //     iconCls:'x-fa fa-th-large',
@@ -87,13 +95,13 @@ Ext.define('Core.view.main.Main', {
                 //     hrefTarget: '_self',
                 //     tooltip: 'Профиль'
                 // },
-                {
-                    xtype: 'tbtext',
-                    bind: {
-                        text: '{name}'
-                    },
-                    cls: 'top-user-name'
-                },
+                // {
+                //     xtype: 'tbtext',
+                //     bind: {
+                //         text: '{name}'
+                //     },
+                //     cls: 'top-user-name'
+                // },
                 // {
                 //     xtype: 'image',
                 //     cls: 'header-right-profile-image',

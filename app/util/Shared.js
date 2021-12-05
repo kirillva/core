@@ -250,7 +250,7 @@ Ext.define("Core.util.Shared", {
                         type: "hbox",
                         align: "stretch",
                     },
-                    margin: '0 0 0 5',
+                    padding: '0 5 0 5',
                     items: [
                         {
                             xtype: "panel",
@@ -313,7 +313,7 @@ Ext.define("Core.util.Shared", {
                         type: "vbox",
                         align: "stretch",
                     },
-                    margin: '0 0 0 5',
+                    padding: '0 5 0 5',
                     items: [
                         {
                             layout: {
