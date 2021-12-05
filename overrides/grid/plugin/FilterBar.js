@@ -600,7 +600,6 @@ Ext.define('Core.grid.FilterBar', {
         //11.6.2015 Peter Sliacky
         //tuto podmienku som pridal po migracii z Ext JS 6.0.0.227 na 6.0.0.415, pretoze store.filters bol undifined
         //bolo by teda dobre toto opravit
-        debugger
         if (grid.store.filters) {
             grid.store.filters.each(function (filter) {
                 // filter = filter.getState();

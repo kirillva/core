@@ -165,6 +165,11 @@ Ext.define("Core.view.search.Search", {
                     operator: "=",
                 });
             }
+            filter.push({
+                property: "c_first_name",
+                value: null,
+                operator: "isnot",
+            });
             return filter;
         },
 
@@ -172,17 +177,20 @@ Ext.define("Core.view.search.Search", {
             var dataview = this.down("#results");
             dataview.mask("Загрузка...");
             var filter = this.getFilterValues(values);
-            PN.cf_bss_cs_peoples.Select(
-                {
-                    params: [null, values.f_street || null, values.f_house || null, values.f_appartament || null],
-                    limit: 1000,
-                    filter: filter,
-                },
-                function (response, options, success) {
-                    dataview.unmask();
-                    dataview.store.setData(response.records);
-                }
-            );
+            if (values.f_appartament) {
+                PN.cf_bss_cs_peoples.Select(
+                    {
+                        params: [null, values.f_street || null, values.f_house || null, values.f_appartament || null],
+                        // select: 'id,f_user,f_street,c_street,f_house,c_house,f_appartament,c_appartament,c_first_name,c_last_name,c_middle_name,n_birth_year,f_type,c_type',
+                        limit: 1000,
+                        filter: filter,
+                    },
+                    function (response, options, success) {
+                        dataview.unmask();
+                        dataview.store.setData(response.records);
+                    }
+                );
+            }
         },
     },
 });

@@ -137,6 +137,12 @@ Ext.define("Core.view.search.SearchForm", {
                 var form = this.up("form");
                 if (form.isValid()) {
                     form.fireEvent("save", form.getValues());
+                    form.setValues({ 
+                        c_first_name: '',
+                        c_last_name: '',
+                        c_middle_name: '',
+                        n_birth_year: null
+                    })
                 }
             },
         },
