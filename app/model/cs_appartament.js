@@ -23,7 +23,7 @@ Ext.define("Core.model.cs_appartament", {
 
         { name: "b_off_range", type: "boolean", hidden: true, hideable: false, defaultValue: false },
 
-        { name: 'f_user', type: 'string', isGuid: true, hidden: true, hideable: false },
+        { name: 'f_created_user', type: 'string', isGuid: true, hidden: true, hideable: false },
         { name: 'b_disabled', type: 'boolean', hidden: true, hideable: false, },
     ],
 });

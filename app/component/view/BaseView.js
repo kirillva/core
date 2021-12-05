@@ -12,7 +12,6 @@ Ext.define("Core.component.view.BaseView", {
     },
 
     constructor: function (cfg) {
-        debugger;
         var layout = cfg.node.get('layout');
         var items = Shared.getTemplate(layout);
         var { listeners, ..._items } = items;

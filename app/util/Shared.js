@@ -320,6 +320,8 @@ Ext.define("Core.util.Shared", {
                                 displayField: 'c_name',
                                 valueField: 'id',
                                 itemId: 'street',
+                                flex: 1,
+                                labelWidth: 100,
                                 minChars: 1,
                                 listeners: {
                                     change: function (sender, newValue, oldValue, eOpts ) {
@@ -330,6 +332,10 @@ Ext.define("Core.util.Shared", {
                                             var people = sender.up().up().down('basegrid');
                                             house.setValue();
                                             appartament.setValue();
+                                            
+                                            house.disable();
+                                            appartament.disable();
+                                            
                                             Shared.removeExtraParams('view_0', house, appartament, people);
                                         }
                                     },
@@ -344,6 +350,8 @@ Ext.define("Core.util.Shared", {
                                         house.setValue();
                                         appartament.setValue();
 
+                                        house.enable();
+
                                         Shared.removeExtraParams('view_0', house, appartament, people);
                                         Shared.setExtraParams('view_0', id, house, appartament, people);
                                     }
@@ -355,6 +363,9 @@ Ext.define("Core.util.Shared", {
                                 displayField: 'c_full_number',
                                 valueField: 'id',
                                 itemId: 'house',
+                                disabled: true,
+                                flex: 1,
+                                labelWidth: 100,
                                 minChars: 1,
                                 listeners: {
                                     change: function (sender, newValue, oldValue, eOpts ) {
@@ -362,7 +373,10 @@ Ext.define("Core.util.Shared", {
                                             var container = sender.up();
                                             var appartament = container.getComponent('appartament');
                                             var people = sender.up().up().down('basegrid');
+
                                             appartament.setValue();
+                                            appartament.disable();
+
                                             Shared.removeExtraParams('view_1', null, appartament, people);
                                         }
                                     },
@@ -374,6 +388,7 @@ Ext.define("Core.util.Shared", {
                                         var id = record.id;
             
                                         appartament.setValue();
+                                        appartament.enable();
 
                                         Shared.removeExtraParams('view_1', null, appartament, people);
                                         Shared.setExtraParams('view_1', id, null, appartament, people);
@@ -386,6 +401,9 @@ Ext.define("Core.util.Shared", {
                                 displayField: 'c_number',
                                 valueField: 'id',
                                 itemId: 'appartament',
+                                disabled: true,
+                                flex: 1,
+                                labelWidth: 100,
                                 minChars: 1,
                                 listeners: {
                                     change: function (sender, newValue, oldValue, eOpts ) {

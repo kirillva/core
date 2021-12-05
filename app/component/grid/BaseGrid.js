@@ -47,8 +47,9 @@ Ext.define("Core.component.grid.BaseGrid", {
                 },
             ],
             cls: "content-column",
-            width: 120,
-            text: "Действия",
+            width: 50,
+            hidden: true,
+            // text: "Действия",
             tooltip: "edit ",
         },
     ],
@@ -103,14 +104,14 @@ Ext.define("Core.component.grid.BaseGrid", {
                         hidden: "{!selectable}",
                     },
                 },
-                {
-                    xtype: "button",
-                    bind: {
-                        iconCls: "{selectable ? 'x-fa fa-check-square' : 'x-fa fa-square'}",
-                    },
-                    handler: 'changeSelectable',
-                    scope: me,
-                },
+                // {
+                //     xtype: "button",
+                //     bind: {
+                //         iconCls: "{selectable ? 'x-fa fa-check-square' : 'x-fa fa-square'}",
+                //     },
+                //     handler: 'changeSelectable',
+                //     scope: me,
+                // },
                 // "-",
                 {
                     xtype: "button",
@@ -230,7 +231,11 @@ Ext.define("Core.component.grid.BaseGrid", {
             if (record.getField('f_user')) {
                 record.set('f_user', AuthProvider.getUserId());
             }
-
+            
+            if (record.getField('f_created_user')) {
+                record.set('f_created_user', AuthProvider.getUserId());
+            }
+            
             var vm = this.getViewModel();
             var addRecordData = vm.get('addRecordData');
 
