@@ -1,9 +1,9 @@
 {
   "REMOTING_ADDRESS": "kes.it-serv.ru/vote/dev",
-  "RPC.REMOTING_API": "http://{0}/rpc/meta",
-  "RPC.AUTH_URL": "http://{0}/auth",
-  "RPC_URL": "http://{0}/rpc",
-  "REMOTE_DATA_URL": "http://{0}/content/app",
+  "RPC.REMOTING_API": "https://{0}/rpc/meta",
+  "RPC.AUTH_URL": "https://{0}/auth",
+  "RPC_URL": "https://{0}/rpc",
+  "REMOTE_DATA_URL": "https://{0}/content/app",
   "REMOTE_NAMESPACE": "PN",
   "port": 3000,
   "APP_ID": 4,

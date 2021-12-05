@@ -10,7 +10,8 @@ Ext.application({
         'Core.*',
         'Core.grid.FilterBar',
         'Ext.grid.column.Boolean',
-        'Ext.grid.column.Date'
+        'Ext.grid.column.Date',
+        'Ext.data.identifier.Uuid'
     ]
 });
   
