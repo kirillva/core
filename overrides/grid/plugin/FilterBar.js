@@ -3,7 +3,7 @@
  * @class IServ.UI.grid.FilterBar
  * @author Ing. Leonardo D'Onofrio (leonardo_donofrio at hotmail.com)
  */
-Ext.define('Core.grid.FilterBar', {
+Ext.define('Core.grid.plugin.FilterBar', {
     extend: 'Ext.AbstractPlugin',
     alias: 'plugin.filterbar',
     requires: [
