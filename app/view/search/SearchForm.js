@@ -133,6 +133,31 @@ Ext.define("Core.view.search.SearchForm", {
                 select: "onSelect",
             },
         },
+        {
+            xtype      : 'fieldcontainer',
+            defaultType: 'radiofield',
+            defaults: {
+                flex: 1
+            },
+            height: 30,
+            flex: 1,
+            itemId: "f_type",
+            layout: 'hbox',
+            items: [
+                {
+                    boxLabel  : 'Голосовал',
+                    name      : 'f_type',
+                    inputValue: 15,
+                    checked: true,
+                    id        : 'radio1'
+                }, {
+                    boxLabel  : 'Не голосовал',
+                    name      : 'f_type',
+                    inputValue: 16,
+                    id        : 'radio2'
+                }
+            ]
+        }
     ],
 
     buttons: [

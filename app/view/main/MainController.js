@@ -31,6 +31,8 @@ Ext.define('Core.view.main.MainController', {
                    store.findNode('viewType', hashTag),
             view = (node && node.get('viewType')) || 'page404',
             jb_data = (node && node.get('jb_data')) || null,
+            xtype = (node && node.get('xtype')) || null,
+            
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
@@ -57,7 +59,7 @@ Ext.define('Core.view.main.MainController', {
         // } else {
         if (!existingItem) {
             newView = Ext.create({
-                xtype: jb_data ? 'baseview' : view,
+                xtype: xtype ? xtype : (jb_data ? 'baseview' : view),
                 routeId: hashTag,  // for existingItem search later
                 node: node,
                 hideMode: 'offsets'
@@ -74,6 +76,9 @@ Ext.define('Core.view.main.MainController', {
                     mainLayout.setActiveItem(existingItem);
                 }
                 newView = existingItem;
+                if (existingItem.refreshContentView) {
+                    existingItem.refreshContentView();
+                }
             }
             else {
                 // newView is set (did not exist already), so add it and make it the
@@ -163,7 +168,7 @@ Ext.define('Core.view.main.MainController', {
 
     onMainViewRender:function() {
         if (!window.location.hash) {
-            this.redirectTo("home");
+            this.redirectTo("search");
         } else {
             this.setCurrentView(window.location.hash.replace('#', ''));
         }

@@ -16,6 +16,9 @@ Ext.define("Core.store.NavigationTree", {
         {
             name: "allow",
         },
+        {
+            name: 'xtype'
+        }
     ],
 
     loadAuth: function () {
@@ -121,6 +124,7 @@ Ext.define("Core.store.NavigationTree", {
                 viewType: "home",
                 id: "home",
                 layout: "layout_2",
+                xtype: 'home',
                 jb_data: {
                     items: [
                         // { xtype: 'basegrid', title: "Улица", store: "cs_street", model: "cs_street", rowediting: { clicksToEdit: 2 }, disableAddRow: false },
@@ -180,60 +184,18 @@ Ext.define("Core.store.NavigationTree", {
         cfg.root = {
             expanded: true,
             children: [
-                
-                // {
-                //     text: "Документы",
-                //     iconCls: "x-fa fa-desktop",
-                //     viewType: "documents",
-                //     id: "documents",
-                //     layout: 'layout_2',
-                //     jb_data: {
-                //         items: [
-                //             { xtype: "basegrid", title: "Заголовок 1", store: "pd_users", model: "pd_users_3" },
-                //             { xtype: "basegrid", title: "Заголовок 2", store: "pd_users", model: "pd_users_4" },
-                //             {
-                //                 xtype: "baseform",
-                //                 formTemplate: "1",
-                //                 formRecord: "a124a56e-3762-4882-9fa4-d1972ad291db",
-                //                 store: "dd_documents",
-                //             },
-                //         ],
-                //     },
-                //     leaf: true,
-                // },
                 {
                     text: "Администрирование",
                     iconCls: "x-fa fa-user",
                     viewType: "admin",
-                    // allow: ['admin'],
                     visible: false,
                     leaf: true,
                 },
-                // {
-                //     text: "Настройки",
-                //     iconCls: "x-fa fa-cog",
-                //     viewType: "settings",
-                //     // visible: false,
-                //     leaf: true,
-                // },
-                // {
-                //     text: 'Форма',
-                //     iconCls: 'x-fa fa-search',
-                //     viewType: 'formresults',
-                //     leaf: true
-                // },
-                // {
-                //     text: "Помощь",
-                //     iconCls: "x-fa fa-question",
-                //     viewType: "faq",
-                //     leaf: true,
-                // },
                 {
                     text: "Выход",
                     iconCls: "x-fa fa-sign-out",
                     viewType: "login",
                     handler: function () {
-                        
                         AuthProvider.singOut();
                     },
                     leaf: true,

@@ -5,7 +5,7 @@ Ext.define('Core.view.authentication.AuthenticationController', {
     //TODO: implement central Facebook OATH handling here
 
     onFaceBookLogin : function() {
-        this.redirectTo('home', true);
+        this.redirectTo('search', true);
     },
 
     onLoginButton: function(sender) {
@@ -20,7 +20,7 @@ Ext.define('Core.view.authentication.AuthenticationController', {
                     // var cd_navigation = Ext.getStore("NavigationTree");
                     // cd_navigation.loadAuth();
                     sender.unmask();
-                    me.redirectTo('home', true);
+                    me.redirectTo('search', true);
                 });
             } else {
                 Ext.Msg.show({
@@ -45,10 +45,10 @@ Ext.define('Core.view.authentication.AuthenticationController', {
     },
 
     onSignupClick:  function() {
-        this.redirectTo('home', true);
+        this.redirectTo('search', true);
     },
 
     onResetClick:  function() {
-        this.redirectTo('home', true);
+        this.redirectTo('search', true);
     }
 });

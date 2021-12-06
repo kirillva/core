@@ -21,6 +21,8 @@ Ext.define('Core.model.cd_people', {
         
         { name: 'f_user', type: 'string', hidden: true, hideable: false, },
         { name: 'f_type', type: 'string', hidden: true, hideable: false, defaultValue: 15 },
+
+        { name: 'b_vote', type: 'boolean', text: "Голосовал", column: "booleancolumn", editor: 'checkbox' },
     ]
 });
 

@@ -73,8 +73,8 @@ Ext.define("Core.view.search.Search", {
             var c_middle_name = values.c_middle_name;
             var f_appartament = values.f_appartament;
             var n_birth_year = values.n_birth_year;
+            var f_type = values.f_type || 15;
 
-            var f_type = 15;
             var f_user = AuthProvider.getUserId();
 
             var filter = this.getFilterValues({
@@ -168,13 +168,13 @@ Ext.define("Core.view.search.Search", {
                     operator: "=",
                 });
             }
-            if (values.f_type) {
-                filter.push({
-                    property: "f_type",
-                    value: values.f_type,
-                    operator: "=",
-                });
-            }
+            // if (values.f_type) {
+            //     filter.push({
+            //         property: "f_type",
+            //         value: values.f_type,
+            //         operator: "=",
+            //     });
+            // }
             filter.push({
                 property: "c_first_name",
                 value: null,
