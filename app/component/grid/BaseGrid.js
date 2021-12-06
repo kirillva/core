@@ -110,7 +110,7 @@ Ext.define("Core.component.grid.BaseGrid", {
                     xtype: "button",
                     iconCls: "x-fa fa-plus",
                     handler: 'addRow',
-                    hidden: cfg.allowAdd ? false : true,
+                    hidden: cfg.editable ? false : true,
                     disabled: cfg.disableAddRow,
                     bind: {
                         tooltip: '{disableAddRow}',

@@ -69,13 +69,13 @@ Ext.define("Core.component.view.BaseView", {
                                 title: item.title,
                                 height: '100%',
                                 plugins: [
-                                    {
+                                    item.editable ? {
                                         ptype: "rowediting",
                                         itemId: 'rowediting',
                                         clicksToEdit: 1,
                                         ...rowediting
-                                    },
-                                ],
+                                    } : null,
+                                ].filter(item=>item),
                                 flex: 1,
                             });
                             

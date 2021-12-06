@@ -9,6 +9,7 @@ Ext.define('Core.model.cd_people', {
         // { name: 'f_appartament___f_house', type: 'string', isGuid: true, hidden: true, hideable: false, persist: false },
         // { name: 'f_appartament___f_house___f_street', type: 'string', isGuid: true, hidden: true, hideable: false, persist: false },
 
+        { name: 'n_uik', type: 'number', text: "УИК", column: "gridcolumn", editor: 'textfield' },
         { name: 'c_street', type: 'string', text: "Улица", column: "gridcolumn", editor: 'textfield' },
         { name: 'c_house', type: 'string', text: "Дом", column: "gridcolumn", editor: 'textfield' },
         { name: 'c_appartament', type: 'string', text: "Квартира", column: "gridcolumn", editor: 'textfield' },

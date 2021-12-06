@@ -42,6 +42,42 @@ Ext.define('Core.LocalMeta', {
                   "len": 1
                 }
               ],
+              "cd_uik": [
+                {
+                  "name": "Query",
+                  "len": 1
+                },
+                {
+                  "name": "Select",
+                  "len": 1
+                },
+                {
+                  "name": "Add",
+                  "len": 1
+                },
+                {
+                  "name": "AddOrUpdate",
+                  "len": 1
+                },
+                {
+                  "name": "Update",
+                  "len": 1
+                },
+                {
+                  "name": "Delete",
+                  "len": 1
+                },
+                {
+                  "name": "Count",
+                  "len": 1
+                }
+              ],
+              "cf_bss_cs_streets": [
+                {
+                  "name": "Select",
+                  "len": 1
+                },
+              ],
               "cf_bss_cs_peoples": [
                 {
                   "name": "Select",

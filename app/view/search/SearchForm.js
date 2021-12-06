@@ -7,6 +7,12 @@ Ext.define("Core.view.search.SearchForm", {
         data: {
             record: null,
         },
+        stores: {
+            cd_uik: Ext.create('Ext.data.Store', {
+                fields: ['id'],
+                data : []
+            })
+        }
     },
 
     styles: {
@@ -18,12 +24,50 @@ Ext.define("Core.view.search.SearchForm", {
     defaults: {
         width: '100%',
     },
+
+    constructor: function () {
+        this.callParent(arguments);
+        var vm = this.getViewModel();
+        var cd_uik = Ext.create("Core.store.cd_uik", {
+            pageSize: 10000,
+            filters: [{ default: true, property: "id", operator: ">", value: 0 }],
+        });
+        cd_uik.load({
+            callback: function (records) {
+                var store = vm.getStore('cd_uik');
+                store.setData(records);
+            }
+        })
+        
+    },
     items: [
         {
             xtype: "combobox",
+            fieldLabel: "УИК",
+            bind: {
+                store: '{cd_uik}',
+            },
+            queryMode: 'local',
+            displayField: "id",
+            valueField: "id",
+            name: "n_uik",
+            itemId: "n_uik",
+            flex: 1,
+            triggerAction: 'all',
+            labelWidth: 100,
+            listeners: {
+                change: "onChange",
+                select: "onSelect",
+            },
+        },
+        {
+            xtype: "combobox",
             fieldLabel: "Улица",
-            store: Ext.create("Core.store.cs_street", {
-                filters: [{ default: true, property: "b_disabled", operator: "=", value: false }],
+            store: Ext.create("Core.store.cs_street_by_uik", {
+                proxy: {
+                    extraParams: { params: [null] }
+                },
+                // filters: [{ default: true, property: "b_disabled", operator: "=", value: false }],
             }),
             displayField: "c_name",
             allowBlank: false,
@@ -177,11 +221,20 @@ Ext.define("Core.view.search.SearchForm", {
     privates: {
         enableField: function (id, name) {
             var me = this;
-            var fn = function (_name, _property) {
+            var pFn = function (_name, _property) {
+                var item = me.getComponent(_name);
+                if (item.store) {
+                    item.store.proxy.extraParams.params = [Number(id)];
+                    item.store.reload();
+                    item.setValue(null);
+                }
+                item.enable();
+            };
+            var fn = function (_name, _property, format = (value)=>value) {
                 var item = me.getComponent(_name);
                 if (item.store) {
                     item.store.addFilter({
-                        value: id,
+                        value: format(id),
                         property: _property,
                         operator: "=",
                     });
@@ -190,6 +243,11 @@ Ext.define("Core.view.search.SearchForm", {
                 item.enable();
             };
             switch (name) {
+                case "n_uik":
+                    pFn("f_street", "n_uik");
+                    fn("f_house", "n_uik", (value)=>Number(value));
+                    break;
+                
                 case "f_street":
                     fn("f_house", "f_street");
                     break;
@@ -205,11 +263,20 @@ Ext.define("Core.view.search.SearchForm", {
 
         disableField: function (id, name) {
             var me = this;
-            var fn = function (_name, _property) {
+            var pFn = function (_name, _property) {
+                var item = me.getComponent(_name);
+                if (item.store) {
+                    item.store.proxy.extraParams.params = [Number(id)];
+                    item.store.reload();
+                    item.setValue(null);
+                }
+                item.enable();
+            };
+            var fn = function (_name, _property, format = (value)=>value) {
                 var item = me.getComponent(_name);
                 if (item.store) {
                     item.store.removeFilter({
-                        value: id,
+                        value: format(id),
                         property: _property,
                         operator: "=",
                     });
@@ -219,6 +286,10 @@ Ext.define("Core.view.search.SearchForm", {
             };
 
             switch (name) {
+                case "n_uik":
+                    pFn("f_street", "n_uik");
+                    fn("f_house", "n_uik", (value)=>Number(value));
+
                 case "f_street":
                     fn("f_house", "f_street");
 
