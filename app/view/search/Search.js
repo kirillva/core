@@ -92,7 +92,7 @@ Ext.define("Core.view.search.Search", {
                         c_last_name,
                         c_middle_name,
                         f_appartament,
-                        n_birth_year,
+                        n_birth_year: n_birth_year ? n_birth_year : null,
                         f_type,
                         f_user,
                     },

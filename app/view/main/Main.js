@@ -87,7 +87,7 @@ Ext.define('Core.view.main.Main', {
                     style: { textAlign: 'end' },
                     flex: 1,
                     bind: {
-                        html: 'Техническая поддержка. Звонки: <a target="_blank" rel="noopener noreferrer" href="tel:+79613399624">+79613399624</a> <a target="_blank" rel="noopener noreferrer" href="https://t.me/+wb3lkYNLZF40MzBi">Телеграм чат</a>'
+                        html: 'Техническая поддержка. </br><a target="_blank" rel="noopener noreferrer" href="tel:+79613399624">+79613399624</a> <a target="_blank" rel="noopener noreferrer" href="https://t.me/+wb3lkYNLZF40MzBi">Телеграм чат</a>'
                     },
                 },
                 // {
