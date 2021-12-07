@@ -133,7 +133,7 @@ Ext.define("Core.store.NavigationTree", {
                         {
                             xtype: "basegrid",
                             title: "Избиратели",
-                            allowDelete: false,
+                            allowDelete: true,
                             allowAdd: false,
                             store: Ext.create("Core.store.cd_people"),
                             model: "cd_people",

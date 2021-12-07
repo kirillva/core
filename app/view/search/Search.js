@@ -109,7 +109,7 @@ Ext.define("Core.view.search.Search", {
                     }
                 );
             };
-
+            
             PN.cd_people.Query(
                 {
                     limit: 10000,
@@ -168,13 +168,13 @@ Ext.define("Core.view.search.Search", {
                     operator: "=",
                 });
             }
-            // if (values.f_type) {
-            //     filter.push({
-            //         property: "f_type",
-            //         value: values.f_type,
-            //         operator: "=",
-            //     });
-            // }
+            if (values.f_type) {
+                filter.push({
+                    property: "f_type",
+                    value: values.f_type,
+                    operator: "=",
+                });
+            }
             filter.push({
                 property: "c_first_name",
                 value: null,
@@ -187,7 +187,12 @@ Ext.define("Core.view.search.Search", {
             var dataview = this.down("#results");
             if (values.f_appartament) {
                 dataview.mask("Загрузка...");
-                var filter = this.getFilterValues(values);
+                var filter = this.getFilterValues({
+                    c_first_name: values.c_first_name,
+                    c_last_name: values.c_last_name,
+                    c_middle_name: values.c_middle_name,
+                    n_birth_year: values.n_birth_year,
+                });
                 PN.cf_bss_cs_peoples.Select(
                     {
                         params: [null, values.f_street || null, values.f_house || null, values.f_appartament || null],
