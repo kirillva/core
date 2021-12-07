@@ -8,11 +8,21 @@ Ext.define("Core.view.search.SearchForm", {
             record: null,
         },
         stores: {
-            cd_uik: Ext.create('Ext.data.Store', {
-                fields: ['id'],
-                data : []
+            cd_uik: Ext.create("Ext.data.Store", {
+                fields: ["id"],
+                data: [],
+                proxy: {
+                    type: 'memory'
+                }
+            }),
+            cs_street_by_uik: Ext.create("Ext.data.Store", {
+                fields: ["id", "c_name"],
+                data: [],
+                proxy: {
+                    type: 'memory'
+                }
             })
-        }
+        },
     },
 
     styles: {
@@ -22,39 +32,33 @@ Ext.define("Core.view.search.SearchForm", {
         padding: "10px",
     },
     defaults: {
-        width: '100%',
+        width: "100%",
     },
 
     constructor: function () {
         this.callParent(arguments);
-        var vm = this.getViewModel();
-        var cd_uik = Ext.create("Core.store.cd_uik", {
-            pageSize: 10000,
-            filters: [{ default: true, property: "id", operator: ">", value: 0 }],
+        var me = this;
+
+        me.loadUik(function(){
+            me.loadStreets(null);
         });
-        cd_uik.load({
-            callback: function (records) {
-                var store = vm.getStore('cd_uik');
-                store.setData(records);
-            }
-        })
-        
     },
     items: [
         {
             xtype: "combobox",
             fieldLabel: "УИК",
             bind: {
-                store: '{cd_uik}',
+                store: "{cd_uik}",
             },
-            queryMode: 'local',
+            queryMode: "local",
             displayField: "id",
             valueField: "id",
             name: "n_uik",
             itemId: "n_uik",
             flex: 1,
-            triggerAction: 'all',
+            triggerAction: "all",
             labelWidth: 100,
+            minChars: 1,
             listeners: {
                 change: "onChange",
                 select: "onSelect",
@@ -63,18 +67,17 @@ Ext.define("Core.view.search.SearchForm", {
         {
             xtype: "combobox",
             fieldLabel: "Улица",
-            store: Ext.create("Core.store.cs_street_by_uik", {
-                proxy: {
-                    extraParams: { params: [null] }
-                },
-                // filters: [{ default: true, property: "b_disabled", operator: "=", value: false }],
-            }),
+            bind: {
+                store: "{cs_street_by_uik}",
+            },
+            queryMode: "local",
             displayField: "c_name",
             allowBlank: false,
             valueField: "id",
             name: "f_street",
             itemId: "f_street",
             flex: 1,
+            triggerAction: "all",
             labelWidth: 100,
             minChars: 1,
             listeners: {
@@ -178,30 +181,31 @@ Ext.define("Core.view.search.SearchForm", {
             },
         },
         {
-            xtype      : 'fieldcontainer',
-            defaultType: 'radiofield',
+            xtype: "fieldcontainer",
+            defaultType: "radiofield",
             defaults: {
-                flex: 1
+                flex: 1,
             },
             height: 30,
             flex: 1,
             itemId: "f_type",
-            layout: 'hbox',
+            layout: "hbox",
             items: [
                 {
-                    boxLabel  : 'Голосовал',
-                    name      : 'f_type',
+                    boxLabel: "Голосовал",
+                    name: "f_type",
                     inputValue: 15,
                     checked: true,
-                    id        : 'radio1'
-                }, {
-                    boxLabel  : 'Не голосовал',
-                    name      : 'f_type',
+                    id: "radio1",
+                },
+                {
+                    boxLabel: "Не голосовал",
+                    name: "f_type",
                     inputValue: 16,
-                    id        : 'radio2'
-                }
-            ]
-        }
+                    id: "radio2",
+                },
+            ],
+        },
     ],
 
     buttons: [
@@ -219,18 +223,46 @@ Ext.define("Core.view.search.SearchForm", {
     ],
 
     privates: {
+        loadUik: function (callback) {
+            var vm = this.getViewModel();
+            var cd_uik = Ext.create("Core.store.cd_uik", {
+                pageSize: 10000,
+                filters: [{ default: true, property: "id", operator: ">", value: 0 }],
+            });
+            cd_uik.load({
+                callback: function (records) {
+                    var store = vm.getStore("cd_uik");
+                    store.setData(records);
+                    if (typeof callback == 'function') 
+                        callback();
+                },
+            });
+        },
+    
+        loadStreets: function (uik, callback) {
+            var vm = this.getViewModel();
+            var cs_street_by_uik = Ext.create("Core.store.cs_street_by_uik", {
+                proxy: {
+                    extraParams: { 
+                        limit: 10000,
+                        params: [uik] 
+                    },
+                },
+                data: [],
+            });
+            cs_street_by_uik.load({
+                callback: function (records) {
+                    var store = vm.getStore("cs_street_by_uik");
+                    store.setData(records);
+                    if (typeof callback == 'function') 
+                        callback();
+                },
+            });
+        },
+
         enableField: function (id, name) {
             var me = this;
-            var pFn = function (_name, _property) {
-                var item = me.getComponent(_name);
-                if (item.store) {
-                    item.store.proxy.extraParams.params = [Number(id)];
-                    item.store.reload();
-                    item.setValue(null);
-                }
-                item.enable();
-            };
-            var fn = function (_name, _property, format = (value)=>value) {
+            var fn = function (_name, _property, format = (value) => value) {
                 var item = me.getComponent(_name);
                 if (item.store) {
                     item.store.addFilter({
@@ -244,10 +276,10 @@ Ext.define("Core.view.search.SearchForm", {
             };
             switch (name) {
                 case "n_uik":
-                    pFn("f_street", "n_uik");
-                    fn("f_house", "n_uik", (value)=>Number(value));
+                    me.loadStreets(Number(id));
+                    fn("f_house", "n_uik", (value) => Number(value));
                     break;
-                
+
                 case "f_street":
                     fn("f_house", "f_street");
                     break;
@@ -263,16 +295,7 @@ Ext.define("Core.view.search.SearchForm", {
 
         disableField: function (id, name) {
             var me = this;
-            var pFn = function (_name, _property) {
-                var item = me.getComponent(_name);
-                if (item.store) {
-                    item.store.proxy.extraParams.params = [Number(id)];
-                    item.store.reload();
-                    item.setValue(null);
-                }
-                item.enable();
-            };
-            var fn = function (_name, _property, format = (value)=>value) {
+            var fn = function (_name, _property, format = (value) => value) {
                 var item = me.getComponent(_name);
                 if (item.store) {
                     item.store.removeFilter({
@@ -287,8 +310,8 @@ Ext.define("Core.view.search.SearchForm", {
 
             switch (name) {
                 case "n_uik":
-                    pFn("f_street", "n_uik");
-                    fn("f_house", "n_uik", (value)=>Number(value));
+                    me.loadStreets(null);
+                    fn("f_house", "n_uik", (value) => Number(value));
 
                 case "f_street":
                     fn("f_house", "f_street");
@@ -301,14 +324,10 @@ Ext.define("Core.view.search.SearchForm", {
             }
         },
         onLeave: function (sender, value) {
-            // debugger;
-            // if (!value) {
             this.fireEvent("submit", this.getValues());
             this.disableField(value, sender.name);
-            // }
         },
         onChange: function (sender, value) {
-            // debugger;
             if (!value) {
                 this.fireEvent("submit", this.getValues());
                 this.disableField(value, sender.name);

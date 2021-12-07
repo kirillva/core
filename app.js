@@ -11,7 +11,8 @@ Ext.application({
         'Core.grid.FilterBar',
         'Ext.grid.column.Boolean',
         'Ext.grid.column.Date',
-        'Ext.data.identifier.Uuid'
+        'Ext.data.identifier.Uuid',
+        'Ext.form.field.Radio'
     ]
 });
   
