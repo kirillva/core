@@ -277,6 +277,8 @@ Ext.define("Core.view.search.SearchForm", {
             switch (name) {
                 case "n_uik":
                     me.loadStreets(Number(id));
+                    var street = me.getComponent('f_street');
+                    street && street.setValue(null);
                     fn("f_house", "n_uik", (value) => Number(value));
                     break;
 
@@ -311,6 +313,8 @@ Ext.define("Core.view.search.SearchForm", {
             switch (name) {
                 case "n_uik":
                     me.loadStreets(null);
+                    var street = me.getComponent('f_street');
+                    street && street.setValue(null);
                     fn("f_house", "n_uik", (value) => Number(value));
 
                 case "f_street":

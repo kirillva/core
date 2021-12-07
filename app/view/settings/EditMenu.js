@@ -62,7 +62,7 @@ Ext.define("Core.view.settings.EditMenu", {
         },
         
         onBeforeDrop: function () {
-            debugger;
+            // debugger;
         }
     }
 });
