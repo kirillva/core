@@ -12,18 +12,18 @@
          * Установка параметров для Ext.Direct
          * @param callback { () => void } функция обратного вызова
          */
-        setDirectProvider: function (callback) {
+        setDirectProvider: function (NAMESPACE, callback) {
             var me = this;
 
             Ext.Ajax.request({
-                url: Ext.String.format(Ext.getConf('RPC.REMOTING_API'), Ext.getConf('REMOTING_ADDRESS')),
+                url: `${Ext.String.format(Ext.getConf('RPC.REMOTING_API'), Ext.getConf('REMOTING_ADDRESS'))}/${NAMESPACE}`,
 
                 success: function (response, opts) {
                     var text = response.responseText;
                     var data = JSON.parse(text);
 
                     if (!data.meta || data.meta.success === true) {
-                        data.url = Ext.String.format(Ext.getConf('RPC_URL'), Ext.getConf('REMOTING_ADDRESS'));
+                        data.url = `${Ext.String.format(Ext.getConf('RPC_URL'), Ext.getConf('REMOTING_ADDRESS'))}/${NAMESPACE}`;
                         me.createDirect(data);
                     }
 
@@ -54,10 +54,13 @@
      */
     loadMetaData: function (callback) {
         var me = this;
-        Ext.Loader.setPath(Ext.getConf('REMOTE_NAMESPACE'), Ext.String.format(Ext.getConf('REMOTE_DATA_URL'), Ext.getConf('REMOTING_ADDRESS')));
-        this.setDirectProvider(function (status) {
-            if (callback)
-                callback(status);
-        });
+        var DIRECT = Ext.getConf('DIRECT');
+        DIRECT.split(',').forEach((NAMESPACE)=>{
+            Ext.Loader.setPath(NAMESPACE, `${Ext.String.format(Ext.getConf('REMOTE_DATA_URL'), Ext.getConf('REMOTING_ADDRESS'))}/${NAMESPACE}` );
+            me.setDirectProvider(NAMESPACE, function (status) {
+                if (callback)
+                    callback(status);
+            });
+        })
     }
 }); 

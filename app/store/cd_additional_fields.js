@@ -12,10 +12,10 @@ Ext.define('Core.store.cd_additional_fields', {
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'core.cd_additional_fields.Query',
-            create: 'core.cd_additional_fields.Add',
-            update: 'core.cd_additional_fields.Update',
-            destroy: 'core.cd_additional_fields.Delete'
+            read: 'dbo.cd_additional_fields.Query',
+            create: 'dbo.cd_additional_fields.Add',
+            update: 'dbo.cd_additional_fields.Update',
+            destroy: 'dbo.cd_additional_fields.Delete'
         },
         reader: {
             successProperty: 'success',

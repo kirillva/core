@@ -18,7 +18,7 @@ Ext.define('Core.store.current_user', {
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'core.pd_users.Query'
+            read: 'PN.user.getUser'
         },
         reader: {
             successProperty: 'success',

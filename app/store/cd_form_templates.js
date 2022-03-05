@@ -12,10 +12,10 @@ Ext.define('Core.store.cd_form_templates', {
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'core.cd_form_templates.Query',
-            create: 'core.cd_form_templates.Add',
-            update: 'core.cd_form_templates.Update',
-            destroy: 'core.cd_form_templates.Delete'
+            read: 'dbo.cd_form_templates.Query',
+            create: 'dbo.cd_form_templates.Add',
+            update: 'dbo.cd_form_templates.Update',
+            destroy: 'dbo.cd_form_templates.Delete'
         },
         reader: {
             successProperty: 'success',

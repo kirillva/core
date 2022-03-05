@@ -17,10 +17,10 @@
     proxy: {
         type: 'itdirect',
         api: {
-            read: 'core.pd_users.Query',
-            create: 'core.pd_users.Add',
-            update: 'core.pd_users.Update',
-            destroy: 'core.pd_users.Delete'
+            read: 'PN.shell.users',
+            // create: 'dbo.pd_users.Add',
+            // update: 'dbo.pd_users.Update',
+            // destroy: 'dbo.pd_users.Delete'
         },
         reader: {
             successProperty: 'success',
